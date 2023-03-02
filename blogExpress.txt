@@ -1,0 +1,359 @@
+1- edge dvijok
+        npm i express-edge 
+    1.1 index.js da
+
+        // const {engine, config} = require("express-edge") yokida
+        const expressEdge = require("express-edge") 
+
+        app.use(expressEdge.engine)
+        app.set("views", `${__dirname}/views`)
+
+        app.get("/", (req, res)=>{
+            res.render("index")
+        })
+
+    1.2 views > index.edge file yarat
+
+    1.3 extension - Edge template support 
+        setting.json ga kirib shuni yoz :
+
+            "emmet.includeLanguages": {
+                "edge": "html"
+            }
+2- filelarni avto almashadigan qilish 
+
+    1- views> layouts> app.edge 
+        <p>bu yerda html , body,  head bo'ladi</p>
+
+        <h4>Bu navigation bu yerda loyihada har doim turadigan narsalar yoziladi</h4>
+
+        {{--  Main content , faqat contentdagi malumot o'zgaradi holos, qachonki about, contactga o'tganda  --}}
+
+        @!section("content")  // bu muhum, shu yerdagi malumot almashib turadi 
+
+        <h4>Bu yerda footer bo'ladi</h4>
+    2- views > index.edge  // qolgan about.edge , contact.edge larda ham shunday bo'ladi
+            @layout("layouts.app")  // bu narsalar qayerda chiqishini ko'rsataman 
+
+            @section("content")
+
+            <h1>Bu bosh sahifa</h1>
+
+            @endsection  
+
+    3- index.js da 
+        app.get("/", (req, res)=>{
+            res.render("index")  // bu views > index.edge
+        })
+        app.get("/about", (req, res)=>{
+            res.render("about")  // bu views > about.edge
+        })
+
+mongoDB bilan ishlash : 
+
+        npm i mongoose 
+        npm i dotenv 
+        index.js da
+            app.use(express.json()) // mongo db json formatdagi malumotlar bilan , ishlaydi , Shunga buni yozish shart 
+            
+            app.use(express.urlencoded({extended: true})) // malumot yaratganimizda mongodb ga borib tushishi uchun 
+
+            const mongoose = require("mongoose")
+            mongoose.connect("Url", ()=>{
+                console.log("mongoose is connected")
+            })
+
+        NtFq29mdbPGAJSEn
+        mongodb+srv://farhod:<password>@cluster0.las5s2w.mongodb.net/?retryWrites=true&w=majority   
+
+Model yaratish va malumotni mongodb ga yuborish 
+    1-  const mongoose = require("mongoose")
+
+        const PostSchema = new mongoose.Schema({
+            title: String, 
+            description: {type: String, required: true}
+        })  // 2- xil yozsa bo'ladi , buni ahamiyati yo'q, {type: String} qilish , bu sozlash uchun holos      
+
+        const Post = mongoose.model("Post", PostSchema)
+        module.exports = Post
+    
+    2-  views > create.edge 
+        forma yaratdim , bu forma "/posts/new" ga post so'rov yuboradi 
+    3- index.js da 
+
+    app.post("/posts/new", (req, res)=>{
+
+    Post.create(req.body, (err, data)=>{
+        err ? console.log(err) : console.log(data);
+        res.redirect("/posts/new")
+    })
+})
+
+post.createdAt.toDateString() Date tipidagi malumotni chiroyli ko'rinishga keltirib bera oladi
+
+    mongoDB dan malumotni olib userga ko'rsatish 
+    @each(post in posts)
+        <h1>{{post.title}}</h1>
+    @endeach
+
+
+file upload 
+    npm i express-fileupload 
+    index.js da 
+        const fileUpload = require("express-fileupload")
+        app.use(fileUpload())
+    create.edge  da forma da 
+        <form 
+            method="POST" 
+            action="/posts/create" 
+            enctype="multipart/form-data"
+        > </form>
+    mongoDB ga file yuklashdan oldin, u fileni o'zimizni local papkaga saqlab olish keark
+
+    index.js da 
+    app.post("/posts/create", (req, res)=>{
+     const {image} =  req.files  // image da mv funksiya bor - mv- move 
+
+     image.mv(path.resolve(__dirname, "public/posts", image.name), (err)=>{
+        if(err){
+            console.log(err)
+        }
+        Post.create({...req.body, image: `posts/${image.name}`}, (err, data)=>{
+            err ? console.log(err) : console.log(data);
+            res.redirect("/posts/create")
+        }) 
+     })
+})
+
+MVC ----- Module-view-controller ------------- router dagi funksiyalarni tashqariga olib chiqish 
+
+    1-controllers > getArticles.js 
+
+    module.exports = async (req, res)=>{
+        const posts = await Post.find()
+
+        res.render("articles", {
+            posts: posts
+        })
+    }
+
+    2- index.js da     
+    app.get("/articles", getArticlesCont)
+
+----------------------------------------------------------------------
+
+parolni hashlash 
+    npm i bcrypt 
+
+1- yo'l =>  User modeli ichida  
+        const mongoose = require("mongoose")
+        const bcrypt = require("bcrypt")
+
+        const UserSchema = new mongoose.Schema({
+            username : {type: String,required: true,},
+            email: {type: String,required : true,unique: true,},
+            password : {type: String,required: true,},
+            tel: {type: String,required : true}
+        })
+        // pre = addEventListerner ga o'xshash 
+        // this = userSchema degan object ga
+        
+        UserSchema.pre("save", function(next){
+        const user = this 
+        bcrypt.hash("user.password", 10 , function(err, hashedPassword){
+            user.password = hashedPassword
+            next()
+        })
+        })
+
+        const User = mongoose.model("User", UserSchema)
+        module.exports = User
+
+2- yo'l => index.js da Register ga post so'rov bo'lganda 
+        
+        router.post("/register", async (req, res)=>{
+        const {email, password, firstname, lastname} = req.body
+
+        const hashedPassword = await bcrypt.hash(password, 10)
+        
+        const userData = {
+            firstName : firstname,
+            lastName : lastname,
+            email: email,
+            password : hashedPassword,
+        }
+        const user = await User.create(userData)
+
+        res.redirect("/")
+        })
+3- yo'l index.js da       
+            const User = require("../models/User")
+            const bcrypt = require("bcrypt")
+
+            app.post("/auth/reg", (req, res) =>{
+                
+                User.create(req.body ,async (err, user)=>{
+                    if(err){
+                        return res.redirect("/reg")
+                    }
+
+                    const salt =  await bcrypt.genSalt(10)
+                    user.password = await bcrypt.hash(user.password, salt)
+                    user.save()
+                    
+                    res.redirect("/")
+                })
+            })
+Log in qilish 
+        const User = require("../models/User")
+        const bcrypt = require("bcrypt")
+
+        module.exports = (req, res) =>{
+            const {email, password} = req.body
+            User.findOne({email}, async (err, user)=>{
+                if(user){
+                    const validationPassword = await bcrypt.compare(password, user.password) 
+                    if(validationPassword){
+                        res.redirect("/")
+                    }else{
+                        res.redirect('/login')
+                    }
+                } else{
+                    res.redirect("/login")
+                }
+            })
+        }
+
+    
+express-session - local storage ga o'xshash narsa bundan log in va register vaqtida foydalanamiz, yani user
+saytimizga login qilganda uni eslab qoladi, va sayt refresh bo'lganidan keyin yana login so'ramaydi
+
+    npm i express-session
+    
+1- user login qilgan payt 
+        req.session.userId = user._id 
+    sessiondagi malumot qanchadur vaqt saqlanib turadi
+
+2- session ni mongoDB bilan ulash   
+
+    npm i connect-mongo
+
+    const expressSession = require("express-session")
+    const mongoStore = require("connect-mongo")
+
+    const MongoUrl = "mongodb+srv://farhod:NtFq29mdbPGAJSEn@cluster0.las5s2w.mongodb.net/?retryWrites=true&w=majority"
+
+    app.use(expressSession({
+        secret: "farhod",
+        store: mongoStore.create({mongoUrl:MongoUrl})
+    }))
+
+flash - session ga o'xshash Farqi , flashdagi malumot refresh qilganda yo'q bo'lib ketadi
+
+    npm i connect-flash
+
+index.js da 
+
+        const connectFlash = require("connect-flash")
+        app.use(connectFlash())
+
+userStore.js da 
+
+        const User = require("../models/User")
+
+            module.exports = (req, res) =>{
+                User.create(req.body ,async (err, user)=>{
+                    if(err){
+                        let registerError = Object.keys(err.errors).map(index, item => err.errors[index].message)
+                        req.flash("registerError" ,registerError)
+                        return res.redirect("/reg")
+                    }       
+                })
+            }
+createUser.js da 
+
+        module.exports = (req, res) =>{
+            res.render("register", {
+                errors: req.flash("registerError")
+            })
+        }    
+register.edge da 
+                        @if(errors.length > 0)
+                            <ul class="list-group mb-3">
+                                @each(err in errors)
+                                    <li class="list-group-item text-danger">Error: {{err}}</li>
+                                @endeach
+                            </ul>
+                        @endif
+
+errorlarni messageni o'zimiz bera olamiz 
+    models > user.js da
+
+    username : {
+        type: String,
+        required: [ true, "Please enter your Username"],
+    },
+
+    avvale required: true ni o'zi edi , agar input to'ldirilmasa required error chiqaradi
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Inputlarni Qayta to'ldirmaslik 
+
+    inputdagi malumotlarni ham flash da saqlaymiz
+
+1-userStore.js da 
+    User.create(req.body ,async (err, user)=>{
+        if(err){
+                req.flash("data", req.body)
+                return res.redirect("/reg")
+            }
+        })
+    }
+2- createUser.js
+    module.exports = (req, res) =>{
+        res.render("register", {
+            data: req.flash("data")[0] //sababi bizda object ichida massiv bor
+        })
+    }   
+3- register.edge da 
+    <input name="password" value="{{data.password || ""}}" class="form-control rounded mb-2" id="password" type="password" placeholder="Enter your password..." >
+
+    value="{{data.password || ""}}" //qilib yozib qo'yamiz 
+
+
+Log Out logout qilish 
+    logout.js da   log out bo'lganda destroy qilish kerak
+        module.exports = (req, res, next) =>{
+        req.session.destroy(()=>{
+                req.redirect("/")
+            })
+        }
+index.js da 
+        app.use((req, res, next)=>{
+            app.locals.auth = req.session.userId
+            next()
+        })
+Har bir postga kim yaratganini qo'shish 
+    1- Post model da 
+    title: String,
+    description: String,
+    content: String, 
+    author: {
+        type: mongoose.Schema.ObjectId, //type objectId bo'ladi
+        ref : "User", // ref - buni qaysi modeldan olishini aytamiz
+        required: true,
+    },
+
+    2- createPosts.js da 
+    Post.create({...req.body, image: `posts/${image.name}`, author: req.session.userId }, (err, data)=>{       
+
+    })
+
+
+Defaul sahifa - agar bizda yo'q rootga user kirmoqchi bo'lsa default page chiqaradi
+
+    app.use((req,res)=>{
+        res.render("not_found")
+    }) 
+    root bermasak bu default page bo'ladi
