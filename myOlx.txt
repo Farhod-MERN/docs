@@ -1,0 +1,649 @@
+1   npm init
+    npm i express
+    npm i nodemon -D 
+    npm i express-handlebars
+
+2- hbs o'rnatish 
+    const exphbs = require("express-handlebars")
+    const hbs = exphbs.create({
+        defaultLayout: "main",
+        extname : "hbs" 
+    })
+
+    app.engine("hbs", hbs.engine)
+    app.set("view engine", "hbs")
+    app.set("views", "views")
+
+    views > layouts > main.hbs och 
+
+    <!DOCTYPE html>
+    <html lang="en">
+        {{> head}}
+        <body>
+                {{> navbar}} // views > partials > navbar.hbs
+                {{{body}}} // bu yerda gi narsalar dinamik chiqadi
+                {{> footer}}
+        </body>
+    </html>
+    
+3- public 
+    app.use(express.static("public"))
+
+4- Router va Prefix lar
+    const homeRouter = require("./routes/home")
+    app.use("/" ,homeRouter)
+
+    router > home.js 
+
+    const {Router} = require("express")
+    const router = Router()
+
+    router.get("/",(req, res)=>{
+        res.render("index",{
+            title: "olx - Electronic business",
+            isHome: true,
+        })
+    })
+    module.exports = router
+    
+5-  forma bilan ishlash 
+    app.use(express.urlencoded({extended: true}))
+    
+6-  Local json fileni server qilib ishlatish 
+
+    6.1    models > product.js da > 
+        const { v4: uuidv4 } = require("uuid");
+        const path = require("path");
+        const fs = require("fs");
+                        
+        class Product {   
+            constructor(
+                name,
+                quality,
+                tel,
+                description,
+                image,
+                category,
+                address,
+                price
+            ) {
+                this.name = name;
+                this.quality = quality;
+                this.tel = tel;
+                this.description = description;
+                this.image = image;
+                this.category = category;
+                this.address = address;
+                this.price = price;
+                this.id = uuidv4();
+            }
+                //class dagi thisdagi malumtlarni objectga o'tkazib oldim
+            productObj() {
+                return {
+                    name: this.name,
+                    quality: this.quality,
+                    tel: this.tel,
+                    description: this.description,
+                    image: this.image,
+                    category: this.category,
+                    address: this.address,
+                    price: this.price,
+                    id: this.id,
+                }
+            }
+
+            async save() {
+                const products = await Product.getAll()
+                products.push(this.productObj())
+
+                return new Promise((resolve, reject) => {
+                    fs.writeFile(
+                        path.join(__dirname, "..", "data", "product.json"),
+                        JSON.stringify(products),
+                        (err) => {
+                            if (err) {
+                                reject(err)
+                            }
+                            else {
+                                resolve()
+                            }
+                        }
+                    );
+                });
+
+            }
+            // bu server bilan ishlashi kerakligi uchun bu async ishlashi kerak, shunga biz bu funcsionni promise ga olib oldik 
+            static getAll() {
+                return new Promise((resolve, reject) => {
+                    fs.readFile(
+                        path.join(__dirname, "..", "data", "product.json"),
+                        "utf-8",
+                        (err, content) => {
+                            if (err) {
+                                reject(err)
+                            }
+                            else {
+                                resolve(JSON.parse(content))
+                            }
+                        }
+                    );
+                });
+            }
+        }
+        module.exports = Product
+
+    6.2    formada post bo'lganda 
+    router.post("/",async (req, res)=>{
+        const {name, quality, tel, description, image, category, address, price} = req.body
+        const product = new Product(name, quality, tel, description, image, category, address, price)
+        
+        await product.save();
+        res.redirect("/add")
+    })
+
+7   query - nima 
+
+        http://localhost:5000/products/edit?allow=true 
+                ? - dan keyingi qo'shimcha xususiyat 
+            product.hbs da > 
+            <a href="/products/{{id}}/edit?allow=true" class="card-link">Edit</a>
+
+            product.js da 
+
+            router.get("/:id/edit", async (req, res)=>{
+                if(!req.query.allow){
+                    return res.redirect("/")
+                }
+                const id = req.params.id
+            })
+8   Mahsulotni o'zgartirish 
+        1- qaysi Mahsulotni o'zgartirishni aniqlash
+          <a href="/products/{{id}}/edit?allow=true" class="card-link">Edit</a>
+        2- 
+        router.get("/:id/edit", async (req, res)=>{
+            if(!req.query.allow){
+                return res.redirect("/")
+            }
+            const id = req.params.id
+            const product = await Product.getById(id)
+            res.render("edit-product",{
+                title: `Edit ${product.name}`,
+                product: product
+            })
+        })
+        3- edit-product.hbs da inputlarning value="{{product.price}}"  
+            va yangi input ochib 
+                <input type="hidden" name="id" value="{{product.id}}" >
+             save bosilganda bu req.body da ketadi va json ga tushadi 
+             agar biz id yozmasak, o'zgartirganda product id o'chib ketadi
+
+        
+        4- save changes bosilganda /edit ga post so'rov bo'ladi 
+            router.post("/edit", async (req, res)=>{
+                await Product.update(req.body)
+                res.redirect("/products")
+            })
+        5- update metodi bu models > product.js da 
+            static async update(product){
+                const products = await Product.getAll()
+                const inx = products.findIndex(c => c.id === product.id)
+                
+                products[inx] = product
+ 
+                return new Promise((resolve, reject) => {
+                    fs.writeFile(
+                        path.join(__dirname, "..", "data", "product.json"),
+                        JSON.stringify(products),
+                        (err) => {
+                            if (err) {
+                                reject(err)
+                            }
+                            else {
+                                resolve()
+                            }
+                        }
+                    );
+                });
+            }
+9-  Mahsulotni sotib olish 
+    9.1 detail.hbs da BUY ni bosganda O'sha product idsini post qiladi
+        <form action="/card/add" method="POST">
+                <input type="hidden" name="id" value="{{product.id}}">
+                <button type="submit" class="btn btn-primary">Buy <span class="price">{{product.price}}</span></button>
+        </form>
+    9.2 card.js da model yasadik 
+        const path = require("path")
+        const fs = require("fs")
+
+        // const pathToDb = path.join(__dirname, "..", "data", "card.json")
+        const pathToDb = path.join(path.dirname(process.mainModule.filename), "data", "card.json")
+
+        class Card {         // product = objectga 
+            static async add(product){
+                const card = await Card.fetch() // card = object
+                
+                const index = card.products.findIndex(c => c.id === product.id)
+
+                const candidate = card.products[index]
+
+                // basketda bu product bor yo'qligini tekshirish
+                if(candidate){
+                    // basketda bu product bor
+                    candidate.count++
+                    card.products[index] = candidate
+                }else{
+                    product.count = 1
+                    card.products.push(product)
+                }
+                card.price += +product.price
+
+                return new Promise((resolve, reject)=>{
+                    fs.writeFile(pathToDb, JSON.stringify(card), (err, content)=>{
+                        if(err){
+                            reject(err)
+                        }else{
+                            resolve()
+                        }
+                    })
+                })
+            }
+            static async fetch(){
+                return new Promise((resolve, reject)=>{
+                    fs.readFile(pathToDb, "utf-8", (err, content)=>{
+                        if(err){
+                            reject(err)
+                        }else{
+                            resolve(JSON.parse(content))
+                        }
+                    })
+                })
+            }
+        }
+        module.exports = Card    
+    9.3 card.json 
+    {
+        "products": [],
+        "price": 0
+    }
+
+    9.4 card.js da routers dagi 
+        router.get("/", async (req, res)=>{
+        const card = await Card.fetch()
+        
+        res.render("card", {
+            title: "olx | Card",
+            products: card.products,
+            price: card.price
+        })
+        })
+        router.post("/add",async (req, res)=>{
+            const product = await Product.getById(req.body.id)
+            await Card.add(product)
+            res.redirect(`/products/${req.body.id}`)
+        })
+
+10 Savatga mahsulot chiqarish 
+        router.get("/card", async (req, res)=>{
+            const card = await Card.fetch()
+            
+            res.render("card", {
+                title: "olx | Card",
+                products: card.products,
+                price: card.price
+            })
+        })
+
+-----------------------------------------------------------------------------------
+mongodb bilan ishlash 
+    1 - npm i mongoose
+
+    index.js da 
+        mongoose.set("strictQuery", false);
+        mongoose.connect(url, {
+            useNewUrlParser: true
+        })
+    buni try-catchga olish tavsiya etiladi    
+
+ 
+11   Error  - to'g'rilash . mongodb dan kelgan malumotlar ko'rinmay qolsa
+
+    npm i @handlebars/allow-prototype-access
+
+    const Handlebars = require('handlebars');
+    const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
+
+    const hbs = exphbs.create({
+    defaultLayout: "main",
+    extname: "hbs",
+    handlebars: allowInsecurePrototypeAccess(Handlebars)
+    });
+
+    app.engine("hbs", hbs.engine);
+
+12  User yaratish 
+        user.js model 
+        const { Schema, model } = require("mongoose");
+            const userschema = new Schema({
+            email: { type: String, required: true },
+            name: { type: String, required: true },
+            card: {
+                items: [
+                {
+                    count: {
+                    type: Number,
+                    required: true,
+                    default: 1,
+                    },
+                    productId: {
+                    type: Schema.Types.ObjectId,  //buni keyinchalik populate qilib ochib olishimiz mumkun
+                    ref: "Product",    // ref -degani , User dagn modelni Product degan modelga bog'ladik degani
+                    required: true,
+                    },
+                },
+                ],
+            },
+            });
+            model/exports = model("User", userschema)
+            
+13  Userni Global o'zgarunchiga olib oldim 
+        app.use(async (req, res, next)=>{
+            try {
+                const user = await User.findById("63f6115fa9396c2663ec7fbd")
+                req.user = user // bu global o'zgaruvchi bo'ldi, buni qayerda req bo'lsa o'sha joyda ishlata olaman
+                next()
+            } catch (error) {
+                console.log(error);
+            }
+        })
+14  Basketga malumotlarni chiqarish uchun
+
+    router.get("/", async (req, res)=>{
+        const user = await req.user.populate("card.items.productId") // bu yerda populate qilinishi kerak massivgacha yo'l va massivdagi nimani populate qilishni ko'rsatiladi
+
+        const products = mapCard(user.card)
+        res.render("card", {
+            title: "olx | Card",
+            products: products,
+            price: productPrice(products)
+        })
+    })
+
+    ---------------------------------
+    function mapCard(card){
+        return card.items.map((s) =>({
+            ...s.productId._doc,  // _doc productId da productni hamma detaillari bor, ularni o'zgartirmay ol
+            count: s.count  // count esa = 
+        }))
+    }
+    ------------------------------------
+    function productPrice(products){
+        return products.reduce((total, product)=>{
+            return total += product.price * product.count
+        }, 0)
+    }
+
+15  Order ga malumot chiqarish 
+    
+    router.get("/", async (req, res) => {
+        const author = await req.user;
+        try {
+            const orders = await (await Order.find({"user.userId": req.user._id}).populate("user.userId")).reverse(); //faqat shu userni orderlarini ko'rsatadi
+            res.render("order", {
+                title: "olx | My Orders",
+                user: author,
+                orders: orders.map( (s) =>({
+                    ...s._doc,
+                    price: s.products.reduce((total, c)=>{
+                        return total += c.count * c.product.price
+                    }, 0)
+                }))
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        });
+    order.hbs da 1-Orders ni each qilaman, keyin products ni each qilaman    
+
+/d/2_WEB/5_Express/myOlx
+
+
+16  session 
+        npm i express-session
+    
+    index.js da
+        app.use(session({
+            secret: "My secret key",
+            resave: false,
+            saveUninitialized:false,
+        }))
+    ishlatishda req.session 
+        router.post("/login", async(req, res)=>{
+            req.session.isAuth = true
+            console.log(req.body);
+            res.redirect("/")
+        })
+    session destroy - session ni o'chirish     
+    router.get("/logout", async(req, res)=>{
+        req.session.destroy(()=>{
+            res.redirect("/auth/login")
+        }) 
+    })    
+17  session ni mongodb ga ulash 
+    npm i connect-mongodb-session
+
+    const MongoStore = require("connect-mongodb-session")(session)
+
+    const MONGO_URI = "mongodb+srv://farhod:f79cMiYYYphGDQxR@cluster0.ruecq8q.mongodb.net/?retryWrites=true&w=majority";
+    const store = new MongoStore({
+        collection: "sessions",
+        uri: MONGO_URI,
+    })
+    app.use(session({
+        secret: "My secret key",
+        resave: false,
+        saveUninitialized:false,
+        store: store
+    }))
+
+    login qilganimizdagi malumotlar sessionga borib tushadi 
+    
+    router.post("/login", async(req, res)=>{
+    const user = await User.findById("63f6115fa9396c2663ec7fbd")
+    req.session.user = user    // bu mongo db ga borib tushdi , sababi biz connect-mongo-session ni ishlatdik
+    req.session.isAuthenticated = true  // bu mongo db ga borib tushdi , sababi biz connect-mongo-session ni ishlatdik
+    
+    req.session.save((err)=>{
+        if(err) throw err
+        
+        res.redirect("/")
+        console.log(req.body);
+    })
+    })
+ 
+18   @root -  global o'zgaruvchilarni hbs da ishlatish uchun 
+
+         {{#if @root.isAuth}}
+              <a href="/products/{{_id}}/edit?allow=true" class="card-link">Edit</a>
+          {{/if}}
+
+19  User middleware 
+    const User = require("../models/user")
+        module.exports = async function(req, res, next){
+            //login bo'lganda , userni malumotlarini session.user ga saqlardik
+            if(!req.session.user){
+                return next()
+            }
+            // user login qilganidan keyin , req.user ishlay boshlaydi
+            // req.userdan olganmiz Basket va orderdagi malumotlarni 
+            req.user = await User.findById(req.session.user._id)
+        }
+    index.js da 
+    app.use(userMiddleware)    
+
+20  Userni ogoxlantirish 
+        npm i connect-flash
+
+        const flash = require("connect-flash")
+        app.use(flash())
+
+        user.js da  
+
+        error ni hbs ga yuborish 
+        loginError: req.flash("loginError")
+
+        errorni yaratish
+         req.flash("loginError", "Your password is wrong")
+
+
+21  Faqat o'zi qo'shgan productni o'zgartirish 
+
+        products.hbs da 
+        1- har bir productda userId bor 
+        agar userId , login qilib kirgan userni idisiga teng bo'lsa Editni ko'rsatasan
+
+    21.1 helper 
+            module.exports = {
+                ifeq(a, b, options){
+                    if(a == b){
+                        return options.fn(this)
+                    }
+                    return options.inverse(this)
+                }
+            }
+    21.2   Index.js da 
+           const hbs = exphbs.create({
+                defaultLayout: "main",
+                extname: "hbs",
+                helpers: require("./utils"),
+                handlebars: allowInsecurePrototypeAccess(Handlebars)
+            });
+        products.hbs da 
+           {{#ifeq userId._id @root.userId}}
+              <a href="/products/{{_id}}/edit?allow=true" class="card-link text-decoration-none">Edit</a>
+           {{/ifeq}}       
+
+    21.3 productni o'chirish 
+
+        1-edit-product.hbs da 
+            {{#ifeq product.userId._id @root.userId}}
+                <a class="btn btn-warning" href="/products/remove/{{product._id}}">Delete Product</a>
+            {{/ifeq}}
+        
+        2-product.js da 
+        router.get("/:id/edit", async (req, res)=>{
+            const product = await Product.findById(id)
+
+            res.render("edit-product",{
+                title: `Edit ${product.name}`,
+                product: product,
+                userId: req.user ? req.user._id.toString() : null, 
+
+            })
+        })
+
+        3- boshqa usuli 
+        router.get("/:id/edit", async (req, res)=>{
+            
+            if(product.userId.toString() !== req.user._id.toString()){
+                return res.redirect("/products")
+            }
+
+            const product = await Product.findById(id)
+
+            res.render("edit-product",{
+                title: `Edit ${product.name}`,
+                product: product,
+                userId: req.user ? req.user._id.toString() : null, 
+
+            })
+        })
+
+Backend taraflama validate qilish -------------------------------------------------------------------------------------------------------------------------------------------    
+
+    npm i express-validator
+
+    1- forma ga novalidate="true" qilib fronend validateni o'chir 
+
+    2- utils> validate.js da 
+    const {body} = require("express-validator/check");  
+    const User = require("../models/user");
+
+    exports.regVal = [
+        body("email").isEmail().withMessage("Enter your email correctly !").custom( async(value, {req})=>{
+        try {
+            const user = await User.findOne({email: value})
+            if(user){
+                // return Promise.reject("This email is already exsist !")
+                return new Error("This email is already exsist !")
+            }
+        } catch (error) {
+            console.log(error);
+        }  
+        }).normalizeEmail().trim(),
+        body("firstname").isLength({min:3, max:24}).trim().withMessage("Your First Name should be in 3 -> 24 symbols!"),
+        body("lastname").isLength({min:3, max:24}).trim().withMessage("Your Last Name should be in 3 -> 24 symbols!"),
+        body("address").isLength({min:3, max:56}).trim().withMessage("Your Address should be in 3 -> 56 symbols!"),
+        body("number").isLength({min:6, max:16}).trim().withMessage("Enter your Number correctly"),
+        body("password").isLength({min:6, max:56}).isAlphanumeric().trim().withMessage("Your password should be in 6 -> 56 symbols!"),
+    ]
+
+            // body("email") - bu register form dagi name="email" ni oladi
+            // withMessage("Bu error matni") - agar error bo'lsa, error matni shunga teng bo'ladi
+            // body("password", "error matni shu yerda ham bo'lishi mumkun").isLength({min:6, max:56}) 
+
+            // body("parolniTasdiqlash").custom((value, {req})=>{
+            //     if(value !== req.body.password){
+            //         throw new Error("Password should be similar !")
+            //     }
+            //     return true 
+            // }).withMessage("Your password should be in 6 -> 56 symbols!"),
+
+            //  .normalizeEmail() - emailni to'g'rilab beradi
+            //  .isAlphanumeric()
+            // .trim()
+            // .withMessage("Error text !")
+            // .isNumeric()
+            // .isURL() 
+    3- auth.js da 
+    
+    router.post("/register",regVal ,async (req, res) => {
+        try {
+            const {email, firstname, lastname} = req.body;
+
+            const errors = validationResult(req)
+            if(!errors.isEmpty()){
+                req.flash("regError", errors.array()[0].msg)  // errors ni arrayga o'tkazib uning 1- qiymatini oladi error qilib 
+                return res.status(422).redirect("/auth/register")
+            }
+        
+        // Agar xato bo'lmasa yangi user yaratadi 
+
+            const hashPass = await bcrypt.hash(password, 10)
+            const user = new User({email,firstname,lastname,card: { items: [] }, });
+
+            await user.save();
+            res.redirect("/auth/login");
+        } catch (error) {
+            console.log(error);
+        }
+    });
+-------------------------------------------------------------------------------------------------------------------------------------------    
+    Defaul sahifa - agar bizda yo'q rootga user kirmoqchi bo'lsa default page chiqaradi
+
+    1- usul 
+    app.use((req,res)=>{
+        res.render("not_found")
+    }) 
+    root bermasak bu default page bo'ladi
+    
+    middleware > notfound.js 
+
+    module.exports = function(req, res, next){
+        res.status(404).render("notfound", {
+            title: "Not Found Page"
+        })
+    }
+
+    index.js da // bu middleware eng pastga yoz. starterdan oldin
+        const notFoundMiddleware = require("./middleware/notfound")
+        app.use(notFoundMiddleware)
