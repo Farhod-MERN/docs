@@ -1,0 +1,1158 @@
+Node js - platforma , hechqanday framework , library emas
+NodeJS asynxiron ishlaydi
+nodejs.org - download recommended - 1- nodejs ni yuklab olish kerak
+
+node -v => nodejsni versiyasi
+npm -v npm versiyasi
+node --version - terminalda
+
+-----extension--------
+bearded theme 
+----------------------------------
+
+terminaldan turib node.js kod yozish 
+	node  ->enter
+bu yerda keyin javaScript kod yoza olaman
+--------------------------------
+$ node
+Welcome to Node.js v16.17.0.
+Type ".help" for more information.
+> const name = "Farhod Hacker"
+undefined
+> console.log(name)
+Farhod Hacker
+undefined
+>
+--------------------------------------
+npm - node package manager
+
+npm init -> loyihaga npm ni o'rnatish
+npm init -y
+
+npm - bizga serverga borib bizga kerakli kutubxonalarni olib keladi va loyihamizga ulab beradi
+
+1 - loyiha papkaga npmni initsilizatsiya qilamiz, u bizga nodepackage.json ni yaratib beradi
+npm init
+    package name : => papka nomi // odatda avtomatik chiqib turadi
+    version: 1.0.0 // bu ham odatda avtomatik bo'ladi
+    description: node js tutorial // loyiha haqida nimadur
+    entry point: index.js // loyihaning asosiy js fayli
+    test command : enter bos 😁
+    git repository : enter bos 😁
+    keywords: nodejs // loyihamizning kalit so'zlari
+    author: Farhod <mrfarhod58@gmail.com> <buni ichiga gmail yozsa bo'ladi>
+    licence: enter bos 😁
+
+keyin bu bizga package.json ni yaratib beradi
+2- devDependences vs Dependences 
+devDependences - bizga loyihani qurayotgan paytda kerak holos, keyin serverga qo'ygan paytda kerak emas. Misol uchun webpack kutubxonasi
+
+Dependences - esa bizga loyiha tugallanganidan keyin ham kerak .Misol uchun axios kutubxonasi
+
+3- npm install . yoki npm install   ni o'zi
+
+gitHubga odatda node_modules yuklanmaydi . Shunga biz gitHubdan birovni loyihasini yuklab olsak, uni vscodeda ochin terminalda npm install qilsak, 
+package.json dagi devDependences va Dependences dagi hamma kutubxonalarni o'zi avtomatik yuklab beradi
+
+------------------------------------------------------------------
+__dirname - loyiha papkasigacha yo'l
+__filename - loyihadagi biror file(index.js ga o'xshash) gacha yo'l 
+
+console.log(__dirname);
+console.log(__filename);
+node index.js - deb terminalda yozib biz indexdagi codelarni ishlata olamiz
+D:\2_WEB\5_nodejs\nodejs
+D:\2_WEB\5_nodejs\nodejs\index.js
+
+
+module.exports tushunchasi 
+index.js da -------------------
+
+const data =  require("./data") // yonidagi faylni ./ qilib olish shart
+
+data.sayHello()
+console.log(data.car);
+
+data.js da ---------------------
+const car = {
+    name: "Mers",
+    color: "Black"
+}
+function sayHello() {
+    console.log("Salom by Farhod");    
+}
+
+module.exports = {
+    car, sayHello
+}
+-------------------------
+terminal bilan ishlash 
+mkdir Name - papka yaratish
+touch File.js yaratish
+rm index.js = remove 
+
+---------------------------------------------------------
+PATH - moduli 
+
+const path = require("path") // path ni node jsdan oldik
+
+console.log(__filename);
+// D:\2_WEB\5_nodejs\nodejs\data.js
+console.log(path.basename(__filename));
+// data.js 
+console.log(path.dirname(__filename));
+// D:\2_WEB\5_nodejs\nodejs
+console.log(path.extname(__filename));
+// .js - bu file turini ko'rsatadi
+
+console.log(path.parse(__filename));
+// {
+//     root: 'D:\\',
+//     dir: 'D:\\2_WEB\\5_nodejs\\nodejs',
+//     base: 'data.js',
+//     ext: '.js',
+//     name: 'data'
+//   }
+console.log(path.join(__dirname,"frontend", "index.html"))
+// bu nodejs papka ichida , frontend papka dagi,  index.html ko'rsatadi
+console.log(path.resolve(__dirname, "frontend", "/index.html"))
+// joindan farqi resolve bizga istalgan joyga file yaratadi, hozir bu index.htmlni C:\index.html C: diskga yaratdi, 
+//  sababi "/index.html" bunday yozdik 
+
+--------------------------------------------------------------------
+file system - 
+
+mkdir  writeFile
+
+const path =require("path")
+
+const fs = require("fs") // fs asynx va synx ishlay oladi, biz asynx dan foydalanamiz
+//  fs - file system 
+
+fs.mkdir(path.join(__dirname, "modules"),
+
+(err)=>{
+    if(err) throw new Error // throw err dan keyingi kodlar ishlamaydi
+    console.log("Folder was created successfully");
+
+    fs.writeFile(path.join(__dirname, "modules", "path.js"),
+    "// bu yerda yozgan narsang ,yaratgan faylinga tushadi", 
+    (err)=>{
+        if(err) throw err // throw err dan keyingi kodlar ishlamaydi
+        console.log("File created");
+    })
+})
+
+---------------->
+writeFile , appendFile, readFile
+
+const path = require("path");
+const fs = require("fs");
+
+fs.writeFile(
+  path.join(__dirname, "modules", "node.txt"),
+  "NodeJS tutorial ",
+  (err) => {
+    if (err) throw err;
+    console.log("File created");
+
+    // append - qo'shimcha kiritmaoq
+    fs.appendFile(
+      path.join(__dirname, "modules", "node.txt"),
+      "By - Farhod",
+      (err) => {
+        if (err) throw new Error;
+        console.log("Document changed");
+
+        fs.readFile(
+          path.join(__dirname, "modules", "node.txt"),
+          // "uft-8",
+          (err, data) => {
+            if (err) throw err;
+            console.log(Buffer.from(data).toString());
+            // console.log(data) - bu "utf-8" bilan ishlaydi
+          }
+        );
+      }
+    );
+  }
+);
+--------------------->
+fs rename 
+
+const path = require("path");
+const fs = require("fs");
+
+fs.rename(
+  path.join(__dirname, "modules", "node.txt"),
+  path.join(__dirname, "modules", "nodeChanged.txt"),
+  (err) => {
+    if (err) throw err;
+
+    console.log(" Name changed");
+  }
+);
+
+--------------------------------------------------------------------------------
+OS - Operation System module
+
+const os = require("os");
+//os - operation system
+
+console.log(os.platform());
+// win32  //darwin -mac OS
+
+// Architect
+console.log(os.arch());
+// x64
+
+// Information
+console.log(os.cpus());
+
+
+// Free memory
+console.log(os.freemem());
+// 11484479488
+
+
+// Total memory
+console.log(os.totalmem());
+
+// Entry directory, home directory
+console.log(os.homedir());
+
+// Up time , qancha vaqt ishlagani
+console.log(os.uptime());
+
+------------------------------------------------------------------
+// Event - module 
+bu asosan funksiya yokida class lar bilan ishlaydi
+const event = require("events")
+
+class Car extends event {
+    log(){
+        this.emit("message", `Hodisa ishladi ${Date.now()}`) //hodisa qo'shadi
+    } // this eventga osiladi, yani eventga teng this.emit = event.emit
+}
+
+//eventga biz hodisa bog'lab qo'yyapmiz, va 2- parametrga , nimalardur berdik
+//endi shu mersda shu biz bergan hodisa bajarilsa u, hodisa callback qabul qiladi, 
+//va callback parametriga biz yuqorida yozgan 2-param keladi
+
+
+const mers = new Car()
+
+mers.on("message", (data)=>{
+    console.log(data);
+})
+// on hodisani eshitadi , funksiya chaqirilganda esa, hodisani bajaradi
+
+mers.log()
+mers.log()
+mers.log()
+------------------------------------
+const Events = require("events")
+
+1- class Logger extends Events{
+	log(a, b) {
+		this.emit("calc", a + b)
+	}
+   }
+
+2- const logger = new Logger()
+ 
+3- logger.on("calc", (data)=>{console.log(data)})
+
+logger.log(1, 2)
+logger.log(4, 5)
+logger.log(7, 6)
+---------------------------------------------------------------------------------------
+
+HTTP - Module  bu bizga server yaratib beradi, Yani XAMB, MAMB, Apache ni vazifasini bajaradi
+
+const http =  require("http")
+
+const server = http.createServer((request, response)=>{
+    // request - serverga so'rov
+    // response - serverning javobi
+
+    console.log(request.url)
+
+    response.write("<h1>Faqat h1 ishlaydi</h1>")
+    response.write("Yokida oddiy matn")
+    response.end() // serverdan javob olgandan so'ng buni yozish shart, yokida server bizga to'xtovsiz ishlab turadi
+
+})
+
+server.listen(3000, ()=>{
+    console.log("Server port: 3000 ishga tushdi ");
+})
+
+1- server yaratamiz
+2- uni qandaydir portda eshitamiz 
+
+--------------------------------------------------------------------------
+Nodemon - kutubxona - bu kodlarimiz o'zgargan payt serverni yangilan beradi
+
+1- npm i nodemon -D
+
+2-  "start" : "node index.js" -> nodemon ishlashi uchun , package.json ga buni qo'shamiz
+    "dev": "nodemon index.js" - bu nodemon ni ishlatish uchun
+3- bularni terminalda ishlatish
+	npm run start
+	npm run dev 
+--------------------------------------------------------------------------
+form forma bilan ishlash
+
+const http =  require("http")
+
+const server = http.createServer((req, res)=>{
+   if(req.method === "GET"){
+    res.writeHead(200, {"Content-Type": "text/html"}) // bu orqali biz responsdagi qanday malumot ekanligii aytamiz
+    
+    res.end(`
+    <h5>User information</h5>
+    <form method="post" action="/">
+        <input type="text" name="name" placeholder="Enter your name !"/>
+        <button type="submit"> Send </button>
+    </form>
+    `)
+
+   }
+   else if(req.method ==="POST"){
+    res.writeHead(200, {"Content-Type": 'text/html; charset=utf-8'})
+    const name = []
+
+    req.on('data', data=>{
+        name.push(Buffer.from(data))
+    })
+    
+    req.on("end", ()=>{
+        const message = name.toString().split("=")[1]
+	   console.log(name.toString()); //name=Farhod
+        res.end(`<h1>Your name is: ${message}</h1>`)
+    })
+
+   }
+})
+
+server.listen(3000, ()=>{
+    console.log("Server port: 3000 ishga tushdi ");
+})
+---------------------------------------------------------------------
+html bilan ishlash 
+
+const http =  require("http")
+const fs = require("fs")
+const path = require("path")
+
+const server = http.createServer((req, res)=>{
+   if(req.method === "GET"){
+    res.writeHead(200, {"Content-Type": "text/html"}) // bu orqali biz responsdagi qanday malumot ekanligii aytamiz
+    
+    if(req.url === "/"){
+        fs.readFile(path.join(__dirname, "templates", "index.html"), "utf-8", (err, content)=>{
+            if(err) throw err
+            res.end(content) // contentda o'zimizni index.html bo'ladi
+        })
+    }
+    if(req.url === "/about"){
+        fs.readFile(path.join(__dirname, "templates", "about.html"), "utf-8", (err, content)=>{
+            if(err) throw err
+            res.end(content) // contentda o'zimizni index.html bo'ladi
+        })
+    }
+    if(req.url === "/contact"){
+        fs.readFile(path.join(__dirname, "templates", "contact.html"), "utf-8", (err, content)=>{
+            if(err) throw err
+            res.end(content) // contentda o'zimizni index.html bo'ladi
+        })
+    }
+   }
+   else if(req.method ==="POST"){
+    res.writeHead(200, {"Content-Type": 'text/html; charset=utf-8'})
+    const name = []
+
+    req.on('data', data=>{
+        name.push(Buffer.from(data))
+    })
+    
+    req.on("end", ()=>{
+        const message = name.toString().split("=")[1]
+        console.log(name.toString()); //name=Farhod
+        res.end(`<h1>Your name is: ${message}</h1>`)
+    })
+
+   }
+})
+
+server.listen(5000, ()=>{
+    console.log("Server port: 5000 ishga tushdi ");
+})
+
+------------------------------------------------------
+process argv
+
+// console.log(process.argv); // bu bizga node jsda, terminal orqali yozgan komandalarimiz ni arrayga olib beradi
+
+const logger = ()=>{
+    const res = {}
+
+    for(let i = 2; i < process.argv.length; i++){
+        const arg = process.argv[i].split("=")
+        res[arg[0]]= arg[1] ? arg[1] : true
+    }
+    return res
+}
+console.log(logger());
+
+------------------------------------------------------------------------------------------------------
+
+=================================================================================================================
+EXPRESS JS - 
+
+express - nodejs uchun Framework
+
+npm i express
+	npm install nodemon -save-dev 
+
+yoki npm i nodemon -D	
+
+
+"type": "module", - import -export bilan ishlash uchun
+
+-------express da serverni ishga tushurish--------
+
+import  express  from "express";
+const app = express()
+const PORT = process.env.PORT || 4100
+app.listen(PORT, ()=>{console.log(`Server is running on port: ${PORT}`);})
+
+app.get("/", (req, res, next)=>{
+    res.send("Ureaaaaa")
+    
+    // res.json({messagge: "Ura"})	
+    // res.status(500).json({message: "Status code is changed"})
+    // res.download("index.js", ()=>{
+    //     console.log("ura");
+    // })
+    // res.sendFile(path.join(__dirname, "views", "index.html"))
+       bu dvijoksiz filelarni render qilish uchun
+})
+
+------------------------------------------------
+
+	//terminalda- node index.js
+	// yokida package.json da yoz
+	// "start": "node index.js",
+	// "dev": "nodemon index.js"   npm run dev
+
+
+	//import path, {dirname} from "path"
+	//import { fileURLToPath } from "url";
+	//	const __filename = fileURLToPath(import.meta.url)
+	//	const __dirname =dirname(__filename)
+-------------------------------------------------------------
+ejs,  hbs - dvijok
+
+handlebars - dvijok - dinamik web sayt yasash uchun, html filelar bilan ishlash uchun
+
+npm i express-handlebars
+
+1- views > layouts> main.hbs fayl bo'lishi shart
+	<!DOCTYPE html>
+	<html lang="en">
+		{{!-- HEADER --}}
+		{{>head}} // head da - head tegi ichida bootstrap linklar bor
+	<body>
+		{{!-- BODY --}}
+		<div class="container">
+			{{{body}}}
+		</div>
+
+		{{!-- FOOTER --}}
+		{{>footer}} // scriptlarni ulaganman
+	</body>
+	</html>
+2- head, footer lar esa partials > 
+	footer.hbs va head.hbs 
+
+3- index.js da 
+	import  express  from "express";
+	import { create } from "express-handlebars"
+	import authRoute from "./routes/auth.js"
+	import productRoute from "./routes/products.js"
+	const app = express()
+
+	const hbs = create({defaultLayout:"main",extname: "hbs"})
+
+	app.engine("hbs", hbs.engine)
+	app.set("view engine", "hbs")
+	app.set("views", "./views")
+
+	app.use(express.urlencoded({extended: true})) - json formatdan foydalanish uchun - buni yozish shart !!!
+	app.use(express.static('public')) // public papkani statik qilib, qo'ydik, bu orqali ,u faylga hamma joydan qo'limiz boradi . E.x: head.hbs da <link rel="stylesheet" href="/index.css">
+	
+	app.use(authRoute)
+	app.use(productRoute)
+
+	const PORT = process.env.PORT || 4100
+	app.listen(PORT, ()=>{console.log(`Server is running on port: ${PORT}`);})
+4- routes> auth.js
+	import { Router } from "express";
+	const router = Router()
+	router.get("/register", (req, res)=>{
+		res.render("register")
+	})
+	router.get("/add", (req, res)=>{
+		res.render("add")
+	})
+	export default router
+	
+5- routes> products.js
+	import { Router } from "express";
+	const router = Router()
+	router.get('/', (req, res)=>{
+		res.render("index")
+	})
+	router.get("/products", (req, res)=>{
+		res.render("products")
+	})
+	router.get("/login", (req, res)=>{
+		res.render("login")
+	})
+	export default router
+
+6- formalar bilan ishlash
+	post va get ning farqi 
+	1- type="submit" bo'lgan button bosilsa post so'rov bo'ladi 
+	2- sahifa yuklanganda get so'rov bo'ladi
+
+	router.get("/login", (req, res)=>{
+	res.render("login",{
+		title : "App | Login",
+		isLogin : true
+	})
+	})
+	router.post("/login", (req, res)=>{
+	console.log(req.body);
+	res.redirect("/")
+	})
+	
+--------------------------------------------------------------
+
+middleware - bu qo'shimcha funksiya 
+ uni ishlatish 
+
+app.use((req, res, next)=>{
+	console.log("middleware")
+	next()
+}) // bu get funksiyadan oldin ishlaydi
+app.get("/", (req, res, next)=>{
+	res.render("index")
+	next()
+})
+
+-----------------------------------------------------------------
+props , options 
+
+router.get("/add", (req, res)=>{
+   res.render("add", {
+      title : "App | Add",
+      isAdd : true
+   })
+})
+
+render 3ta param qabul qiladi , 2- props
+bu propslar 2 ta joyda bo'ladi , 
+	1- main.hbs da -> main.hbs da biz head, footer larni ishlatganmiz, shunga propslar ,ularda ham ishlaydi
+	2- qaysi fayldan yuborsak o'shanda , misol uchun tepada add.hbs dan yubordik, shunga bu propslar add.hbs da ham ishlaydi
+
+1- head.hbs da 
+	<title>{{title}}</title>
+
+2- navbar.hbs da 
+	{{#if isAdd}}
+      <button type="button" class="btn btn-primary"><a class="text-light text-decoration-none" href="/products" class="nav-link">Products</a></button>
+    {{else}}
+      <button type="button" class="btn btn-info"><a class="text-light text-decoration-none" href="/products" class="nav-link">Products</a></button>
+    {{/if}}
+
+---------------------------------------------------------------------------
+mongoDB bilan ishlash 
+1-
+	mongoDB.com 
+	// farhod
+	// gC8yiKkxmSmMGU8R
+2-
+	get my Current Ip qilasan , keyin Network Accsecc dan > edit qilib
+	Allow Access from anyWhere qilish shart, bo'lmasa IP o'zgarsa mangoDB ga kirolmaysan
+
+3- Database > connect > connect your application > 
+	Url ni ol 
+	mongodb+srv://farhod:<password>@cluster0.lqzadrs.mongodb.net/?retryWrites=true&w=majority
+
+4- nodejs va mangoDB ni mongoose orqali ulaysan
+	 npm i mongoose 
+	 index.js da 
+	 app.use(express.json()) // mangoDB json formatda ishlaydi , shunga
+
+import mongoose from "mongoose";
+https://www.section.io/engineering-education/nodejs-mongoosejs-mongodb/
+
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+}, ()=>{
+    console.log("MongoDB connected ");
+})
+mongoose.set('strictQuery', false);
+
+
+5- mongoDB dagi url ni .env ga qo'yish kerak, nodeJS .env ni ishlatish uchun esa
+	npm install dotenv 
+https://www.npmjs.com/package/dotenv
+
+	index.js da 
+		import * as dotenv from 'dotenv' 
+		dotenv.config()
+
+6- model yaratish 
+	models > User.js 
+	import { Schema, model } from "mongoose"
+
+	const UserSchema = new Schema({
+		firstName : {type :String, required : true},
+		lastName : {type: String, required : true},
+		email: {type: String ,required : true, unique : true},
+		password : {type: String, required: true}
+	}, {timestamps: true}) 2- paramga option bersa bo'ladi
+		buni vazifasi createdAt, va updateAt degan malumotlarni bizni bazadagi har bir elemga qo'shib beradi
+	const User = model("User", UserSchema)
+	export default User
+7- auth.js da 
+
+import User from "../models/User.js"
+
+router.post("/register", async (req, res)=>{
+  const userData = {
+    firstName : req.body.firstname,
+    lastName : req.body.lastname,
+    email: req.body.email,
+    password : req.body.password
+  }
+  const user = await User.create(userData)
+  console.log(user);
+  
+  res.redirect("/")
+ })
+--------------------------------------------------------------------------
+mongoDB compas ni yuklab olish 
+1- mongodb download 
+
+MongoDB Community Server Download - shunisini yuklab ol 
+buni o'rnatsang compass ham auto yuklanadi 
+
+2- Mongodb da terminal bilan ishlash 
+
+	1- use dataNomi - use orqali biz u datadan boshqa data ga sakrashimiz mumkun 
+	2- db.createCollection("CollectNomi")  - bu orqali biz data ga collection qo'sha olamiz
+	3- db.CollectionNomi.drop() - keraksiz collectionni o'chirib tashlash
+	
+	4- db.usersCollect.insertOne({"name": "Farhod"}) - collectionga element qo'shish 
+	   insertMany, insertOne
+
+	db.users.insertOne({
+	     "name": "Farhod",
+	     "age" : 21,
+	     "isMarried" : false,
+	     "jobs" : ["front-end", "back-end"],
+	     "travel" : {
+					"place": "Madina", yokida [""]
+					"delay": 30
+				} 
+	}) collectionga biz json formatda malumot qo'shishimiz shart 
+		json , string , nubmer, boolean, array, object larni o'z ichiga olishi mumkun
+	db.insertMany([
+		{"name": "Farhod"},
+		{"name": "Sardor"},
+	])
+	5- datadan malumot olish 
+	
+	db.users.find().limit(2) - find - usersdagi hammasini olib beradi , limit bilan esa haqat nechtadirini olish mumkun
+	
+	6- sort - datani sartirovka qilish 
+
+	db.find().sort({age : 1}) o'sish tartibida 20 , 21 , 22
+	db.find().sort({age : -1}) kamayish tartibida 22, 21, 20
+	db.find().sort({age : 1, name: -1}) bu alifbo tartibida tartiblaydi
+
+	7- datadagi qaysidir xususiyatni olib tashlash 
+	db.find({}, {_id: 0}) -> {} - bosh object hammasini ol degani 
+					  {_id: 0} - bu shu id menda kerak emas degani 
+	bu shuddi spread operatorga o'xshab ishlaydi
+
+	8- datadan filter qilib , kerakli malumotni olish 
+	
+	db.find({$or: [{age: 20}, {isMarried: true}]}) bu uylangan userlar va yoshi = 20 bo'lganlarni chiqarib beradi
+  	
+	db.find({age: {$lt: 20}}) bu yoshi 20 dan kichiklarni chiqaradi 19 dan boshlab
+					lt = less then - dan kichik
+					gt = great then - dan katta
+					gte = great then OR equeal = teng va kattalar
+					ne = no equeal = teng emas
+					eq = equeal = teng 
+	9- malumotni yangilash updateMany, updateOne, replaceOne
+	db.users.updateOne({name: "Farhod"}, {$set: {age: 22, isMarried: true, name: "Farhodjon", yangiNarsa: "Yangi qo'shis ham mumkun"})
+	
+	db.users.replaceOne({name:"Farhod"}, {name: "Farhodjon", isMarried: true})
+
+	10 - datadan malumot o'chirish deleteMany 
+	db.users.deleteMany({age: {$gt: 23}, age: {$lt: 30} }) 
+           23-30 yosh oralig'idagi hamma userni o'chiradi
+		//bu yerda hatolik ketgan , bu hamma malumotni o'chirib yuboradi, shunga age: {$gt: 23} qilib bittasidan foydalan
+	
+	11 - findByIdAndUpdate
+		findByIdAndDelete
+		findById 
+		filter 
+	12 - bir-nechta methodni bittada bajarish 
+
+	db.users.bulkWrite([
+		{
+			insertOne: {"document": {"name": "Farhod"}}	
+		},
+		{
+			deleteOne: {filter: {age: 22}}
+		},
+		{
+			updateOne : {filter: {age: 22}, update: {$set : {isMarried: true}} }
+		}
+	])
+
+	13 - db.Posts.find().sort({count: -1}).limit(10) . postlardan counti eng kop 10 tasini chiqarib beradi
+------------------------------------------------------------
+password ni hash qilish 
+
+npm i bcrypt 
+
+auth.js da 
+
+router.post("/register", async (req, res)=>{
+  const hashedPassword = await bcrypt.hash(req.body.password, 10)
+
+  const userData = {
+    firstName : req.body.firstname,
+    lastName : req.body.lastname,
+    email: req.body.email,
+    password : hashedPassword,
+  }
+  const user = await User.create(userData)
+  console.log(user);
+  
+  res.redirect("/")
+ })
+ ----------------------------------------------------------------
+ -- validatsiyalar , xatoliklarni foydalanuvchiga ko'rsatish
+ npm i connect-flash - validatsiyalalr bilan ishlash uchun ,localStorage ga o'xshagan narsa bu
+ npm i express-session - bu flash uchun kerak
+
+index.js da 
+	import flash from "connect-flash"
+	import session from "express-session";
+
+	app.use(session({
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: false
+	}))
+	app.use(flash())
+
+auth.js da 
+	router.get("/register", (req, res)=>{
+    res.render("register",{
+      title : "App | Register",
+      isRegister : true, 
+      registerError: req.flash("registerError")  // registerError ni login.hbs da ishlatganmiz, 
+    })
+
+router.post("/register", async (req, res)=>{
+  const hashedPassword = await bcrypt.hash(req.body.password, 10)
+
+  const {email, password, firstname, lastname} = req.body
+  if(!email || !password || !firstname || !lastname){
+    req.flash("registerError", "All fields is required") // 1- key, 2- qiymati, localStorage ga o'xshab , qiymat pastda yozilganiday req.flash("registerError") ishlatiladi
+    res.redirect("/register")
+    return
+  }
+ })
+
+	const candidate = await User.findOne({email: email})
+  	if(candidate){
+    	req.flash("registerError", "this email already exsist !")
+    	res.redirect("/register")
+    	return
+  				}
+ 	})
+router.post("/login", (req, res)=>{
+	const samePass bcrypt.compare(req.body.password , user.password)
+
+	if(samePass){
+		res.redirect("/")
+	}
+})
+
+------------------------------------------------------------------
+JWT - JSON Web Tokens 
+Har bir userga JWT beriladi . JWT da userning malumotlari saqlanadi . 
+Saytga login qilgandagi malumotlar ham JWT da saqlanadi shunga , saytni refresh qilsa ham saytdan chiqib ketmaydi
+JWT ni session, cookies, yokida localStorage larda saqlash mumkun, uni qancha vaqt saqlashni o'zimiz  belgilay olamiz
+
+npm i jsonwebtoken
+
+1- services > token.js da 
+	import jwt from "jsonwebtoken"
+
+import jwt from "jsonwebtoken"
+
+const generateJWTToken = (userId)=>{
+    const accessToken = jwt.sign({userId : userId}, process.env.JWT_SECRET, {expiresIn: "30d"} )
+    return accessToken
+}
+sign - yangi JWT yaratadi ,3- parametr oladi, Payload, secure key, Options 
+
+payloadga user Idsini berib yubordik, bu orqali keyin biz, JWT dan foydalanib userning qolgan malumotlarini olamiz
+
+JWT_SECRET=farhod_secret_key - process.env dagi kod, bu xavfsiz bo'lishi kerak
+
+expiresIn: "30d" , agar user 30 kun saytga kirmasa Bu JWT o'chib ketadi
+
+2- auth.js da post registerda
+	  const user = await User.create(userData)
+	
+  	  const token = generateJWTToken(user._id)
+      res.cookie("token", token, {httpOnly: true, secure: true})
+user uchun JWT yaratdik va uni cookies ga saqlab qo'ydik 
+
+shu ishni post login da ham qildim 
+	const token = generateJWTToken(existUser._id)
+    res.cookie("token", token, {httpOnly: true, secure: true})
+
+----------------------------------------------
+
+npm i cookie-parser	browserdagi cookies larni olish uchun
+
+index.js da 
+import cookieParser from "cookie-parser";
+
+app.use(cookieParser())
+
+middleware - user yo'yhatdan o'tgan yoki yo'qligini aniqlash uchun
+---------------------
+middleware > var.js 
+	export default function (req, res, next){
+		const isAuth = req.cookies.token ? true : false  //req.cookies.token ni olish uchun cookie-parserdan foydalandik . bu browserdagi cookie
+		res.locals.token = isAuth   //bu bizga localni o'zgaruvchi yaratib beryapdi, bu token o'zgaruvchini navbar.hbs ga yubordim, agar token true bo'lsa log out chiqadi, aks holda login chiqadi
+		next() //next yozmasang , bu middlewaredan keyingi functionlar ishlamay qoladi
+	}
+index.js da -----------
+import varMiddleware from "./middleware/var.js";
+
+app.use(varMiddleware)
+
+-----------------------------------------------------------------------------------------
+
+Mahsulot qo'shayotgan paytda qo'shgan user malumotlarini olish
+
+middleware > user.js 
+	import jwt from "jsonwebtoken"
+	import User from "../models/User.js"
+
+	export default async function(req, res, next){
+		if(!req.cookies.token){
+			res.redirect("/login")
+			return
+		}
+
+		const token = req.cookies.token  // cookies dan tokenni oldik
+		const decode = jwt.verify(token, process.env.JWT_SECRET) // verify - decode qilish uchun kerak
+		const user = await User.findById(decode.userId)  // User -degan modelimizdan userni qidirdik id orqali
+		req.userId = user._id // req - ga biz yangi object qo'shib qo'ya olamiz , va uni products.js da ishlatdik , req.userId qilib
+
+		next()
+	}
+router > products.js 
+	router.post("/add-products", userMiddleware ,async (req, res)=>{
+	const {title, description,image, price, phone, username, address} = req.body
+	
+	if(!title || !description || !image || !price || !phone || !username || !address){
+		req.flash("errorAddProducts", "All fields is required")
+		res.redirect("/add")
+		return
+		}
+
+	const products = await Product.create({...req.body, user: req.userId}) // bu yerda mongoDBga user idsini ham qo'shib yuboryapmiz, req.userId bi middlewareda qo'shib qo'yganmiz
+	console.log(products)
+	
+	res.redirect("/add")
+	})
+-----------------------------------------------------------------
+1 -mongoDB dan malumot olish 
+	import Products from "../modulws/Products.js"
+
+	const products = Products.find().lean()
+	// find() bizga malumotlarni text holatda jo'natadi, lean() esa bizga u ni json qilib beradi
+	res.render("index", {
+		title: "Boom Shop",
+		products: products.reverce(), // reverce terskari tartiblab beradi
+	})
+2- sikl qilib malumotlarni ko'rsatish 
+	handlebars da forEach o'rniga each ishlatiladi 
+
+	<div class="wrapper">
+	{{#each products}}
+		<div class="item">{{title}} , {{price}}</div> //each bizga har bir objectni destrubtizatsiya qaytaradi, biz unidagi itemlarni to'gridan to'g'ri yozib ketaveramiz
+		lekin bu each ni ichida global o'zgaruvchilarni {{token}} qilib ishlata olmaymiz
+		ularni global ekanini aytishimiz kerak
+		{{@root.token}}
+	{{/each}}
+	</div>
+------------------------------------------------------------------------
+delete , edit ni faqat yaratuvchiga ko'rsatish
+
+1- Har bir postda user degan value bor, uni products yaratilayotganda qo'shganman
+
+2- Har bir req.UserId bor, uni middleware yordamida qo'shdim 
+index.js da => 	app.use(userMiddleware)
+
+3- User va UserId teng bo'lsa , delete va edit ni ko'rsataman
+
+----------------------------------------------------
+hbs helper 
+
+1- utils > index.js 
+	export default {
+		ifequal(a, b, options){
+		if(a == b) {
+			return options.fn(this) // agar a == b funksiya davom etadi
+		} 
+
+		return options.inverse(this) // aks holda , function will cancel
+		}
+	}
+
+2-  index.js da 
+    import hbsHelpers from "./utils/index.js"
+
+	const hbs = create({ defaultLayout: "main", extname: "hbs", helpers: hbsHelpers });
+
+3- index.hbs da 
+
+	{{#ifequal user @root.userId}} //
+              <button type="button" class="btn btn-info"><i class="bi bi-pencil-square"></i></button>
+              <button type="button" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
+    {{/ifequal}}
+	2 ta param oladi, ular teng bo'lsa ishlidi, aks holsa yo'q
+	products dagi value larni shunday {{user}} qilib ishlata olamiz 
+	lekin global o'zgaruvchilarni @root.token , @root.userId qilib olishimiz kerak , each ni ichida 
+
+---------------------------------------------
+myProducts ni chiqarish 
+
+router.get("/products", async (req, res)=>{
+   const userCheck = req.userId ? req.userId.toString() : null
+   const myProducts = await Product.find({user : userCheck}).populate("user").lean()
+   console.log(myProducts)
+   res.render("products",{
+      title: "App | Products",
+      isProducts : true,
+      myProducts : myProducts
+    })
+ })
+
+find() //ni ichida filter berish mumkun
+populate("user") bu user objecttini yoyib beradi , pastda 1- va 2- holatlardagini ko'r 1-si populate siz
+populate- dan foydalanish uchun avval uni yaratilayotganda 
+modules > products.js da 
+	user: {type: Schema.Types.ObjectId, ref: "User"} shuni yozish kerak
+ref: "User" modelini bildiradi
+
+populate("user") esa . products modelidagi user valueni bildiradi
+
+1- holat
+user: new ObjectId("63df2c8a13e73c17e5cc4ed6"),
+2-holat
+user: {
+      _id: new ObjectId("63df2c8a13e73c17e5cc4ed6"),
+      firstName: 'f',
+      lastName: 's',
+      email: 'f@gmail.com',
+      password: '$2b$10$UBlszBCy9d6DoTkYQ0ouIOS/3EtfxnZmVVeKQqf3VXFc.gyhusuOu',
+      __v: 0
+    },
+---------------------------------------------------------
+product details 
+
+1-route > products.js da 
+	router.get("/product/:id",async (req, res)=>{
+	//req.params  - linkdagi unique narsa req.paramsga tushadi
+	const id = req.params.id
+	const product = await Product.findById(id).populate("user").lean()
+	console.log(product)
+	res.render("productDetail", {
+		product: product
+	})
+	})
+		"/product/:id" - unique bo'lishi kekak narsani : dan keyin yozmasan
+		u keyin req.params ga kelib tushadi
+
+2-views > index.hbs da 
+	 <a href="/product/{{_id}}" type="button" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
+/product/{{_id}} -> har bir product , o'zini id si bilan shu linkga get so'rov qiladi
+
+-----------------------------------------------------------
+
+edit product
+1 - routers > products.js
+router.post("/edit-product/:id", async (req, res)=>{
+   const {title, description,image, price, phone, username, address} = req.body
+   const id = req.params.id
+
+   if(!title || !description || !image || !price || !phone || !username || !address){
+      req.flash("errorEditProducts", "All fields is required")
+      res.redirect("/edit-product")
+      return
+    }
+   
+    const product = await Product.findByIdAndUpdate(id, req.body, {new: true})
+	findByIdAndUpdate- 3 ta param oladi 3- {new: true} qilish shart
+
+
+   res.redirect("/products")
+})
+
+2 - edit-product.hbs
+
+<form action="/edit-product/{{product._id}}" method="post" class="form-signin">
+
+------------------------------------------------------
+delete product 
+
+index.hbs da 
+
+	<form action="/delete-product/{{_id}}" method="post">
+      <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
+    </form>
+
+routers > product.js da
+
+	router.post("/delete-product/:id", async(req, res)=>{
+	const id = req.params.id
+	await Product.findByIdAndRemove(id)
+
+	res.redirect("/products")
+	})
+============================================================================================
+============================================================================================
+============================================================================================
+
+EJS - dvijok for express js 
+
+npm install ejs
+
+index.js da ejs ni sozlash  
+
+    app.set("view engine", "ejs") //html o'rniga endi ejs dan foydalanamiz
+    app.get("/", (req , res)=>{
+        res.render("index", {
+            title: "World"
+        })
+    })
+views > index.ejs da 
+    <%= 10 + 10 %> //ejs sintaksisi uni ichida js kod yoza olaman   
+    <%= title %>
+    <%= locals.titles || "Node JS" %>
+// title shunday yozsak, garda bizga index.js dan title o'rniga titles kelsa , bizda error chiqadi
+buni oldini locals.title qilib olish mumkun, agar title kelsa qo'yadi, aks holda shunday ishlayveradi, yoki o'rniga boshqa narsa ham yozib qo'yish mumkun
+
+-----------------------------
+router va prefix tushunchasi 
+index.js da 
+    app.use("/users", userRouter) // "/users" frefix hisoblanadi , bu userRouter dagi hamma slug lar /users bilan boshlanishini bildiradi
+
+    app.get("/", (req, res)=>{
+        res.render("index")
+    })
+users.js da  //router bizga indexdagi so'rovlarni turli filelarga bo'lish uchun kerak
+    const express = require("express")
+    const router = express.Router()
+
+    router.get("/", (req, res)=>{  // endi  "/users" o'rniga "/" ni ishlata olaman 
+        res.send("users")
+    })
+    router.get("/new", (req, res)=>{
+        res.send("new users")
+    })
+
+    module.exports =  router
+
+router da get, post, delete, put metodlar bor
+delete  -o'chiradi 
+put - bu updade qiladi 
+
+------------------------------------------------------------------
+agarda bizda slug lar birhil bo'lsa uni qisqartirib yozish mumkun
+
+    router.route("/:id")
+        .get((req, res)=>{
+            res.send(`Get user Id : ${req.params.id}`)
+        })
+        .post((req, res)=>{
+            res.send(`Post user Id : ${req.params.id}`)
+        })
+        .delete((req, res)=>{
+            res.send(`Delete user Id : ${req.params.id}`)
+        })
+        .put((req, res)=>{
+            res.send(`Put user Id : ${req.params.id}`)
+        })
+-----------------------------------------------------
+param - funksiyasi
+browserda user/11 ga get so'rov qilsam id = 11 ga 
+
+    //"id" params dan nima olayotganimizni aytamiz
+    // id - bu paramsdan kelayotgan id
+
+    router.param("id", (req, res, next, id)=>{
+        console.log(id);
+        next();
+    })  
+---------------------------------------------------
+middleware - bu funksiyamizni kuchaytirib beradi 
+    middleware ni o'zimizni funksiyaga qo'shib ishlata olamiz 
+
+    app.get("/", middleLogger, boshqaMiddle,(req, res)=>{
+        res.render("index")
+    })
+
+    function middleLogger(req, res, next){
+        console.log("this is middleware", req.originalUrl);
+        next()
+    }
+agarda middleware ni o'zini ishlatmoqchi bo'lsak 
+    app.use(middleLogger)
+agarda user.js dagi router da ishlatish uchun esa
+    router.use(middleLogger)        
+
+------------------------------------------------------------
+
+papkalarni static qilish 
+    app.use(express.static("public")) 
+    // public ni static qilib qo'ysak, get("/") yani bosh sahihaga so'rovni o'chirib tashlasak 
+    // ham bo'ladi . chunki saytga kirganda 1- publicdagi index.html ni avtomatic o'qib ketadi
+Bunday qilganimizdan keyin 
+    app.get("/", (req, res)=>{
+        console.log("Ura")
+    })
+    Bu get so'rov ishlamay qoladi

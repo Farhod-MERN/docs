@@ -1,0 +1,1794 @@
+npm dan foydalanish uchun biz
+1-nodejs ni komp ga o'rnatamiz, 
+2-git bash ni o'rnatamiz
+
+React snippets - reactda emmetdan foydalanish
+
+react UI interface qurish uchun Reactstrap kutubxonasidan foydalansa bo'ladi
+yana ko'plab bunday kutubxonalar bor, React bootstram, Material UI , Material Kit React, 
+Ant Design for React
+
+O'rnatish uchun reactstrap.github.io ga kir 
+
+npm install --save bootstrap
+npm install -save reactstrap react react-dom
+
+
+ *********************************************************************
+2-dars kerakli dasturlar
+
+#1- step  =>extansions:
+        1. dracula official
+        2. all Autocomplete
+        auto close tag
+        auto import
+        auto rename tag
+        code runner 
+        ESlint
+        prettier
+        Reactjs code snippets
+
+#2-step
+chrome ga google extencion 
+	React Developer Tools shuni o'rnat
+
+#3-step
+
+        1-bitta papka yarat
+        2-uni vscode och
+        3-terminal orqali React.js kutubxonani yuklab ol
+
+        npx create-react-app demo //demo yangi papka nomi , React,js ni shu papkaga yuklaydi, agar papka nomi o'rniga nuqta qo'ysam React.jsni asosiy papkamizni o'ziga yuklab beradi
+
+        cd demo   // React.js ni ishga tushirish uchun demo papkaga o't
+
+        npm start // va React.js ni ishga tushir. bu bizga tayyor shablon yaratib beradi va uni openserverga o'xshash portda ochib beradi
+
+***********************************************************************
+3-dars NPM haqida batafsil
+
+npm node package manager 
+npm - bizga serverga borib bizga kerakli kutubxonalarni olib keladi va loyihamizga ulab beradi
+
+1 - loyiha papkaga npmni initsilizatsiya qilamiz, u bizga nodepackage.json ni yaratib beradi
+npm init
+    package name : => papka nomi // odatda avtomatik chiqib turadi
+    version: 1.0.0 // bu ham odatda avtomatik bo'ladi
+    description: node js tutorial // loyiha haqida nimadur
+    entry point: index.js // loyihaning asosiy js fayli
+    test command : enter bos 😁
+    git repository : enter bos 😁
+    keywords: nodejs // loyihamizning kalit so'zlari
+    author: Farhod <mrfarhod58@gmail.com> <buni ichiga gmail yozsa bo'ladi>
+    licence: enter bos 😁
+
+keyin bu bizga package.json ni yaratib beradi
+2- devDependences vs Dependences 
+devDependences - bizga loyihani qurayotgan paytda kerak holos, keyin serverga qo'ygan paytda kerak emas. Misol uchun webpack kutubxonasi
+
+Dependences - esa bizga loyiha tugallanganidan keyin ham kerak .Misol uchun axios kutubxonasi
+
+3- npm install . 
+
+gitHubga odatda node_modules yuklanmaydi . Shunga biz gitHubdan birovni loyihasini yuklab olsak, uni vscodeda ochin terminalda npm install qilsak, 
+package.json dagi devDependences va Dependences dagi hamma kutubxonalarni o'zi avtomatik yuklab beradi
+
+
+*********************************************************************************************
+4-dars
+React.js kutubxona haqida
+
+index.js ichida
+<React.StrictMode>  // bu js dagi "use-strict" yani qatiy rejim
+	<App /> //shuni ichida js funksiyalarni chaqiramiz 
+</React.StrictMode>
+
+bizni hamma dasturlar app.js da yoziladi
+
+app.js ni ichida biz html teglarni shunday o'zini yoza olmaymiz, ularni qandaydir o'rab 
+turubchi wrapperga olish shart
+
+function App() {
+	return(
+		<div> 
+			<p>Hello world</p>
+			<h1>By Farhod</h1>
+		</div>
+	)
+}
+
+**********************************************************************************
+5-dars Sof react.js
+
+react.js ni cdn linklar orqali ulash
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+1-   =>bu 2ta linkni index.html dan bodyning eng pastiga qo'yamiz, o'zimizni scriptdan oldin
+
+2-   => index.html da id="root" nomli div ochamiz va hammma codelarni shuni ichida yozamiz
+
+3-  => script.js da 
+
+const App = ()=>{
+return React.createElement('h1', {id: "title", classname: "paragrahp"}, "hello World")
+} //bu element yaratish
+
+// endi uni reactDOM(index.html) ga qo'yish
+
+ReactDOM.render(React.createElement(App), document.getElementById("root"))
+*******************************************************************************
+
+6-dars  sof js sintaksis
+
+const Book = (props)=>{
+    console.log(props); // props - hususiyat .bu bizga object qaytaradi 
+    return React.createElement('div', {}, [
+
+        React.createElement("h1", {id: "nima"},props.name ),
+        React.createElement("i", {id:"nimaa"},props.year ),
+        React.createElement("p", {id:"nimaaa"},props.price )
+    ])
+}
+
+const App = () => {
+  return React.createElement("div" ,{}, [
+    React.createElement("h1", {id: "title"}, "hello world by Farhod"),
+
+    React.createElement(Book,{name:"Js for beginner", year:"1998", price: "$120"}),
+    React.createElement(Book,{name:"PHP for beginner", year:"1991", price: "$140"}),
+    React.createElement(Book,{name:"Pyton for beginner", year:"1994", price: "$180"}),
+  ])
+};
+
+ReactDOM.render(React.createElement(App), document.getElementById("root"));
+
+*********************************************************************************
+7-dars JSx sintaksis
+
+// bu yerda props object bor edi ,biz uni distrubtizatsiya qilib ochib oldik
+
+const Book = ({name, year, price})=>{
+  return(
+    <div>
+      <h1>{name}</h1> // biz bu yerda js cod ishlatish uchun {} qavs ichida yozishimiz kerak
+      <i>{year}</i>
+      <p>{price}</p>
+    </div>
+  )
+}
+
+const App = ()=>{
+  return (
+    <div>
+      <Book name="javascript" year="1998" price="120$"/> // yuqoridagi xususiyatlarni beramiz
+    <Book name="Django" year="1991" price="130$"/> 
+    <Book name="Pyton" year="1995" price="150$"/>
+    </div>
+  )
+}
+
+export default App;
+****************************************************************************************
+9-dars JSx xususiyatlari
+	// objectni cherez funksiya orqali ishlatish
+
+const App = ()=>{
+  
+  function fullname(full){
+    return full.firstName + " " + full.lastName
+  }
+
+  const data = {
+    firstName: "Farhod",
+    age: "21",
+    lastName: "Sotiboldiyev",
+  }
+  
+  return (
+    <div>      
+     My fullname is {fullname(data)} . Age: {data.age}
+    </div>
+  )
+}
+// => biz return yani(jsx) ichida if, else, while, for ishlata olmaymiz
+lekin ternary operator ishlatish mumkun
+Lekin if while else for larni App komponentni ichida yozsa bo'ladi
+
+----------------------------------
+const name = false
+
+return(
+<div>Hello {(name) ? "Farhod" : "Samar" } </div>
+)
+---------------------------------- 
+// bu bizga Samar chiqaradi , sababi yuqorida name= false
+
+
+//************** extra inform props.children
+
+const Book = (props)=>{
+  return (
+    <div>
+      <h1>{ (props.name) ? <span>{props.name}</span> : "Bu yerda ism bo'lishi kerak edi" }</h1>
+      <b>{props.age}</b> <br/>
+      <i>{props.number}</i> <br/>
+      <u>{props.children}</u>
+    </div>
+  )
+}
+const App = ()=>{
+  return( <div>
+    <Book name = "Farhod" age = "21" number = "0007000007" />
+    
+    <Book age = "71" number = "0070452" >
+      bu Komponentning extra malumotlari // buni ko'rsatish uchun props.children qo'shish kerak
+    </Book>
+    </div>
+  )
+}
+
+******************************************************************************************
+10-dars ilovani modullarga bo'lish
+
+1- =>
+	export default App
+	import App from "./App"
+
+2- =>
+	export {App}
+	import {App} from "./App"
+
+3- =>
+
+	export default function Book(){}
+	import Book from "./Book.js"
+
+Bizda yangi komponenta nomi Katta harf bilan boshlanishi shart
+Book.js . Biz har bitta komponentani bitta js faylga olib chiqib qo'ya olamiz
+
+*******************************************************************************************
+11- dars Shartli operatorlar komponent ichida
+
+const Book = (props)=>{
+ if(!props.name){
+	return null	
+  }   
+ return (
+	<div>
+        <u>{props.name}</u>
+      </div>
+    )
+ }
+
+ => trinary operator 
+
+const Book = (props)=>{
+    return !props.name ? (
+      <div><h1>Hello</h1></div>
+    ) : (
+        <div>
+ 		<h1>{ props.name}</h1>
+      </div>
+    )
+  }
+*******************************************************************************************
+13- dars  Amaliy
+ 
+codesandbox.io da ishlaganda biz yangi komponenta uchun yangi js fayl ochamiz,
+va ochgandan keyin unga 1-bo'lib reactni o'zini import qilishimiz kerak,
+unda biz reactda kod yozayotganimizni bilishi kerak
+
+import React from "react"
+
+App.jsni ichida ----------------------------------------------------
+
+const desc =  "string turdagi malumotlar , matnlar"
+
+return(
+	<div> {desc} </div>
+)
+// desc o'zgaruvchini shundan yozib qo'ya olmaymiz, u js dagi o'zgaruvchi shunga uni { } ga olish shart
+
+*****************************************************************************************
+14 -dars componentlar
+
+2 xil component bor
+class va funksiya component  . hozirda asosan funksiya komponent ishlatiladi
+
+1=> function Welcome(props){
+      return(
+	  <h1> {props.name} </h1>
+      )
+    }
+2=> 
+bizni classni umumiy Global React.Componentdan voris qilib olamiz, yokida unga bog'lab qo'yamiz extands orqali
+render metodimiz bizga jsx ni qaytarib beradi
+
+class Welcome extands React.Component {
+   render(){
+   	return(<h1>{this.props.name}</h1>)
+   }
+}
+
+componentlar bizga saytimizni qulay bo'lishga yordam beradi
+index.js = body
+App.js = body dagi content
+
+komponentlarni ketma-ket joylashtirish orqali biz saytimizni yaratamiz
+
+********************************************************************************************************
+15-dars class componentalar haqida 
+1- => 1-sintaksis--------------------------------------------
+import React from "react";  // biz React global objectni olib olishimiz shart , chunki pastda bizga React objectidagi Component kerak
+
+class App extends React.Component {
+  render() {
+    return <div>Hello world by Farhod</div>;
+  }
+}
+
+export default App;
+2- => 2-sintaksis --------------------------------------------
+import {Component} from "react"; // bu bizga massiv qaytaradi,  va biz massivdan Component hususiyatini olib olamiz
+//destributatsiya orqai massivni ochib oldim
+class App extends Component {
+  render() {
+    return <div>Hello world by Farhod</div>;
+  }
+  //render metodi bizga JSX ni qaytarib beradi
+}
+
+export default App; 
+
+***************************************************************************************************
+state setState() holat haqida
+
+1- telefon batareya holati: 100%
+	a few moments later
+2- telehon batareya holati : 98%
+
+Holatni o'zgarish iham shunday bo'ladi
+
+--------------------------------------------------------------------
+
+import {Component} from "react";
+class App extends Component {
+
+  constructor(props){
+    super(props);  //bu superdagi propslar bizga Componentdan keladi
+    this.state = {
+      count : 0,
+      key : true
+    } //this.state bizda xususiyat , u esa objectga teng, uni ichida count bor va u nolga teng / biz button bosilganda uni o'zgartiramiz
+  }
+
+  handleClick = ()=>{
+    this.setState({count: this.state.count + 1}) // set State 2 xil ko'rnishda bo'ladi 1-parametr 2- callback
+  }
+  // funksiya ishlaganda count keyin nimaga teng bo'lishini aytamiz
+ // biror narsani holatini biz to'g'ridan to'g'ri o'zgartira olmaymiz, unga biz setsTATE DAN foydalanamiz
+  render() {
+    return <div><h1>Hello world by Farhod</h1>
+      <button onClick={this.handleClick}>Value of Count : <b>{this.state.count}</b></button>
+    </div>;
+  } // onClick - reactda qulayroq , bunda addEventListerner qilish shart emas
+  //render metodi bizga JSX ni qaytarib beradi
+}
+
+export default App; 
+------------------------------------------------------------------------------------
+setState 2- sintaksis
+funksiya yordamida
+
+import {Component} from "react";
+class App extends Component {
+
+  constructor(props){
+    super(props);  //bu superdagi propslar bizga Componentdan keladi
+    this.state = {
+      count : 0,
+      key : true
+    } //this.state bizda xususiyat , u esa objectga teng, uni ichida count bor va u nolga teng / biz button bosilganda uni o'zgartiramiz
+  }
+
+  handleClick = ()=>{
+      this.setState((prevState)=> ({count: prevState.count + 1 }), ()=>{
+        console.log("setState completed");
+      })
+      console.log("from setState");
+  }
+  // funksiya ishlaganda count keyin nimaga teng bo;lishini aytamiz
+ // biror narsani holatini biz to'g'ridan to'g'ri o'zgartira olmaymiz, unga biz setsTATE DAN foydalanamiz
+  render() {
+    return <div><h1>Hello world by Farhod</h1>
+      <button onClick={this.handleClick}>Value of Count : <b>{this.state.count}</b></button>
+    </div>;
+  } // onClick - reactda qulayroq , bunda addEventListerner qilish shart emas
+  //render metodi bizga JSX ni qaytarib beradi
+}
+
+export default App; 
+--------------------------------------------------------------------------------------
+
+2- usul state o'zgartirish uchun  => metod yordamida classiviy metod yordamida
+
+import {Component} from "react";
+class App extends Component {
+
+  constructor(props){
+    super(props);  //bu superdagi propslar bizga Componentdan keladi
+    this.state = {
+      count : 0,
+      key : true
+    } //this.state bizda xususiyat , u esa objectga teng, uni ichida count bor va u nolga teng / biz button bosilganda uni o'zgartiramiz
+    
+    this.change = this.change.bind(this) // pastdagi change metodimizni thisga bog'lab qo'yamiz
+  }
+
+  change(){
+    this.setState({count: this.state.count + 1})
+  }
+
+  render(){
+    return(
+      <div><h1>By Farhod</h1>
+      <button onClick={this.change}>value of count: {this.state.count}</button>
+      </div>
+    )
+  }
+}
+
+export default App; 
+------------------------------------------------------------------------------------
+3- usul Anonium funksiya yordamida
+o'zimizni onClick ni ichida anonim funksiyda yaratib uni ichida setState dan foydalanamiz
+
+import {Component} from "react";
+class App extends Component {
+
+  constructor(props){
+    super(props);  //bu superdagi propslar bizga Componentdan keladi
+    this.state = {
+      count : 0,
+      key : true
+    } //this.state bizda xususiyat , u esa objectga teng, uni ichida count bor va u nolga teng / biz button bosilganda uni o'zgartiramiz    
+  }
+
+  render(){
+    return(
+      <div><h1>By Farhod</h1>
+      <button onClick={()=>{this.setState({count: this.state.count +1})}}>value of count: {this.state.count}</button>
+      </div>
+    )
+  }
+}
+
+export default App; 
+--------------------------------------------------------------------------------------
+************************************************************************
+17-dars Amaliy
+
+
+class App extends Component{
+
+  constructor(props){
+    super(props)
+    this.state = {
+      count: 0
+    }
+  }
+
+  handleClick = (val)=>{
+    this.setState({count: val})
+  }
+
+  render(){
+    return(
+      <div>
+        <h1>{this.state.count}</h1>
+        <button onClick={()=>{ this.handleClick(this.state.count +1)}}>➕</button>
+        <button onClick={()=>{ this.handleClick(this.state.count -1)}}>➖</button>
+        <button onClick={()=>{ this.handleClick(0)}}>💻</button>
+      </div>
+    )
+  }
+
+}
+// biz metodni this.handleClick() deb to'gridan to'gri chaqira olmaymiz, shunga uni anonim funksiyaga olib keyin chaqirdik
+export default App; 
+******************************************************************************************
+18-dars
+Life cycle hayotiy aylana 
+
+
+import {Component} from "react";
+class App extends Component{
+
+  constructor(props){
+    super(props)
+    this.state = {
+      data: "Farhod"
+    }
+  }
+  getData(){
+    setTimeout(()=>{
+      console.log("data is updated");
+      this.setState({data: "Salom bolalar😁"})
+    }, 4000)
+  }
+  componentDidMount(){
+    this.getData()
+  }
+
+  render(){
+    return(
+      <div>
+        <p><b>{this.state.data}</b></p>
+      </div>
+    )
+  }
+}
+export default App; 
+
+#1 componentDidMount = Componentamiz bizning brauzerda payda bo'lyan paytda , 1 marta ishlaydi
+	useEffect(()=>{
+		console.log("did mount")
+	},[ ])
+
+
+
+#2 componentDidUpdate = Componentamizda nimadur o'zgarganda ishlaydi, har safar o'zgarganda
+	useEffect(()=>{
+		console.log("did update")
+	},[state, name, text])
+
+
+#3 componentWillUnmount = Componentamizni brouzerdan olib tashlaganimizda ishlaydi 
+	useEffect(()=>{
+		console.log("did mount")
+
+		return ()=>{
+			console.log("will un mount")
+		}
+	},[])
+
+
+//live cycle - hayotiy sikl bundan biz 3 usulini ko'ramiz
+
+//1-ComponentDidMount - sahifaning 1-ko'rinishi .ish harakatni boshlanishi
+  // bu Constructorda qandaydir holatni aniqlaydi va Render metodi orqali uni bizga ko'rsatadi va ComponentDidMount ishlaydi
+//2-ComponentDidUpdate - 
+  // dom elementimizda nimadir yangilansa keyinbu metod ishlaydi
+//3-ComponentwillUnmount - bu qachonki dom elementdan biror narsani olib tashlasak keyin ishlaydi
+
+************************************************************************************************************
+20-dars 
+key atributi 
+
+import {Component} from "react";
+
+class App extends Component
+{
+  state = {
+    posts: [
+      {id: 1, name: "Js"},
+      {id: 2, name: "Py"},
+      {id: 3, name: "PHP"},
+    ]
+  }
+
+  render(){
+    return(
+      <div>{this.state.posts.map(post => <h1 key={post.id}>{post.name}</h1>)}</div>
+    )
+  }
+}
+export default App; 
+
+// biz web sayt bilan ishlaganimizda bizga serverdan json , object arrayda malumotlar keladi, biz
+//ukarni map , forEach yordamda intonatsiya qilamiz. o'sha paytda biz ularni har biriga key atribute berishimiz shart 
+// keyinchalik biz ularni shu key orqali ushlab olamiz va o'zgartiramiz
+
+//key qilib o'zimizni objectdagi id ni berdik, shu eng maqul yo'l
+
+*******************************************************************************************
+21-dars props 
+App.js-------------------------------------------------------
+import Middle from "./component/middle";
+
+import {Component} from "react";
+class App extends Component{
+state = {
+  posts : [
+    {id:1, name:"Salom1"},
+    {id:2, name:"Salom2"},
+    {id:3, name:"Salom3"},
+  ]
+}
+
+hendleSomething = ()=>{
+  console.log("APP js setState updated");
+}
+//bu funksiyani props yordamida boshqa komponentalarga beramiz, share qilamiz
+
+  render(){
+    const {posts} = this.state //distrubtatsiya yordamida ochib oldik
+
+    return(<div>
+      <Middle posts = {posts} globalFunc={this.hendleSomething}/>
+      
+      <b onClick={this.hendleSomething}>Hello Farhod</b>
+      </div>
+    )
+  }
+}
+export default App; 
+
+// biz App.js da global funksiya yozib uni istalgan komponenta ichida ishlata olamiz
+// bu props orqali qilinadi 
+// App.ja    Middle.js  Last.js
+// biz global funksiyani istalgan komponentda ishlata olamiz
+--------------------------------------------------------------------------------------------------------
+middle.js =>
+
+import Last from "./last";
+
+export default function Middle(props){
+    const {globalFunc, posts} = props
+    //biz faqat propsdan kelganlarni bunday ola olamiz, postdan kelganlarni esa yo'q, sababi biz u yerda map yordamida intonatsiya qilyapmiz
+    return(
+        <div onClick={globalFunc}>{posts.map(post => (<Last key ={post.id} name = {post.name} globalFunc={globalFunc}/>))}</div>
+    )
+}
+--------------------------------------------------------------------------------------------------------
+last.js   =>
+
+export default function Last(props){
+    const{name, globalFunc} = props
+   return(
+    <h1 onClick={globalFunc}>{name}</h1>
+   ) 
+
+}
+--------------------------------------------------------------------------------------------------------
+
+22-dars Form & validate 
+
+------------------------------------------------------------------------------------------
+Form.js
+
+import React from "react"
+
+export default class First extends React.Component{
+    state = {
+        firstName: "",
+        email: "",
+      }
+
+// bizning inputlarimiz eventga ega bo'ladi
+//[e.target.name] biz qaysi inputni bossak o'sha inputning name ning qiymati shu joyga kelib tushadi
+changeHandler =(e)=> {
+    this.setState({[e.target.name]: e.target.value})
+}
+//input o'zgarganda firstName ning qiymati inputning value siga teng bo'ladi
+
+Validate = ()=>{
+    if(this.state.firstName.length < 5){
+        alert("sizning useringiz 5 ta harfda uchun bo'lishi kerak")
+    }
+}
+validateEmail = () => {
+
+const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+if(!re.test(this.state.email)){
+    alert("Please write your email as like expample@gmail.com")
+}
+};
+// onChane - inputga narsa kiritilganda shu funksiya ishlaydi
+//inputning name juda muhum
+// onBlur biz inputni boskanimizdan keyin va inputdan focus ketganidan keyin, yani biz keyin boshqa joyni bossak bu function ishlaydi
+render(){
+    const {firstName, email} = this.state
+    return(
+        <div className="App">
+        <h1>Form & Validate</h1>
+          <input 
+            type="text"
+             name="firstName" 
+             id="name" 
+             placeholder="FirstName"
+             value={firstName}
+             onChange = {this.changeHandler}
+             onBlur = {this.Validate} />
+          <input 
+            type="text"
+             name="email" 
+             id="email" 
+             placeholder="example@gmail.com"
+             value={email}
+             onChange = {this.changeHandler}
+             onBlur = {this.validateEmail}/> 
+    </div>
+    )
+}
+
+}
+------------------------------------------------------------------------------------------
+App.js
+
+export default class App extends React.Component {
+ 
+  render(){
+
+    return(
+      <div className="App">
+        <Form />
+      </div>
+    )
+
+  }
+}
+------------------------------------------------------------------------------------------
+*****************************************************************************************
+
+24-dars 
+
+import React from "react";
+
+export default class Form extends React.Component {
+  state = {
+    userName: "",
+    email: "",
+    text: "",
+    select: "",
+    check: false,
+    gender: ""
+  };
+  change = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  changeCheck = (e) => {
+    this.setState({ [e.target.name]: e.target.checked });
+  };
+  ValidateName = () => {
+    if (this.state.userName.length < 5) {
+      alert("wrong username");
+    }
+  };
+  ValidateEmail = () => {
+    const regex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (!regex.test(this.state.email)) {
+      alert("wrong email");
+    }
+  };
+  render() {
+    const { userName, email, text, select, check } = this.state;
+
+    return (
+      <div>
+        <h1>FORM and VALIDATE</h1>
+        <input
+          type="text"
+          name="userName"
+          id=""
+          value={userName}
+          onChange={this.change}
+          onBlur={this.ValidateName}
+        />
+        <input
+          type="text"
+          name="email"
+          id=""
+          value={email}
+          onChange={this.change}
+          onBlur={this.ValidateEmail}
+        />
+        <textarea
+          name="text"
+          cols="30"
+          rows="3"
+          value={text}
+          placeholder="YOUR DEEP HEART WISH"
+          onChange={this.change}
+        ></textarea>
+
+        <select name="select" value={select} onChange={this.change}>
+          <option value="1">Bir</option>
+          <option value="2">Ikki</option>
+          <option value="3">Uch</option>
+        </select>
+        {/* checkbox da value o'rniga checked xususoyati bo'ladi, va boshlang'ich qiymatini falsega tenglab qo'yamiz */}
+        <label>
+          <input type="checkbox" name="check" checked={check} onChange={this.changeCheck} />
+          please follow us 😁❤️
+        </label>
+
+        <input type="radio" name="gender" value={"male"} onChange={this.change}/>Male
+        <input type="radio" name="gender" value={"female"} onChange={this.change} />Famale
+
+      </div>
+    );
+  }
+}
+*********************************************************************************************************************
+25-dars Amaliyot Form bilan
+
+import React from "react";
+
+export default class App extends React.Component {
+  state = {
+    email: " ",
+    check: false,
+  };
+
+  change = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  changeCheck = (e) => {
+    this.setState({ [e.target.name]: e.target.checked });
+  };
+  send = () => {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const trueEmail = re.test(this.state.email);
+    const checked = this.state.check;
+
+    if (!trueEmail) {
+      alert("Your email is not valid 🤔");
+      return;
+    }
+
+    if (!checked) {
+      alert("You hadn't accepted our terms yet 🤔");
+      return;
+    }
+
+    this.setState({ email: " ", check: false });
+    // bu formani reset qilish uchun . hamma narsa ok bo'lganidan keyin ishlidi
+
+    alert("Thank you so much for subscription ❤️😁");
+  };
+
+  render() {
+    const { check, email } = this.state;
+
+    return (
+      <div>
+        <h1>Form</h1>
+        <input
+          className="email"
+          type="text"
+          name="email"
+          value={email}
+          placeholder="Email"
+          onChange={this.change}
+        />
+        <br />
+        <label htmlFor="check">
+          <input
+            id="check"
+            type="checkbox"
+            name="check"
+            checked={check}
+            onChange={this.changeCheck}
+          />
+          I agree with all your user agreement
+        </label>
+        <br />
+        <button onClick={this.send}>Send</button>
+      </div>
+    );
+  }
+}
+**********************************************************************************************************
+26-dars React.createRef
+
+import React from "react";
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      visa: "",
+      cv: "",
+      name: "",
+    };
+
+    this.visaRef = React.createRef();
+    this.cvRef = React.createRef();
+    this.nameRef = React.createRef(); //shu orqali ref yaratib olamiz, va bularni tegishli inputlarga yozib qo'shishimiz shart
+  }
+  //createRef ozi object , va uning current degan hossasi bor
+  // biz ref ni ishlatishimiz uchun bizga constructor kerak bo'ladi
+  //bizni barcha input va boshqa elementlarimizda ref = {} degan atributi bor
+  // bizni setState 2 ta parametr qabul qiladi 1- qanday holat o'zgarishi, 2- callback
+
+  change = (e) => {
+    this.setState({ [e.target.name]: e.target.value }, () => {
+      if (this.state.visa.length === 16) {
+        this.cvRef.current.focus();
+      }
+      if (this.state.cv.length === 3) {
+        this.nameRef.current.focus();
+      }
+    });
+  };
+  componentDidMount() {
+    this.visaRef.current.focus();
+  }
+  //componentDidMount - buni ichiga sahifa ishga tushganda 1- ishlashi kerak narsa yoziladi
+  send = () => {
+    this.setState({ visa: "", cv: "", name: "" });
+    // bu formani reset qilish uchun . hamma narsa ok bo'lganidan keyin ishlidi
+    alert("Thank you so much ❤️😁");
+  };
+
+  render() {
+    const { name, visa, cv } = this.state;
+
+    return (
+      <div>
+        <h1>Form</h1>
+        <input
+          type="text"
+          name="visa"
+          placeholder="VISA number"
+          value={visa}
+          onChange={this.change}
+          ref={this.visaRef}
+        />
+        <input
+          type="text"
+          name="cv"
+          placeholder="cv"
+          value={cv}
+          onChange={this.change}
+          ref={this.cvRef}
+        />
+        <input
+          type="text"
+          name="name"
+          placeholder="Email"
+          value={name}
+          onChange={this.change}
+          ref={this.nameRef}
+        />
+        <button onClick={this.send}>Send</button>
+      </div>
+    );
+  }
+}
+**********************************************************************************
+27-dars boshqarib bo'lmaydigan forma   preventDefault()
+
+import React from "react";
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      visa: "",
+      cv: "",
+      name: "",
+    };
+    this.cvRef = React.createRef();
+    this.nameRef = React.createRef();
+  }
+  change = (e) => {
+    this.setState({ [e.target.name]: e.target.value }, () => {
+      if (this.state.cv.length === 6) {
+        this.cvRef.current.focus();
+      }
+    });
+  };
+  componentDidMount() {
+    this.cvRef.current.focus();
+  }
+  send = () => {
+    //this.state.cv.length < 5 if ga shunday shart bersa ham bo'ladi
+    if(this.cvRef.current.value.length < 5){
+      alert("your cv mustn't be less of 6")
+      return
+    }
+    this.setState({ cv: "", name: "" });
+    alert("Thank you so much ❤️😁");
+  };
+
+  prevent = (e)=>{
+    e.preventDefault();
+  }
+// shu orqali boshqarib bo'lmaydigan formani boshqaramiz 😁
+  render() {
+    const { name, cv } = this.state;
+
+    return (
+      <div>
+        <form onSubmit={this.prevent}>
+        <input
+          type="text"
+          name="cv"
+          placeholder="cv"
+          value={cv}
+          onChange={this.change}
+          ref={this.cvRef}
+        />
+        <input
+          type="text"
+          name="name"
+          placeholder="Email"
+          value={name}
+          onChange={this.change}
+          ref={this.nameRef}
+        />
+        <button onClick={this.send}>Send</button>
+        </form>
+      </div>
+    );
+  }
+}                
+***********************************************************************************
+
+43-dars function components
+
+import './App.css';
+// HOOK lar orqali biz stateni o'zgartira olamiz avval larni biz import qilib olishimiz kerak 
+// useState bizda oddiy bitta funksiya , u ikkita parametr qabul qiladi, 1-boshlang'ich holat, callback funksiya
+
+import React, { useState } from 'react';
+
+const App = () => {
+
+  // useState(0) - 0 bu boshlang'ich qiymat yani count = 0 
+  const [count , setCount ] = useState(0) // useState bizga array qaytaradi , shunga destrubtizatsiya orqali ichidagi xususiyatlarni olishda [] qaysdan foydalanamiz
+  
+  function incriment(){
+    setCount(count + 1) // bu class componentdagi setState({count: this.state.count + 1}) ga teng
+  }
+ // biz setCount ni buttonni ichida ham yoza olamiz, lekin uning uchun arrow function ishlatishimiz, kerak sababi , setCountga argument beramiz
+  function clear(){
+    setCount(0)
+  }
+
+  return(
+    <div>
+      <h1>Salom :{count} </h1>
+      <button onClick={incriment}>😁 incriment</button>
+      <button onClick={()=>{setCount(count - 1)}}>😤 decriment</button>
+      <button onClick={clear}>💠 clear</button>
+    </div>
+    )
+}
+export default App
+
+
+// ***** Class funcsiya orqali  
+// import React from 'react';
+
+// export default class App extends React.Component{
+//   constructor(props){
+//     super(props)
+//     this.state = {
+//       count: 0,
+//     }
+//     this.hisobla = this.hisobla.bind(this)
+//     this.teskari = this.teskari.bind(this)
+//     this.clear = this.clear.bind(this)
+//   }
+
+//   hisobla =()=>{
+//     this.setState({count: this.state.count + 1})
+//   }
+//   teskari = ()=>{
+//     this.setState({count: this.state.count - 1})
+//   }
+//   clear =()=>{
+//     this.setState({count: 0})
+//   }
+
+//   render(){
+//     return(`	
+//       <div>
+//           <h1>Salom : {this.state.count}</h1>
+//           <button onClick={this.hisobla}>😁 incriment</button>
+//           <button onClick = {this.teskari}>😤 decriment</button>
+//           <button onClick = {this.clear}>💠 clear</button>
+//       </div>
+//     )
+//   }
+// }
+*****************************************************************
+   HOOKs useState
+
+1- useState ning qiymatiga funksiya bersa ham bo'ladi
+2- setStateni biz if ning ichida ishlata olmaymiz
+
+best practise  
+setState((previous)=>{
+	return previous + 1  // oldingi qiymatiga 1 qo'shadi, to'g'ridan to'gri statedan olmaydi
+})
+
+function setDefaultValue (){
+	console.log("ishlayapdi ....")
+	return Math.random() * 100
+}
+
+1- usul  const [count, setCount] = useState( setDefaultValue() )  // bu usulda setDefaultValue har safar State o'zgarganda ishlaydi va log ga "ishlamoqda chiqadi" // bu  esa bizni sytga ortiqcha yuk
+
+2-usul   const [count, setCount] = useState( ()=> {
+return setDefaultValue()
+})  // bunda setDefaultValue birmarta ishlaydi , qachonchi 1- marta chaqirilganda 
+
+
+useState da massiv 
+const [state, setState] = useState({
+	name: "Farhod",
+	Number: 998911513412,
+	
+})
+
+function uploadState(){
+setState((prev)=>{
+	return{...prev, name: "Farhod Sotiboldiyev"}
+})
+}
+
+HOOKS useEffect  *********************************************************
+
+  const [position, setPositon] = useState({
+    x: 0,
+    y: 0,
+  })
+
+  useEffect(()=>{
+    window.addEventListener("mousemove", (event)=>{
+      setPositon({
+        x:event.clientX,
+        y: event.clientY})
+    })
+  }, [])
+
+return(
+	<h1> {JSON.stringify(position)} </h1>
+)
+
+*******************************************************************************************
+useForm hook 
+
+import { useState } from "react";
+
+const useForm = (initialState) => {
+  const [value, setValue] = useState(initialState);
+
+  return [
+    value,
+    (e) => {
+      setValue({
+        ...value,
+        [e.target.name]: e.target.value,
+      });
+    },
+  ];
+};
+
+export default useForm;
+-----------------------------------------------------------------
+import useForm from "./useForm";
+
+const Counter = () => {
+  const state = {
+    ism: "",
+    password: "",
+  };
+
+  const [value, handleChange] = useForm(state);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log(value);
+  };
+  return (
+    <form onSubmit={submitHandler}>
+      <input type="text" name="ism" value={state.ism} onChange={handleChange} />
+      <input
+        type="text"
+        name="password"
+        value={state.password}
+        onChange={handleChange}
+      />
+    </form>
+  );
+};
+export { Counter };
+
+
+*******************************************************************************************
+useFetch
+import {useState, useEffect} from "react"
+
+function useFetch(url) {
+   const [state ,setState] = useState({data: null, loading : true})
+
+   useEffect(()=>{    
+    fetch(url).then((data) => data.json())
+        .then((response) => {setState({data: response, loading: false})})
+   },[url])
+    
+    return state
+}
+
+export default useFetch;
+------------------------------------------------------------------
+import useFetch from "./useFetch";
+function App() {
+  const [data, loading] = useFetch("http://numbersapi.com/12");
+
+  console.log(data);
+
+  return <div>{loading ? <h1>Loading....</h1> : { data }}</div>;
+}
+
+export default App;
+
+*******************************************************************************************
+useMemo 
+
+Agar componentamizda o'zgarish bo'lmasa u componentni qayta render qilmaydi
+
+
+*******************************************************************************************
+
+44-dars Hook lar , live life cycle 
+
+import "./App.css"
+import Clicker from "./components/Clicker"
+import React, {useState , useEffect} from "react"
+
+const App = ()=>{
+
+  const [isClicker, setClicker] = useState(false)
+
+  useEffect( ()=>{
+    console.log("Render", isClicker);
+    
+    return ()=>{
+      console.log("Hello World");
+    }
+  }, [isClicker])
+
+  return(
+    <>
+      {/* <h1>React Application</h1> */}
+      <button onClick={()=>{setClicker(!isClicker)}}>Toggle Clicker</button>
+
+    {/* {isClicker ? <Clicker /> : ""} */}
+    {isClicker && <Clicker />}  
+      
+    </>
+  )
+}
+export default App
+
+//  {isClicker && <Clicker />} // bu if ga o'xshaydi , agar shart to'gri bo'lsa ishlaydi , agar false bo'lsa shunchaki bu kodni tashlab ketadi
+
+
+// componentDidMount(){} => sahifa birinchi ishga tushsa 
+    // useEffect(()=>{
+    //   console.log("Agar biz deps ga bo'sh massiv yozsak , useEffect componentDiDMount ga aylanadi [] bosh massiv degani bizni web saytga qaram degani ");
+    // }, [])
+
+
+// componentDidUpdate(){} => sahifada qandaydir o'zgarish bo'lsa
+    // useEffect(()=>{
+    //   console.log("bu use Effect");
+    // }, [isClicker]) agar biz deps ga stateni berib qo'ysak , useEffect bizda componentDidUpdate ga aylanadi  
+
+// componentWillUnMount(){} => sahifadan nimadur tag tugi bilan o'chib ketsa
+
+// Shu 3 ta narsa useEffect degan hook ni ichida 
+
+*****************************************************************************************
+ 46 - dars amaliyot timer 
+
+import React, { useEffect, useState ,useRef } from "react";
+import "./App.css";
+
+const App = () => {
+
+  // bu funksiya local storage dan malumot olish uchun, misol uchun count = 10 bo'lganda biz sahifani yangilasak , keyin ham bizga storagedan countni olib beradi, va uning qiymati 10 ligicha qoladi
+  function setDefaultValue(){
+    const userCount = localStorage.getItem("count")
+
+    return userCount ? +userCount : 0  // agar localStorage da count bor bo'lsa userCount  bizga number qilib qaytar , bo'lmasa 0 ni qaytar   
+  } // return yozganimiz uchun endi setDefaultValue funksiya , count ning qiymatiga teng
+
+  const [count , setCount] = useState(setDefaultValue()) //setDefaultValue bizga 1- 0ni qaytaradi keyin localStorage dagi malumotni qaytaradi
+  const [isCounting , setisCounting] = useState(false)
+  const timerIdReff = useRef(null)
+
+  function handleStart(){
+    setisCounting(true) // start ni bosganda true bo'ladi va pastda Start button yo'qoladi 
+    
+    timerIdReff.current = setInterval(()=>{
+      setCount((prev)=> prev + 1 ) //bu sintaksis orqali biz avvalgi qiymatiga 1 qo'shamiz shunda bu 2 3 4 5 shaklida o'sadi
+    }, 1000)
+  }
+  function handelStop(){
+    clearInterval(timerIdReff.current)
+    setisCounting(false) //stop button o'rniga start chiqarish uchun
+  }
+  function handleReset(){
+    setisCounting(false)
+    setCount(0)
+    clearInterval(timerIdReff.current)
+  }
+
+  useEffect(()=>{
+    console.log("Updated");
+    localStorage.setItem("count", count)
+  }, [count])
+
+  return (
+    <div className="main"> 
+      <h1>React Timer:{count} </h1>
+    {
+      !isCounting ? (
+        <button className="succes" onClick={handleStart}>Start</button>
+      ) : (
+        <button className="dander" onClick = {handelStop}>Stop</button>
+      )
+    }
+    
+    <button className="secondary" onClick={handleReset}>Reset</button>
+
+    </div>
+  );
+};
+export default App;
+
+****************************************************************************************
+
+50 - dars HOOKS 
+
+Style larni js dan berish mumkun ‼️‼️‼️‼️‼️‼️
+const styles = {
+    color: "blue",
+    background: "grey"
+  };
+
+return(<p style={styles}>Farhodjon Shuhratovich</p>)  
+
+yokida :
+
+return(<p style={{background: "red", color: "blue"}}> Ikkinchi usul </p>) 
+
+------------------------------------------------------------------
+useCallBack - bu callback funksiyaga o'xshab qachonki biz chaqirganda ishlaydi , boshqa vaqt esa bizni buyurug'imizni kutadi
+
+// exp : addEventListener("click" , callback)
+  const call = useCallback(()=>{
+    return new Array(count).fill("")
+  }, [count])  // bunda ham deps bor 
+
+useLayoutEffect
+
+const[count, setCount] = useLayoutEffect(0)
+
+useLayoutEffect(()=>{
+	if(count === 0){
+		setCount(10*Math.random()*200)
+	}
+}, [count])
+
+retun(
+	<button onClick = {()=>{setCount(0)}}> </button>
+)
+useEffect -> asynx ishlaydi, yani birinchi count 0 bo'ladi, keyin useEffect uni o'zgartiradi, kenin button bosilsa uni yana 0 ga tenglaydi
+useLayoutEffect -> sinxron ishlaydi , yani bu button bosilganda 0 ga tenglamay , boshqa songa tenglab beradi 
+
+*****************************************************************************
+HOOKS   createContext useContext hook lari
+
+bu hook bizga malumotlarni props orqali yuborishning o'rniga yengilroq yo'lini yaratib beradi
+yani biz malumotni 
+bobo > dada > farzand > nevara ko'rinishida emas
+to'gridan to'g'ri bobo > nevara ga berib yubora olamiz
+
+1- App.js da 
+	import React from "react"
+	export const NomiContext = React.createContext()
+
+2- Hamma coponentlarni NomiContext.Provider ga o'rab olamiz
+va u value qabul qiladi, uning valuesiga propsdan bermoqchi bo'lgan malumotimizni beramiz
+	
+function App(){
+
+	const [count, setCount] = useState(0)
+
+		return(
+			<NomiContext.Provider value={count}>
+				<Hearder />
+				<Main />
+				<Footer />
+			<NomiContext.Provider />
+		)
+	}
+
+3- Main.js da 
+
+import {useContext} from "react"
+import NomiContext from "./App"
+
+const count = useContext(NomiContext)
+
+function Main(){
+	return(
+		<h1>{count}<h1>
+	)
+}
+
+-------------------------------------
+import React, { useState } from "react";
+import Main from "./components/Reducer";
+
+export const MyContext = React.createContext();
+
+const App = () => {
+  const [count, setCount] = useState(10);
+  function inc() {
+    setCount((prev) => {
+      return prev + 1;
+    });
+  }
+
+  return (
+    <MyContext.Provider value={count}>
+      <div>
+        <button onClick={inc}>Qo'shish</button>
+      </div>
+      <Main />
+    </MyContext.Provider>
+  );
+};
+export default App ;
+-------------------------------------------------------
+import { MyContext } from "../App"
+import { useContext } from "react"
+const Main = ()=>{
+
+const count = useContext(MyContext)
+  return(
+    <h1>Salom: {count}</h1>
+  )
+}
+export default Main
+
+*************************************************************************************************************************
+52 -dars useReducer
+
+
+useReducer - ko'p statelar bilan ishlash uchun qulay
+
+Buning uchun bizga 
+1- Reducer nomli Funksiya kerak // buni yangi komponentga yozish tavsiya etiladi
+   
+   const Reduce = (state, action)=>{
+    switch (action.type) {
+        case "plus":
+            return {
+                ...state,   // statedagi boshqa o'zgarishi kerak bo'lmaganlarini shunday qaytaramiz 
+                red: state.red + 10  // oldingi state dagi redga 10 qo'shadi va bizga qaytaradi
+            }; 
+        case "minus":
+            return{
+               ...state,
+               red: state.red - 10
+            };        
+    }
+}
+
+export default Reduce     
+
+2- App.js ni ichida
+
+import Reduce from "./components/Reduse";
+
+function App() {
+
+const [{red, green, blue} , dispatch] = useReducer(Reduce, {
+  red: 125, 
+  green: 125, 
+  blue:125});
+
+// {red, green, blue} , dispach -funksiya   = useReducer(O'zimizni Reduceni beramiz, {statening default qiymatlari})
+// [state, dispach ] = useReducer(Reduce, {})
+//dispatch - funksiya u parametriga action qabul qiladi, 
+//dispatch(action)  buni bunday dispatch({type, layout})
+
+return(
+  
+  <div style = {{background: `rgb(${red}, ${green}, ${blue})`}}>
+      <button onClick={()=>{dispatch({type: "plus"})}}>+</button>
+      <button onClick={()=>{dispatch({type: "minus"})}}>-</button>
+ )
+}
+
+Amaliyot -----------------------------------------------------------------------------------------
+import React, {useReducer} from 'react'
+
+import Recude from './components/Reduse'
+
+const App = ()=>{
+
+const [{a}, dispach] = useReducer(Recude, { a:10 })
+		//{a} = state , distributatsiya orqali ochib olingan
+		//dispatch - funksiya , parametr qabul qiladi , unga action yoziladi 
+		//Reduce  = bizning Componentdan kelgan reducer-funksiya ,
+		// {a: 10} initial state , boshlang'ich qiymat
+
+  return(
+    <div>
+      <h1>{a}</h1>
+      <button onClick={()=>{ dispach({type:"plus"})}}>Plus</button>
+      <button onClick={()=>{ dispach({type:"minus"})}}>Minus</button>
+    </div>
+  ) 		// onClick bo'lganda dispatch funksiya ishlaydi va type: "qiymat" ni oladi , bu Reducer Componentga boradi, case "qiymat" ga teng holatdagi funksiya ishlaydi 
+}
+
+export default App
+Reduse component --------------------------------------------------------
+
+
+const Recude = (state, action)=>{
+//switch actionni typeni kuzatadi .
+switch (action.type) { 
+    case "plus":
+     return{
+        ...state,
+        a: state.a * 10
+     }   
+     case "minus":
+        return{
+           ...state,
+           a: state.a / 10
+        }
+
+    default:
+        break;
+}
+}
+export default Recude
+
+*********************************************************************************************
+55-dars  Hooklardan foydalanish shartlari rules of hooks
+ ISHLATMA  ‼️‼️  
+1- If ni ichida 
+	if(count ===0){
+		const [value, SetValue] = useState(0)
+	}
+2- forEach map hullas loop larda           
+3- nested funcsion ichki funksiyalarda 
+4- Class componentalarda 
+
+ISHLAT 
+1- Agar shart kerak bo'lsa Hook ichida shart ishlat
+useEffect(()=>{
+	if(name !== ""){
+		localStorage.setItem("formData", name )
+	}
+})
+*********************************************************************************************
+
+56 -dars
+
+kutubxonaning eski versiyasini o'rnatish
+
+npm i nomi@5.01
+npm install nomi@5.01
+
+
+****************************************************************************************************
+72-dars SPA spa dasturi
+
+spa - single page application 
+
+React router dom  - reactning tashqi kutubxonasi 
+Bu bizga sahifani yangilamasdan malumotlarni olish imkonini beradi
+reactrouter.com
+--------------------- eski yo'li----------------------------------------------------
+
+1- npm i react-router-dom@5.2.0  - loyihada 5.2.0 versiyasidan foydalanilgan
+
+2- Biz react routerdan foydalanishimiz uchun App ni 
+
+BrouzerRouterga o'rab olamiz
+<BrouzerRouter>
+	<App /> 
+<BrouzerRouter/>
+
+Buning biroz qulayroq yo'li bor
+import {BrouzerRouter as Rouset} from "react-router-dom"
+	<Router>
+		<App /> 
+	<Router/>
+
+3- App da yani Qayerda Routerni ishlatish kerak bo'lsa usha yerda
+import {Route , Switch} from "react-router-dom"
+
+Switch - biz barcha Route larni switchga o'rab olamiz 
+
+<div>
+	<Header />
+		<Main>
+			<Switch >
+				<Route exact path"/" component = {HomeComponent} />  // bu komponent asosiy , yani hamma komponetlar bilan chiqib turadi . bu oldini olish uchun exact dan foydalanamiz
+				<Route path"/about" component = {AboutComponent} />
+				<Route path"/contact"/>
+					<Contact />  // bu eski usuli 
+				<Route />
+				<Route component = {NotFoundComponent} /> //Bu default page bo'ladi , agar user bizda yo'q pagega kirmoqchi bo'lsa , avtomatik shu NotFound Component ko'rsatiladi
+			<Switch >
+		<Main />
+	<Footer />
+<div/>
+
+4- Link to
+Header Componentda 
+Biz oddiy holatda a href dan foydalanardir, React routerda esa Link dan
+import {Link} from "react-douter-dom"
+<div>
+	<Link to = "/" >Home <Link / > 
+	<Link to = "/about" >About <Link / >
+	<Link to = "/contact" >Contact <Link / >
+<div />
+
+
+5- Hooks
+
+UseParams ,useHistory, useLocation, useRouteMatch
+
+<Main>
+	<Switch >
+		<Route exact path"/" component = {HomeComponent} />  // bu komponent asosiy , yani hamma komponetlar bilan chiqib turadi . bu oldini olish uchun exact dan foydalanamiz
+		<Route path"/about" component = {AboutComponent} />
+		<Route component = {NotFoundComponent} /> //Bu default page bo'ladi , agar user bizda yo'q pagega kirmoqchi bo'lsa , avtomatik shu NotFound Component ko'rsatiladi
+		<Route path = "/movies/:id" component = {Movies}/> Bu orqali Movies dagi kerakli malumotni olishimiz mukun  
+	<Switch >
+<Main />
+
+Movies componentda
+import {useParams, useHistory} from "react-router-dom"
+
+const history = useHistory() bu object, unin gichida goBack, goForward va yana bir qancha metodlari bor
+const value = useParams() bu bizga object qaytaradi, va  u object ichida faqatgina id bo'ladi holos
+
+<div >
+	<h1> Movie , {value.id}<h1/>
+	<button onClick={history.goBack}>Go back </>
+<div >
+
+-------------- Yangi usuli------------------------------------------------------------------
+
+npm i react-router-dom 
+index.js da 
+
+import {BrouserRouter} from "react-router-dom"
+
+<BrouzerRouter>
+	<App /> 
+<BrouzerRouter/>
+
+app.ja da
+import {Route, Routes} from "react-router-dom"
+
+<Header />
+<div>
+	<Routes >
+		<Route path"/" element={<Home />}/> 
+		<Route path"/login" element={<Login />} />
+		<Route path"/register" element={<Register />} />
+	<Routes >
+<div />
+
+header.js da
+
+<Link to={"/"}> Home</Link>
+<Link to={"/login"}> Login</Link>
+<Link to={"/register"}> Register</Link>
+***********************************************************************************************
+
+animation animatsiya transition group
+
+#1 npm install react-transition-group
+	import { CSSTransition, TransitionGroup } from "react-transition-group";
+
+
+#2 styleTransition.css ga stylelarni yozib Componentga ulab qo'yamiz 
+	.remove-btn {
+  		margin-right: 0.5rem;
+	}
+	.item-enter {
+ 		 opacity: 0;
+	}
+	.item-enter-active {
+		  opacity: 1;
+ 		 transition: opacity 500ms ease-in;
+	}
+	.item-exit {
+		  opacity: 1;
+	}
+	.item-exit-active {
+  		opacity: 0;
+ 		 transition: opacity 500ms ease-in;
+	}
+
+#3    Item (li) ni CSSTransitionga o'raymiz
+	ItemWrapperni (ul) TransitionGroupga o'rab qo'yamiz 
+
+#3-1
+
+#3-2
+const renderNewsList = (arr) => {
+
+    return arr.map(({ id, ...props }) => {
+      return (
+        <CSSTransition key={id} timeout={500} classNames="item">
+          <NewsListItem  {...props}  onDelete={()=>{onDelete(id)}}/>
+        </CSSTransition>
+      )
+    }).reverse()
+  };
+
+  const element = renderNewsList(filteredNews);
+
+  return <TransitionGroup component="ul"> // componentda wrapper qanday html element ekanligini aytib qo'yamiz
+    {element}
+  </TransitionGroup> 
+
+********************************************************************************************
+
+react toastify tost 
+ 1- npm i react-toastify , npm i react-toastify@4.1
+           
+            npm uninstall react-toastify --save
+
+            Then, reinstall it with the version 4.1
+
+            npm i react-toastify@4.1
+
+ 2-ishlatish
+
+#1- loyiha App.js da
+import {ToastContainer} from "react-toastify"
+
+return(
+    <div>
+        <ToastContainer />
+        <Header />
+        <Shop />
+    </div>
+)
+
+#2- Loyiha index.js da
+import 'react-toastify/dist/ReactToastify.css';
+
+#3- Loyiha Shop.js da 
+ import {toast} from "react-toastify"
+
+endi buni funksiyamiz ichida ishlatamiz
+
+const addtoBacket =(item)=>{
+ .......
+
+toast('Hello World');
+toast.success('Successfully created!');
+toast.error('This is an error!');
+toast.custom(<div>Hello World</div>);
+toast.loading('Waiting...');
+}

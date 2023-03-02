@@ -1,0 +1,699 @@
+#1- kerakli Extencion google Chrome
+
+ Redux devTools 
+
+Buni ishlatish uchun loyihamizdagi createStorening 2-parametriga quydagin yoz
+	
+	1- ga kir:    https://github.com/zalmoxisus/redux-devtools-extension#usage
+	2- copy qil:  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	3- CreateStore ning 2-parametriga shuni qo'y
+
+Reduxni o'rnatish
+	npx create-react-app . 
+	-npm install redux react-redux
+	-npm i @reduxjs/toolkit
+
+-----------------------------------------------------------------------------
+redux bilan ishlash
+
+1-index.jsda
+	1-store yarat, va uni Providerdan berib yubor, storega esa reducerni yoz parametriga
+	2-App ni Providerga o'ra
+
+2-redux papkada reducer yarat , u yerda initialState ham bo'ladi
+	reducer(state = initialState, action){
+		switch(action.type){}
+	}
+
+3-Counter component yarat 
+	1-useSelector , useDispatch ni import qil react-redux dan
+	
+	const counter = useSelector(state => state.value)
+	const dispatch = useDispatch()
+
+	<button onClick={()=>{dispatch({type: "INCREMENT"})}} > INCREMENT + </button>
+	<button onClick={()=>{dispatch(dec())}} > DECREMENT - </button>
+	
+***********************************************************************************************************
+Connect va useSelector farqi
+
+1- connect
+import React from 'react';
+import { connect } from 'react-redux';
+// import {inc , dec, random} from "../redux/actions"
+import * as actions from "../redux/actions"; // actions bizga object qaytaradi
+import { bindActionCreators } from 'redux';
+// bu yerdagi propslar Appdan kelgani yo'q , ularni connectni parametridagi 2ta funksiya qaytaradi
+function Counter({counter, name, inc, dec, random}) {
+    return (
+        <div>
+            <p>Created by <b>{name}</b></p>
+            <h1>Counter : {counter} </h1>
+            <button onClick={inc} className='btn btn-primary'>Increment +</button>
+            <button onClick={dec} className='btn btn-danger'>Decrement -</button>
+            <button onClick={random} className='btn btn-info'>Random ⌛</button>
+        </div>
+    );
+}
+//state bu reducerdagi initialState ga teng 
+const mapStateToProps = (state)=>{
+    return {
+        counter : state.value,
+        name : state.name
+
+    }
+} // bular bizga props qaytaradi
+
+const mapDispatchToProps = (dispatch)=>{
+    
+    const {inc, dec, random} = bindActionCreators(actions, dispatch)
+// 1-inc = props dagi , 2- inc actions dagi
+//buni qisqacha return{inc, dec, random} deb yozib qo'ysa ham bo'ladi, sababi nomlari bir- hil ligi uchun
+    return{
+        inc: inc,
+        dec: dec,
+        random: random,
+    }
+}// bular bizga props qaytaradi
+export default connect(mapStateToProps, mapDispatchToProps) (Counter);
+// 1- react va redux ni connect orqali uladik , va keyin Counterni export qildik
+
+//-----------------------------------------------------------
+//maximal qisqartiramiz
+
+// const mapDispatchToProps = (dispatch)=>{
+// return bindActionCreators(actions, dispatch)  
+//  }
+
+//  mapDispatchToProps ni connectga qo'yganimiz bilan u bizga object qaytarib beradi
+// export default connect(mapStateToProps, actions) (Counter);
+
+//-----------------------------------------------------------
+
+// bindActionCreators ishlatmasak
+// import {inc , dec, random} from "../redux/actions"
+
+// return{
+//     inc: ()=>dispatch(inc())
+//     dec: ()=> dispatch(dec())
+//     random: ()=>{
+//      const randomNumber = Math.floor(Math.random() * 10)
+//      dispatch(random(randomNumber))        
+//      }
+// }
+
+
+
+2- useSelector
+
+import {inc, dec, random} from "../redux/actions"
+import {useSelector, useDispatch} from "react-redux"
+const Counter = ()=>{
+
+    const counter = useSelector(state => state.value)
+    const dispatch = useDispatch()
+    return(
+        <div>
+            <h1>Counter : {counter}</h1>
+            <button onClick={()=>{dispatch(inc())}} > INCREMENT + </button>
+            <button onClick={()=>{dispatch(dec())}} > DECREMENT - </button>
+            <button onClick={()=>{dispatch(random())}} > RANDOM ⌛</button>
+        </div>
+    )
+
+}
+export {Counter}
+***********************************************************************************************************	
+---------------------------------------------------------------------------
+
+redux - state managment 
+statelari props orqali yuborishni oldini oladi. 
+
+1- Hamma componentlarimizni bitta qutiga solamiz, UI 
+2- State ni bitta qutiga solamiz  STORE - 
+3- Store va UI ni bir biriga bog'lab qo'yamiz
+4- Reducer - Storeda, eski state ni yangisiga o'zgartiradi
+5- Dispatch - Stateni qanday o'zgarishi kerakligini aytadi
+
+Ui dagi Dispatch buyurug' beradi, stateni qanday o'zgarishi kerakligiga, 
+Reducer esa shu buyrug'ni state da bajaradi
+
+reduxni o'rnatish 
+npm install redux react-redux 
+----------------STORE-----------------------------
+import {createStore} from "redux"
+
+const initialState = {value : 0, name : "Farhod"}
+
+const reducer = (state = initialState, action) =>{
+	switch (action.type) {
+		case "INCREMENT": 
+		return {
+			...state,
+			value : state.value + 1
+		}
+		case "RANDOM"
+		return {
+			...state,
+			value: state.value * action.payload 
+		}
+		// bu yerga biz ortiqcha funksiyalar yoza olmaymiz , bu yerda biz haqatgina state ni o'zgartiramiz holos
+		// agar qanday dir qo'shimcha funksiyalar kerak bo'lsa ular payloaddan kelishi kerak
+		
+		case "DECREMENT" :
+		return {
+			...state,
+			value : state.value - 1
+		}			
+			
+		default :
+		return state ;
+	}
+}
+
+const store = createStore(reducer)
+// subscribe = kuzatuvchi , bizni state har safar o'zgarganda bu metod ishlaydi
+store.subscribe(()=>{
+	console.log(store.getState())  // getState bu metod , bizga state ni olib beradi
+})
+
++ button bosilsa:
+	 store.dispatch({type: "INCREMENT"})
+
+- button bosilsa
+	const dec = ()=>({type: "DECREMENT"})	
+	store.dispatch(dec())  // biz typeni tashqi funksiyaga olib chiqsak ham bo'ladi
+
+random button bosilsa:
+	const randomValue = Math.floor(Math.random() * 10);
+	store.dispatch({type: "RANDOM", payload : randomValue})
+-------------------------------------------------------
+
+redux papka > 1- reducer.js
+		  2- actions.js
+
+------------------------------------------------------------------------
+Action.js ning ichida
+	export const inc = ()=>({type: "INCREMENT"})
+	export const dec = ()=>({type: "DECREMENT"})
+	export const random = ()=>({type: "RANDOM", payload: number})
+--------------------------------------------------------------------------
+reducer.js da
+
+const initialState = {value : 0, name : "Farhod"}
+
+const reducer = (state = initialState, action) =>{
+	switch (action.type) {
+		case "INCREMENT": 
+		return {
+			...state,
+			value : state.value + 1
+		}
+		case "RANDOM"
+		return {
+			...state,
+			value: state.value * action.payload 
+		}
+		case "DECREMENT" :
+		return {
+			...state,
+			value : state.value - 1
+		}			
+			
+		default :
+		return state ;
+	}
+}
+export {reducer}
+-------------------------------------------------------
+Index.js
+import * as actions from "./redux/actions"
+import reducer from ".redux/reducer"
+import {createStore, bindActionCreators} from "redux"
+
+const store = createStore(reducer)
+const { dispatch, subscribe, getState } = store
+
+subscribe(()=>{
+	counter.textContent = getState.value
+})
+
+const {inc, dec, random} = bindActionCreators(actions, dispatch) // actionsda bizni redux papkadagi actionslarimiz bo'ladi
+
++ button bosilsa:
+	 addEventListener("click", inc)
+
+- button bosilsa	
+	addEventListener("click", dec)
+
+random button bosilsa:
+	
+addEventListener("click", ()=>{
+	const randomValue = Math.floor(Math.random() * 10);
+	random(randomValue)
+})
+
+Redux - toolkit 
+
+npm i @reduxjs/toolkit
+
+
+*************************************************************************
+LOYIHA news
+
+#1- npm i sass  - bu sass da ishlay olishimiz uchun
+    index.scss loyihada biz scss dan foydalandik
+    uni index.jsda import qilamiz
+
+#2 -json server
+    1- npm install -g json-server
+    2- db.json yarat {"posts": [
+        {"id": 1, "title": "first post"},
+        {"id": 2, "title": "second post"},
+    ]}
+
+    3- npx json-server db.json --port 3001
+
+
+#3- npm i concurrently - bu bitta komanda bilar ikkita jarayonni boshlash uchun
+      bu majbur emas, lekin biz loyiha bilan ishlaganimizda biz 1- reactni keyin 2- db.jsonni ishga tushirishimiz kerak 
+        
+        "start":"concurrently \"command1 arg\" \"command2 arg\""  - buning ishlash tartibi
+
+      "concurrently \"react-scripts start\" \"npx json-server db.json --port 3001\"",
+
+      npx json-server db.json --port 3001
+
+          1- packagejson ga kirib "start" : ga quyidagini yozamiz
+            "concurrently \"react-scripts start\" \"npx json-server db.json --port 3001\"" 
+          2- shunda 
+            http://localhost:3000         loyihani ko'rsatadi
+      # npm start - loyihani va db.jsonni locolhostda ochib beradi      
+
+#4 npm i bootstrap 
+    1- index.scss ga kir , eng yuqoriga yoz
+        @import "bootstrap/dist/css/bootstrap.min.css"
+
+#5 npm i classnames uuid  
+    classnames - tashqi kutubxona , classlarga qandaydir shartlar berish uchun ishlatiladi
+    uuid - tashqi kutubxona, bizga tayyor id larni yaratib beradi
+
+#5-1
+    import classNames from "classnames"
+    const btnClasses = classNames("btn", className, {
+        "active" : name === activeFilter
+    })
+    //btn - 1-parametn har qanday holatda buttonda btn class bo'ladi
+    2-className - bu ham har doim bo'ladi, 2- klass vergul bilan yoziladi
+    3-parametr - qandaydir shart true bo'lsa keyin qo'shilaid 
+    <button className={btnClasses}>send</button>
+
+#5-2 uuid ni ishlatish
+    import { v4 } from "uuid";
+        key={v4()}
+
+
+#6 - bizni reduser doimo toza bo'lishi kerak
+      bizda reducerdagi state da filteredNews array bor edi, va biz har qanday o'zgarish bo'lganda uni ham 
+      uzundan uzoq o'zgartira yotgandik, uni to'g'irlash mumkun 
+
+      --NewsList.js da 
+      const filtersLoading  = useSelector((state) => state.filtersLoading);
+        const filteredNews = useSelector(state => {
+          if(state.activeFilter === "all"){
+            return state.news
+          }else{
+            return state.news.filter(s => s.category === state.activeFilter)
+          }
+        })
+
+      -- reducerda   bizga endi statedagi filteredNews kerak emas , chunki uni filteredNews.js da yaratib oldik
+
+          filteredNews : state.activeFilter === "all" ? action.payload : action.payload.filter(s => s.category === state.activeFilter),
+
+      endi biz reducerdan bunday ko'dlarni tozalab yubora olamiz
+
+
+#7 - xatolardan qochish 
+      Xato : bizda malumot qaysidir categoriyada yo'q bo'lsa, error chiqishi kerak edi,
+      Lekin Yangilik bor category ga o'tsak ham error yo'q bo'lmay qolgandi.
+      sabagi uni CSSTransition ga o'ramaganmiz, shunga u keraksiz vaqtda ham opasity si 1 bo'lib turavergan
+
+      const renderNewsList = (arr) => {
+          if (arr.length === 0) {
+            return <Error />;
+          } //<h4 className="text-center mt5">News doesn't exists</h4>
+
+          return arr.map(({ id, ...props }) => {
+            return (
+              <CSSTransition key={id} timeout={500} classNames="item">
+                <NewsListItem  {...props}  onDelete={()=>{onDelete(id)}}/>
+              </CSSTransition>
+            )
+          }).reverse()
+        };
+      Yechim : 
+      if (arr.length === 0) {
+            return (
+              <CSSTransition timeout={500} classNames="item">
+                <Error />
+              </CSSTransition>
+            )
+          }
+#8 reducerni qisimlarga bo'laklarga bo'lishi
+
+      1- index.js da 
+          import { createStore, combineReducers } from "redux";
+          import news from "./redux/reducers/news";
+          import filter from "./redux/reducers/filters";
+
+      const store = createStore(combineReducers({news, filter}))
+          bunday keyin store bizga object qaytaradi
+
+      2- NewsAddForm da
+        const {filters, filtersLoading } = useSelector(state => state.filter)
+      endi selector orqali olganda etiborli bo'lasan
+
+      3- NewsList.js da
+          const filtersLoading  = useSelector((state) => state.filter.filtersLoading);
+          const filteredNews = useSelector(state => {
+          if(state.filter.activeFilter === "all"){
+            return state.news.news
+          }else{
+            return state.news.news.filter(s => s.category === state.filter.activeFilter)
+          }
+        })
+      Buning boshqa usuli bor, shundan foydalanish tavsiya beriladi   
+
+          selector qilishning yaxshi usuli
+      #8-3-1-
+          npm i reselect -D 
+      
+      3-2 NewsList.js da  qayerki , ikki xil statelardan malumot olish kerak bo'lgan joy
+          
+          import {createSelector} from "reselect"
+
+          const filteredNewsSelector = createSelector(
+          (state) => state.filter.activeFilter, //1-param
+          (state) => state.news.news, //2-param
+      //   1-param  2-parm
+          (filter , news) => {
+            if (filter === "all") {
+              return news;
+            } else {
+              return news.filter(
+                (s) => s.category === filter
+              );
+            }
+          }
+        )
+        
+        const filteredNews = useSelector(filteredNewsSelector);
+  
+#9 - enhancer funksiya - bu bizning storeni kuchaytirib beradi , Yani 
+      biz dispatch({type : "DELETE-NEWS"}) deb  deipatchda object berishimiz shart edi
+      agar biz index.js da enhancer funksiya yozzak , keyin biz dispatchga string malumot bersak kifoya, va vizga actions kerak bo'lmaydi
+
+      enhancer - bizga object qaytaradi
+
+      enhancer - kuchaytirgich , yaxshilovchi
+      enhancer - stringni object ga aylantirib beradi
+
+      index.js da 
+      //enhancer ga qandaydir parametr keladi, va u bizga qandaydir argument qaytaradi
+      
+      const enhancer = (createStore)=>(...arg)=>{
+        const store =createStore(...arg);
+        const oldDispatch = store.dispatch; //dispatchni kopiya qilib olamiz
+        store.dispatch = (action) =>{
+          if(typeof action === "string"){
+            return oldDispatch({type : action}) // agarda dispatchga string yozsak uni object qilib olsin
+          }
+          return oldDispatch(action); // boshqa hollarda o'zini default holicha ishlay versin
+        }
+        return store
+      }
+
+      const store = createStore(combineReducers({news, filter}),enhancer)
+          // createStore() 2 ta parametr oladi holos, 1- reducer , 2- qandaydi qo'shimcha funksiyalar
+
+#10 createStorening qabul qiladigan parametr sonini oshirish
+    compose - dan tashkil qilmoq
+    import {compose} from "redux"
+        compose createStore ning 2-parametrini kengaytirib beradi
+    const store = createStore(reducer, compose(enhancer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+
+#11 - middleware - ko'prik, dastur va baza o'ttasidagi
+middleware - bizga funksiya qaytaradi
+      import {applyMiddleware, compose} from "redux"
+
+      //  store={getState, dispatch} , next = dispatch
+
+      const middleware = (store) => (next) =>(action)=> {
+          if(typeof action === "string"){
+            return next({type: action})
+          }
+          return next(action)
+        }
+
+      const store = createStore(combineReducers({news, filter}), compose(applyMiddleware(middleware), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+
+
+#12 redux thunk - bizdagi action dagi funksiyalar bizga object qaytaradi, thunkdan foydalansak esa , ular bizga funksiya qaytarib bera oladi
+Natijada biz hamma funksiyalarimizni , actionga chiqrib qo'yishimiz mumkun, 
+bu bizni kodlarimizni pro darajaga ko'taradi
+    ReduxThunk - bu tayyor middleware  
+
+    #12-1 npm i redux-thunk -D
+        npm i redux-thunk@2.4.0 -D
+    #12-2 index.js 
+        import ReduxThunk from "redux-thunk"
+
+va applyMiddleware ni ichida uni ulab olamiz
+const store = createStore(combineReducers({news, filter}), compose(applyMiddleware(ReduxThunk ,middleware), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+
+---oddiy action - object qaytaradi
+export const activeFilterChanged = (filter) => {
+  return ({ type: "ACTIVE-FILTER-CHANGED", payload: filter, })
+};
+
+--- thunk funksiya qaytaradi
+export const activeFilterChanged = (filter) =>(dispatch)=> {
+setTimeout(()=>{
+     dispatch({ 
+       type: "ACTIVE-FILTER-CHANGED", 
+       payload: filter 
+   })
+   }, 2000)
+ };
+
+
+-----------------------------------------------------------------------------
+toolkit bilan ishlash
+
+redex-toolkit 
+	npx create-react-app . 
+	-npm install redux react-redux
+	-npm i @reduxjs/toolkit
+
+
+configureStore  - store yaratadi 
+
+createReducer
+createAction 
+createSlice  => bizga action va reducerni birlash tirib beradi
+
+#1- storeni tashqi faylga olib chiqish (ixtiyoriy)
+  import news from "./reducers/news";
+  import filter from "./reducers/filters";
+  // import ReduxThunk from "redux-thunk" // reduxThunk redux-toolkit ni ichida bor, u get defaultMiddleware deb  chaririladi
+  import { configureStore} from "@reduxjs/toolkit";
+  import { middleware } from "../middleware/middleware";
+
+  export const store = configureStore({
+      reducer: {news, filter},
+      middleware:(getDefaultMiddleware)=>getDefaultMiddleware().concat(middleware), // default middlewareni oladi, va unga o'zimizni middlewareni ham qo'shib qo'ydik
+      // middleware: [ReduxThunk ,middleware], // bu bizda array qabul qiladi
+      devTools: process.env.NODE_ENV !== "production" , // bu default sozlama, yani saytni hostga qo'yganimizdan keyin, agar userlarda redux DewTools bo'lsa , ularga bizni saytdagi actionlarni ko'rsatma 
+      enhancers : [] // enhancer ham middleware ga o'xshab arrayda yoziladi
+  })
+
+#2- index.js da storeni import qilib olsang bas
+
+#3 - createAction  action.jsda
+  qachonki createAction bilan ishlaganimizda biz payload berishga majbur emasmi, bizga createAction ni o'zi avtomatik , reducerda olib ola veradi
+  
+  import { createAction } from "@reduxjs/toolkit";
+
+  export const newsFetching = createAction("NEWS-FETCHING")
+  export const newsFetched = createAction("NEWS-FETCHED")
+  export const newsFetchingError = createAction("NEWS-FETCHING_ERROR")
+  export const newsCreated = createAction("NEWS-CREATED")
+
+#4 - nanoid redux-toolkit da tayyor bor, uuid ni o'rniga
+  import { createAction } from "@reduxjs/toolkit";
+  <div key={nanoid()}></div>
+
+#5 - createReducer 
+  news.js da
+import { createReducer } from "@reduxjs/toolkit"
+import { newsFetched,newsDeleted, newsFetching, newsFetchingError, newsCreated } from "../actions"
+//  biz createReducer bilan ishlashimiz uchun actionlarimizni import qilishimiz kerak
+// biz createReducer ishlatishimiz uchun bizni actionlarimiz createActionda yaratilgan bo'lishi kerak
+
+const initialState = {
+    news: [],
+    newLoadingStatus: "none",
+}
+    const news = createReducer(initialState, builder =>{
+        builder
+            .addCase(newsFetching, (state, action) =>{
+                state.newLoadingStatus = "loading" // bu yerda biz ...state qilishimiz, shart emas, faqatgina o'zgarishi kerak narsani yozamiz
+            })
+            .addCase(newsFetched, (state, action)=>{
+                state.news = action.payload
+                state.newLoadingStatus ="none"
+            })
+            .addCase(newsFetchingError, (state)=>{
+                state.newLoadingStatus = "error"
+            })
+            .addCase(newsCreated, (state, action)=>{
+                state.news = state.news.push(action.payload)
+            })
+            .addCase(newsDeleted, (state, action)=>{
+                state.news = state.news.filter(s => s.id !== action.payload)
+            })
+            .addDefaultCase(()=>{}) // agar hech biri bo'lmasa shunchaki bo'sh callback yozib qo'yamiz
+    })
+---------------2- sintaksis ----------------------------------
+Lekin bu usulni faqat javaScript da ishlata olamiz, typescript da esa yo'q
+
+    const news = createReducer(initialState, {
+        [newsFetching] : state=>{state.newLoadingStatus = "loading"},
+        [newsFetched] :(state, action)=>{
+                        state.news = action.payload
+                        state.newLoadingStatus ="none"
+                    },
+        [newsFetchingError]: state=> {state.newLoadingStatus = "errror"},
+        [newsCreated]: (state, action)=>{
+                        state.news.push(action.payload)
+                    },
+        [newsDeleted] : (state, action)=>{
+            state.news = state.news.filter(s => s.id !== action.payload)
+        } 
+    }, [], state => state) // state => state - bu default qiymat edi
+
+#6- crateSlice - bu createAction va createReducer larni bittada yozish ga yordam beradi
+ps: Har bir komponent uchun Papka och, uyerda component va unga kerakli slice bo'ladi
+
+      import { createSlice } from "@reduxjs/toolkit";
+
+      const initialState = {
+          news: [],
+          newLoadingStatus: "none",
+      }
+
+      const newsSlice = createSlice({
+          name: "news",
+          initialState, //initialState :initialState,
+          reducers: {
+              newsFetching : state=>{state.newLoadingStatus = "loading"},
+              newsFetched :(state, action)=>{
+                              state.news = action.payload
+                              state.newLoadingStatus ="none"
+                          },
+              newsFetchingError: state=> {state.newLoadingStatus = "errror"},
+              newsCreated: (state, action)=>{
+                              state.news.push(action.payload)
+                          },
+              newsDeleted : (state, action)=>{
+                  state.news = state.news.filter(s => s.id !== action.payload)
+              }
+          }
+      })
+
+      // newsSlice ni ichida action va reducer lar bor
+      // ps : newsFetching lar action 
+      // ps : 2 nuqtadan keyingisi esa reducer bo'ladi 
+      const {actions, reducer} = newsSlice 
+      export default reducer // buni export qilish shart storeda buni news ko'rinishida import qilib olganmiz
+      export const {newsFetching, newsFetched, newsFetchingError, newsCreated, newsDeleted} = actions
+
+      // import news from "../components/NewsList/newsSlice"; 
+      // store da ham news ni import qilaman, newsSlice da news degan o'zgaruvchi yo'q lekin
+      // createSlice dagi name ni olaman
+
+--------------------------------------------------------
+useSelector 
+
+Ixtiyoriy Componentda 
+
+import {useSelector} from "react-redux"
+
+const App(){
+
+const counter = useSelector(store => store.counter)
+return(
+	<div>
+		<h1>{counter}</h1>
+	</div>
+	)
+}
+--------------------------------------------------
+createSlice
+
+import { createSlice } from "@reduxjs/toolkit";
+
+      const initialState = {
+          count: 0
+      }
+
+      export const countSlice = createSlice({
+          name: "count",
+          initialState :initialState,
+          reducers: {
+              plus: (state, action)=>{state.count += 1},
+		   minus: (state, action)=>{state.count -= 1}
+          }
+      })
+
+      
+      const {actions, reducer} = newsSlice 
+      export default reducer
+      export const {plus, minus} = actions
+	
+plus, minusni kerakli Componentda import qilib ishlatish mumkun
+------------------------------------------------------
+Counter.js da
+import (useDispatch) from "react-redux"
+import{plus, minus}from "countSlice"
+const dispatch = useDispatch()
+
+<button onClick={()=> dispatch(plus())}>
+	Plus
+</button>
+<button onClick={()=> dispatch(minus())}>
+	Minus
+</button>
+-------------------------------------------------------
+index.js da
+
+import {countSlice} from ""
+import { configureStore} from "@reduxjs/toolkit";
+import {Provider} from "react-redux"
+
+
+const store = configureStore({
+      reducer: {countSlice, boshqaSlice},// bitta bo'lsa reducer:countSlice
+      middleware:[],
+      devTools: process.env.NODE_ENV !== "production" ,
+      enhancers : []
+  })
+
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);

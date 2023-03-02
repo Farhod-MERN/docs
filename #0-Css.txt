@@ -1,0 +1,111 @@
+
+Ulug'bek Samigjonov - YouTube
+0. import-font extansion fontni yuklab beradi
+
+ishlatish 1 - css ga kir @FontNomi va enterni bos
+@Varela
+@Montserrat 
+
+#1. Ustuvorlik = Specificity = O'ziga xoslik 
+
+	inline Style > ID > CLASS > Tag nomi
+
+
+#2. Selectorlar 
+
+	.container p  // bu hamma p larni olari , farzand nevara evara, va hokazo 
+	container > p // bu faqat farzandlarni oladi
+	span + p    // bu qo'shni elemntni oladi, o'zidan keyin kelgan 1- qo'shnini oladi
+	div ~ p     // "tilda" belgisi, divdan keyingi hamma qo'shni p larni tanlaydi
+	div.salom   // divni ichida salom classi bo'lsa
+	p.salom 
+
+#3. <div class="red green"> </div>
+
+.red{
+color: red;
+}
+.green{
+color: green;
+}
+bu holatda class nomining ketma-ketligi emas, klassni css dagi o'rni muhim
+
+#4. BEM strukturasi 
+
+	class="header__menus"
+
+	class="header__menus-item"
+
+#5 	Margin collapsing - 2ta ustma-ust turgan elementning margin top va bottom birlashib,ikkalasining orasidagi masofaga- eng katta qiymatli margin olinadi, 
+	kichigi esa ahamiyatsiz qoldiriladi,
+
+Margin Collapsing - faqat margin top va bottomlarda sodir bo'ladi, right va leftlarda emas
+
+#6  html > body > div
+
+	html{
+		height: 100%
+	    }
+
+	body{
+		height: 100%
+	    }
+
+#7- vertical-align : middle
+    align-item : center
+
+
+#8 pseudo class
+	
+	h1:hover{
+		color: red;
+	}
+	:active  - sichqoncha bosib turilganda 
+	:focus- ustiga bosilganda , boshqa elementga bosilginiga qadar ishlaydi
+     a:link - unvisited link
+     a:visited - visited link
+     p:first-child
+     p:last-child
+
+	::after	
+	::before	
+	::first-letter
+	::first-line
+#9 position:fixed
+	fixed qilganimda element inline-block holatga o'tib qoladi,
+	yani faqatgina o'ziga yetarli joyni egallaydi
+
+
+#10 sticy - bu fixed va relative xususiyatlarini o'zida saqlaydi
+    misol uchun top: 50px bersak, topdan 50 px joy qolguncha relative, 50px qoygandan keyin esa fixed bo'ladi
+
+#11 z-index - bu positioni static holatda bo'lsa ishlamaydi 
+
+ishlashi mumkun agar - minusli qiymat bersak
+
+.box1 {z-index: -2}
+.box2 {z-index: 1, position: relative}
+
+#12 background-size: 100px  200px
+			     width height
+
+
+#13 thumbnail img
+
+
+#14 - filter xossasi
+filter: blur(5px)
+        brightness(0.3)
+ 
+
+#15 em o'lchov birligi - bu elementnigng font size xususiyatiga bog'liq bo'ladi
+
+	h1{
+		font-size: 20px;
+		border-radius: 0.5em // yani 20 * 0.5 = 10px bo'ladi 
+	}
+Agar elementda font-size berilmagan bo'lsa unda, uning parent elementidan oladi
+Font-size ni eng yaqin ajdodidan oladi 
+agar parent da ham bo'lmasa, brauzerning default qiymati yani 16px ni oladi
+
+

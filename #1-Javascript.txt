@@ -1,0 +1,2511 @@
+6-dars o'zgaruvchilar
+
+let const var 
+
+var bu eskirgan hisoblanadi va hozirda ishlatilmaydi
+
+o'zgaruvchilarni nomlashda raqam  yoki belgi bilan boshlab bo'lmaydi
+_ tag chiziq bila yozsa bo'ladi my_Varable kabi yoki _myVarable
+
+$ belgigi bilan ham boshlash mumkun $myVarable
+
+oz'garuvchiga javaScriptdagi maxsus kalit so'zlardan foydalana olmaymiz
+misol uchun: let , const, new , function , for , if, var
+
+7-dars malumot turlari
+
+ //number
+let number = 6.66; // data type     NUMBER
+console.log(-8 / 0); // infinity va - infinity cheksizllik
+console.log("farhod" * 5); // NaN Not a number
+let a =10, b=5
+let result = a += 10  => a = a+ 10
+		a -= 5   => a =  a - 5
+		a *= 2	a = a * 2
+		a/= 2		a = a / 2
+
+ order of operation
+ 3-    1-    2-
+5 * (10 - 5) **2 
+** - darajaga oshirish
+
+//string bunda qo'shtirnoq ichida istalgan malumot istalganicha yozilishi mumkun
+const clientname = "farhod"; // bittalik qo'shtirnoq ham mumkun, yoki esc tugmani pastidagi qo'shtirnoq
+	stringda metodlar
+	clientName.toLowerCase()
+	clientName.toUpperCase()
+	clientName.indexOf("f")
+	clientName.lastIndexOf('o')// oxiridan boshiga qarab qidiradi
+	clientName.slice(0, 2)  0 va 2 oralig'idagi harflarni olib beradi
+	clientName.substring(0, 5) 0 va 5 oralig'idagi harflarni oladi
+	clientName.substr(0, 10) // 0 dan boshlab 10 ta elementni oladi
+	clientName.replace("f", "F") 1-kelgan kichik f ni KATTA F ga almashtiradi
+	clientName.charAt() bu har qanday holatda stringdagi 1- belgini chiqarib beradi
+ 	clientName.trim() .bu " salom " bo'lsa boshidagi va oxiridagi probellarni olib tashlaydi
+	clientName.split("a") bu stringdagi hamma alarni olib tashlaydi, va o'sha joydan stringni bo'ladi, va arrayga ularni solib beradiva b'laklarni array qilib qaytaradi
+	clientName.includes("nimaniQidiryap0")
+
+//boolean bu malumot turi qiymati ikki xil bo'ladi
+const isMarried = false;
+const iscircleearth = true;
+
+//null yoki is not defined bu umuman elon qilinmagan o'zgaruvchi chaqirilsa bo'ladi
+console.log(buNomYoq);
+
+//underfined bunda o'zgaruvchi mavjud lekin qiymati yo'q bo'ladi
+let Name;
+console.log(Name);
+
+//object bu bir qancha malumotlarni bittada berishga ishlatiladi
+//yoki biror narsani tasvirlashga
+// bular {figurali qavs ichida yoziladi}
+
+const objectNomi = {
+  age: 30, //number
+  Jacket: "black", //string
+  islong: true, //boolean
+};
+console.log(objectNomi); //bunda hamma valueni ko'rsatadi
+console.log(objectNomi.age); // bu tavsiya etiladi
+console.log(objectNomi["age"]); // bu kam qo'llaninali
+
+// array bu massiv . massivda valuelar raqami 0 dan boshlanadi
+// objectda kalit so'zlarni qo'lda beriladi
+//arrayda kalit so'zlar avtomatik 0 dan boshlab beriladi 
+//bular [to'rtburchak qavs ichida yoziladi]
+   // key        0       1        2      3   4   5
+const colors = ["red", "black", "green", 10, [], {}];
+
+
+
+
+
+-----------------------------------------------------------------
+10-dars  operatorlar
+
+"use strict";
+
+console.log(5 + +"10"); //stringni oldiga + qo'yilsa type numberga oo'zgaradi
+console.log(5 + 5); //natija 10
+console.log(5 + "11");//natija 511
+console.log(5 + +"11");//natija 16
+
+// let incr = 10;
+// let decr = 10;
+
+// console.log(++incr); //incriment ++
+// console.log(--decr); //decriment --
+// agar ++ yoki -- ni o'zgaruvchi oldiga qo'yib ishlatsak consolda natija srazu chiqadi
+// BU PREFIX deb ataladi
+
+//agar keyin yozsak birinch iconsolda default o'zgaruvchi ko'rinadi
+//va keyingisida inkriment va dicriment chiqadi
+//BU PRETIX DEB ATALADI
+// console.log(incr++);
+// console.log(decr--);
+
+// console.log(incr);
+// console.log(decr);
+
+// console.log(12 % 3); //foiz orqali qoldiq ifodalanadi
+// console.log(27 % 4);
+ 
+//tenglashtirish taqqoslash  comparisions operators 
+
+// 1-USUL --bunda 2 ta tenglikdan foyda
+//va BU faqat qiymatini tenglab beradi  2talik tenglik bilan turli xil tipdagi malumor=tlatni solishtira olamiz
+//2- USUL-- bunda 3ta tenglikdan foyda
+//va bu qiymat va data type orqali tenglashtiradi
+
+//1-usul  kuchsiz taqqoslash
+console.log(5 * 5 == 25);
+// bu 5*5 25ga tengmi degan manoni bildiradi
+console.log("sa" + "lom" === "salom");  //true
+
+age = "25"
+console.log(age == 25) // true . lekin bu yerda string va number tenglashtirilayapdi
+
+//2-usul kuchli taqqoslsh
+console.log(5*5 ==="25");
+//bunda natija false chiqadi
+//sababi bunda natija 25 to'g;ri lekin data type esa 1- number qo'shtirnoq ichidagisi esa string da
+
+//teng emasmi 
+
+console.log(2 + 2 * 2 != 8); //natija true 
+//6 ga 8 teng emasmi degani
+
+console.log(2 + 2 * 2 !== "6"); //natija true 
+//qiymati teng lekin  data type har xil
+
+//&& =VA  || =YOKI
+
+const age = true;
+const chacked = true;
+const like = true;
+console.log(age && chacked && like);
+// va da hammasi true bo'sagina natija true chiqadi
+
+const age = true;
+const chacked = false;
+const like = false;
+console.log(age || chacked || like);
+//yoki da bitta true bo'lsa ham yetarli
+//bularda ham ! undov qiymatni teskarisiga aylantirib beradi
+//misol uchun
+console.log(age && !chacked && !like);
+//aslida like va chacked false qiymatga ega lekin undov ularni qiymatini teskarisiga aylantirib bermoqda
+
+//6 ta xatolik tepadagi o'zgaruvchilar 2- marta takrorlangani uchun
+
+-------------------------------------------------------
+13-dars shartli operatorlar IF STATEMENNT
+
+const age = +prompt("How old are you"); 
+//shartli operatorlar 
+if (age > 18) {
+    console.log("Welcome our page");
+} 
+else {
+    console.log("no entry");
+}
+----------------------------------------------------------- 
+trinorni operator (uchtalik operator) tirnary operator
+
+(age > 18) ? console.log("Welcome our page") : console.log("no entry");
+
+(shart) agar console.log("shu chiqsin") aks holda console.log("bu chiqsin")
+ko'rinishida ishlaydi
+
+
+const num = -18
+
+num > 18 ? console.log("Katta") : num < 18 ? console.log("kichik") : console.log("default");
+  SHART IF                         SHART IF                           ELSE
+
+agar &&- belgidan oldingi narsa true bo'lsa , ko'dni qolgan qismini o'qiydi, aks holda yo'q 
+
+true && console.log("true")
+null && connsole.log("bunda ishlamaydi")
+undifined && console.log("ishlamaydi")
+[].length && console.log("ishlamaydi , sababi bo'sh array uzinligi 0 ga teng")
+ 0 && console.log("ishlamaydi 0 false gateng")
+
+--------------------------------------------------- 
+switch case operatori
+buning yomon tarafi bubda biz > < katta kichik belgilardan foydalana
+olmaymiz . faqat aniq qiymat bilan ishlaymiz
+
+const number = prompt( "1 dan 5 gacha tanlang !");
+
+switch (number)
+{
+    case "1": 
+        console.log("siz 1 ni tanladingiz");
+    break // agar shunday bo'lmasa shartni tugat
+    case "2":
+        console.log("siz 2 ni tanladingiz");
+    break    
+    case "3":
+        console.log("siz 3 ni tanladingiz");
+    break    
+    case "4":
+        console.log("siz 4 ni tanladingiz");
+    break    
+    case "5":
+        console.log("siz 5 ni tanladingiz");
+    break
+    default: 
+        console.log("Iltimos 1 dan 5 gacha tanlang");
+    break       
+}
+
+switch (o'zgaruvchi)
+{
+    case "qiymati":
+        console.log("nimadir")
+    break // shu shartni to'xtatadi    
+    default: // agar biz aytgandan boshqa holatlar bo'lsa
+        console.log("nimadur)
+    break    
+}
+
+
+------------------------------------------------
+14-dars sikl 
+"use strict";
+
+let num = 1;
+
+//first
+// while (num <= 10)  //10dan kichik bo'lgungacha ishlasin while- gacha
+// {
+//     console.log(num);
+//     num++;
+// }
+
+//second
+// do{console.log(num);
+// num++;}   //do-ning ichiga bajarilishi kerak bo'lgan narsani yoz
+// while // while-ichiga qachongachaligini yoz
+// (
+//     num < 15
+// )
+//third => FOR LOOP   
+// for(let i = 1; i <= 8; i++ ) //for o'ziga 3ta argumentni qabul qiladi
+// {
+//     console.log(i)
+// }
+for (let i = 1; i <= 10; i++) {
+    if (i === 5) {
+        //break;  //siklni sindiradi
+        continue; // sikl 5-ni ko'rsatmay o'tib ketadi
+    }
+
+    console.log(i);
+}
+
+
+-------------------------------------
+template string way , interpolyatsiya
+const name = "Farhod" 
+const result = `salom meing ism ${name}`
+
+
+16-dars function
+ "use strict";
+
+function MyName(name, surname)
+{
+    console.log(`Mening to'liq ismim ${name} ${surname}`)
+    let Number = 30; // funksiye ichidagi o'zgaruvchi local bo'ladi. Funksiyadan tashqarida u ishlamaydi    
+}
+MyName("Farhod", "Sotiboldiyev")
+
+------------------------
+function F_Nomi (argumentlar)
+{
+
+}
+F_Nomi(argumentga qiymat beramiz)
+//funksiyani qachon chaqirsak o'sha vaqtda ishlamaydi
+
+
+function calc(a, b)
+{
+    return a + b; // bu return dan keyingi buyuruqlar ishlamaydi ,
+    // sababi bu funksiyani to'xtatadi
+}
+//console.log(calc(20, 30)) 
+const numOfNumber = calc(20 ,30) //bu orqali glabal o'zgaruvchiga olib ildim
+//endi ubni istalgan joyda foydalansa bo'ladi
+console.log(numOfNumber) 
+
+
+
+
+//3 xil fuction bor
+1-function declaration 
+function nomi (){
+    codelar...
+}
+//bu usulda funksiyadan oldin ham uni chaqira olamiz.
+
+2- function Expression 
+
+Let Nomi = Function{
+    codelar...
+}
+bu o'zimizni o'zgaruvchiga o'xshaydi. Buni faqat functionning ostida ishlata olamiz
+
+3- Arrow function
+() => 
+
+
+const calc =(a, b) => a * b;  
+console.log(calc(10, 20));
+
+Argumentlar va Parametrlar
+
+function nomi (parametr, parametr2="default qiymati"){
+    codelar...
+}
+
+nomi("argument", "argument2")
+
+Agarda biz 2-argumentni yozmasak u avtomatik, default qiymatini oladi, agar argumentni yozsak, o'sha argument bo'yicha ishlaydi
+
+------------------------------------------------------
+17-dars
+
+"use strict"
+// stringdagi property - length
+
+const user = "Farhod"
+console.log(user.length); //stringda nechta element borligini ko'rsatadi
+
+const array = [1, 2, 3, 4, 5] 
+console.log(array.length); // array dagi elementlar sonini ko'rsatadi
+
+const user1 = "Farhod"
+console.log(user1[5]); // arraydan 5 elementno oladi . Sanoq 0 dan boshlanadi
+
+// stringda methodlar
+let email = "mrfarhod58@gmail.com"
+let result = email.includes("@")
+console.log(result) // bu boolean malumot turi qaytaradi
+
+const user2 = "Farhod"
+console.log(user2.toLowerCase());
+console.log(user2.toUpperCase());
+// toLowerase dan keyin () qavs ochish  shart
+
+//string dagi malumotni ichini tekshirish
+
+const user3 = "Farhod Shuhratovich"
+console.log(user3.indexOf("rh"));// so'ralgan malumotni o'rnini ko'rsatadi
+//agarda biz yo'q harfni qidirsak -1 natija chiqadi . Bu dasturlashda False ga teng
+
+// stringdagi malumotlarni keshish
+const user4 = "Farhod Shuhratovich"
+console.log(user4.slice(0, 6));// birinchi element va qayergacha kesish kerakligi ko'rsatiladi
+//agar 1ta qiymat bersam o'shandan boshlab hammasini oladi
+
+const user5 = "Farhod"
+console.log(user5.slice(-4, -1));
+//slice minuslik qiymatlarni ham qabul qiladi
+//bunda orqadan sanab keladi
+
+
+const user6 = "Farhod"
+console.log(user6.substring(0, 3));
+//buning slicedan faqri bunda minusli qiymat olmaydi
+
+const user7 = "Farhod salom"
+console.log(user7.substr(2 , 5));
+// bund 1-qiymat qayerdan boshlashi
+//2-si nechta element chiqishi
+
+
+//Number malumot turi
+
+const num = 8.8
+console.log(Math.round(num));
+//bunda biz Math global obyetidan foydalanamiz
+// round - bun yaxlitlaydi .4.3=4 , 5.8=6
+
+//stringdagi malumotni yaxlitla va numberga o'tkaz
+const border = "13.8px" 
+console.log(parseInt(border));//bu  pastga yaxlitlaydi
+console.log(parseFloat(border));//bu yaxlitlamaydi , faqat raqamni ko'rsatdi
+
+//****************************** Math global objecti
+
+const num1 = 7.4343434 
+const num2 = 7.7343434 
+
+//flooor - bu sonni pastga qarab yaxlitlaydi
+console.log(Math.floor(num1)); 
+
+//ceil - sonni yuqoriga tomon yaxlitlaydi 
+console.log(Math.ceil(num2)); 
+
+//round  7.4 = 7    7.7 = 8 
+console.log(Math.round(num2));
+
+//trunc sonni butun qismini oladi
+console.log(Math.trunc(num1));
+
+//random  0 va 1 oralig'idagi ihtiyoriy sonni oladi 0 < X < 1
+son = Math.random() * 10  // 10 ga ko'paytirsam 1 < X < 10 oralig'ida qaytatadi
+console.log(son);
+
+-------------------------------------------------------
+19-dars callback
+
+callback --bu bitta funksiya bajarilganidan keyingina boshqa funksiyani bjarilishi
+
+
+function edu(fan, qaytaqongiroq){
+console.log(`Men "${fan}"ni o'rganaman`);
+qaytaqongiroq();// buni bu yerga chaqirib qo'yish shart
+}
+function done (){
+    console.log("that is done");
+}
+edu("Javascript", done)
+--------------------------------------------------------
+20-dars object mukammal
+
+
+const theif = {
+    jacket: "black",
+    height:1.8,
+    colors:{
+        hair:"grey",
+        style:"curley"
+    }
+}
+console.log(theif.jacket);
+delete theif.height; // bu orqaali obyektdagi argumentlarni o'chirish mumkun
+console.log(theif);
+
+
+console.log(Object.keys(theif)); //bu orqali biz obyektda qanday kalit so'zlar borligini bilishimiz mumkun
+console.log(Object.keys(theif).length);// bunda biz obyektda nechta kalit so'z borligini bilib olamiz
+
+//for bu sikl=intonatsiya va bu faqat obyetklar uchun ishlaydi
+for ( let key in theif) // theif obyektiga key degan yangi  kalit so'z kiritib olayapman
+//bu obyektdagi boshqa hamma kalit so'zlarni ushlab olishga yordam beradi
+{
+    console.log(`${key} propertisi ${theif[key]} qiymatga ega`);
+} //theif[key] //keyni qiymatini olish uchun 
+[to'tburchak qavs shart]
+  
+
+
+const metod ={
+    color:"red",
+    height:1.8,
+    goAway:function(){
+        console.log("Qo'lda yasalgan metod");
+    }
+}
+metod.goAway(); // bu orqali funksiyani chaqiraman
+
+let ObjectKey = metod.color;
+console.log(ObjectKey) // obyektgi biror o'zgaruvchini chaqirib olish uchun
+//yangi global o'zgaruvchiga uni tenglab olayapman
+
+-------------
+buning boshqa usuli DESTRUPTIZATSIYA deyiladi
+
+const metod ={
+    color:"red",
+    height:1.8,
+}
+const{color, height} = metod;// tengdan keyin biz bu o'zgaruvchini qayerdan olganimizni ko'rsatamiz
+console.log(color);
+console.log(height);
+
+DESTRUPTIZATSIYA DESTRUCTURING - buzish vayron qilish 
+arraylarda destructuring 
+
+const arr = ["olma", "nok", "behi", "uzum", "gilos"]
+const [olma, nok, ...qolganMevalar] = arr
+console.log(olma, nok)
+console.log(qolganMevalar)  ...restOperatori  , qolgan mevalarni array ko'rinishida oladi, sababi, u arrayni ichida
+...restOperatori - qolgan malumotni birlashtirib beradi . 
+
+objectlarda destructuring destrubtizatsiya
+
+const obj = {
+name: "Farhod",
+year: 2001,
+height: "180sm",
+}
+const {name : Ism, year, height, from = "Uzbekistan"} = obj 
+{ buni ichidagi o'zgaruvchilar obj dagi keylar bilan bir hil bo'lishi shart }
+lekin biz uni keyin o'zgartira olamiz name :Ism . Endi ism ni istalgan joyda ishlata olamiz, obj dagi name key Ism ga tenglandi
+agarda o'zgaruvchiga default qiymat berib qo'yish mumkun, agar o'zgaruvchi objectni ichida qiymatga ega bo'las doimo o'sha qiymatni oladi, default qiymat esa ikkinchi darajali 
+
+spread va rest farqi sintaksisda 
+
+const [olma, nok, ...qolganMevalar] = arr  -> = tenglikning chapida ... 3ta nuqta kelsa bu rest
+const newObj = {...obj}  -> = tenglikning o'ngida kelsa bu spread operatori . 
+
+spread operator - to'liq malumotni nusxalaydi
+rest operator esa- qanchadir qismini nusxalaydi xolos
+--------------------------------------------------------
+21-dars array 
+"use strict";
+arrayda metodlar
+
+const array = [1, 2, 3, 4, 5, 6];
+
+array.pop();//arrayning oxirgi elementini delete qiladi
+array.push(7);// arrayning oxiriga bitta yangi element qo'shadi
+array.shift(); //arrayning birinch iindexli elementini delete qiladi
+array.unshift(0); //bu arrayning boshiga yangi element qo'shadi
+const full = array.concat(boshqaMassiv) // bu arrayga boshqaMassivni qo'shib oladi
+console.log(array);
+
+//arrayda intonatsiya yani sikllar
+//first 
+//massivdagi har bir elementni olish uchun intonatsiya qilamiz
+const array1 = [1, 2, 3, 4, 5, 6];
+for(let i=0; i < array1.length; i++){
+    console.log(array1[i]);
+} //har safar sikl bajarilganda arrayning i-elementi consolega chiqaradi 
+
+//second for of bilan sikl
+
+const array2 = [1, 2, 3, 4, 5, 6];
+for(let yangiQiymat of array2){
+    console.log(yangiQiymat)
+}//arrayni ichiga yangi value kiritib olamiz
+// bu orqali biz massiydagi hamma valuelarni consolga chaqiramiz
+
+//eng ko'p ishlaydigan sikl usuli
+const array4 = [1, 2, 3, 4, 5];
+array4.forEach(function(item, index, array4){
+console.log(`${item} elementining indexsi ${index} butun massiv esa bu ${array4}`);
+})
+//forEach 3 ta parametr qabul qiladi 1- element, 2-element indexsi, 3- arrayni o'zi
+//forEachning boshqa sikllardan farqi . bunda berilgan funksiya massivninghar bir elementi uchun qayta qayta alohida alohida ishlaydi
+
+//arrayni elementlar sonini length bilan top
+const array3 = [1, 2, 3, 4, 5, 6];
+console.log(array3.length);// arraydagi elementlar soni
+//length - elementlarni birma bir sanamaydi, bu oxirgi element indexsiga 1ni qo'shib bizga chiqarib beradi.
+array3[99]=0;// bu tarizda element qo'shish tavsiya qilinmaydi. sabali lengthni ko'rganimizga bizga so'ngi indexni ko'radi va o'shanga 1 qo'shib bizga elementlar soni shu songa tengligini ko'rsatadi. 
+console.log(array3);
+
+const array5 = prompt("what is your favourite film", "");
+const MassiyMfilm = array5.split(", "); //promtdan kelgan stringdagi matnni massiv elementlariga bo'lib beradi . buning uchun qaysi ishoradan keyin elementlar bo'linishini ko'rastishimiz kerak
+MassiyMfilm.sort();
+console.log(MassiyMfilm);
+
+//raqamlarda bu biroz boshqacha. ularda sonning birinchi raqami bo'yicha sartirofka qiladi
+
+const array6 = [1, 23, 12, 8, 55]
+// array6.sort((a, b) => a-b); bu 1- usul
+array6.sort(tartibla);
+console.log(array6);
+console.log(array6[1]);// bu orqali tartiblash indexlarga tasir etmaydi . faqat indexning qiymati boshqa indexdagi bilan almashadi.
+
+function tartibla (a, b){
+    return a - b;
+}
+*****************************************
+Massivning juft va toq qiymatlarining yeg'indisi, ko'paytmasi
+
+const arr = [1, 2, 3, 4, 5];
+
+let a = 0;
+
+const calc = () => {
+  for (i of arr) {
+    if (arr[i] % 2 === 0) {
+      a += arr[i];
+    }
+  }
+  console.log(a);
+};
+calc();
+--------------------------
+
+const arr = [1, 2, 3, 4, 5];
+
+let a = 0;
+
+const calc = () => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] % 2 !== 0) {
+      a += arr[i];
+    }
+  }
+  console.log(a);
+};
+calc();
+
+Filter metodi bilan
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+const newArr = arr.filter((index, item)=>{
+  return arr[item] % 2 !== 0
+})
+
+console.log(arr);
+console.log(newArr);
+************************************************************************
+
+Sonning tub yoki tub emasligini tekshirish
+
+function calc(num) {
+  if (num === 1) {
+    return console.log("Bu son tub emas");
+  } else if (num === 2) {
+    return console.log("Bu son tub");
+  }
+  else{
+    for(let i = 2; i < num; i++){
+     
+      if(num % i === 0){
+        return console.log("bu son tub emas");
+      }
+    }
+    return console.log("bu tub son");
+  }
+}
+calc(51);
+---------------------------------------------
+
+function tub(num) {
+  if (num === 1 || num === 0) {
+    console.log("0 va 1 soni tub son emas !!!");
+  }else {
+    for (let i = 2; i < num; i++) {
+      if (num % i === 0) {
+       return console.log(`${num} -murakkab son 😁`);
+      }
+    }
+    return console.log(`${num} - tub son 😔`);
+  }
+}
+tub(2);
+
+************************************************************************
+3 va 5 ga karraliligini tekshiradi
+
+// function calc(num){
+
+//   if(num % 3 === 0 && num % 5 !== 0){
+//     console.log("Bu son 3ga bo'linadi");
+//   }
+//   if( num % 5 === 0 && num % 3 !== 0){
+//     console.log("Bu son 5ga bo'linadi");
+//   }
+//   if(num % 5 === 0 && num % 3 === 0){
+//     console.log("Bu son 3 va 5 ga karrali");
+//   }
+// }
+// calc(25)
+
+----------------------------------------------------------------------
+22-dars clonlash 
+
+ // odiy o'zgaruvchilarni clonlash
+
+let a = 10;
+let b = a;
+let c = a
+c= 30;
+console.log(a);
+console.log(c); 
+----------------
+//boolean da 
+
+let isAlone = true
+let isTall = isAlone
+isTall = false
+console.log(isAlone);
+console.log(isTall);
+
+----------------
+const num ={
+    x: 10,
+    y: 20,
+}
+const newNum = num // bu orqali biz yangi objectga eski objectni silkasini berib qo'ydik. shu tufayli 1-si o'zgarsa 2-si ham o'zgarib ketyapdi
+newNum.x=15;
+console.log(num);
+console.log(newNum);// bu ko'rinishda nusxa olsam asisiy object ham o'zgarib ketadi
+
+------------------------------------
+funksiya yordamida clonlash
+
+
+function Copy (currentObject){
+    let newObject = {}
+
+    for (let key in currentObject){
+     newObject[key] = currentObject[key]  
+    }
+    return newObject
+}
+
+//test 1
+
+const numbers = {
+    x: 1,
+    y: 2,
+}
+
+const newNumbers = Copy(numbers)
+console.log(numbers);
+console.log(newNumbers);
+
+//test 2
+
+const matn = {
+    a:"salom",
+    b:"hello"
+}
+const newMatn = Copy(matn)
+console.log(matn);
+console.log(newMatn);
+------------------------------------
+metod orqali clonlash
+
+const eski = {
+  x: 1,
+  y: 2,
+  z: 3,
+};
+const yangi =Object.assign({}, eski)//object.assign degan metoddan foydalanamiz 1-qiymat Target, 2-qiymat qaysi olyektdan nusha olishi 
+eski.z= 20
+console.log(eski);
+console.log(yangi);
+-------------------------------
+2 ta yoki 3ta objectni birlashtirish
+
+const first = {
+  x: 1,
+  y: 2,
+};
+const second = {
+    z: 3,
+    c: 4,
+}
+const third = {
+    a: 5,
+    b: 6,
+}
+const all = Object.assign(first, second, third)
+console.log(all);
+------------------------
+arraylarda clonlash
+//bunda .slice metodidan foydalanamiz. bunda boshlanish va tugash joyini ham bersa bo'ladi
+const num= [1, 2, 3, 4, 5,]
+const num2 = num.slice()//const num2 = num.slice(0, 2)
+num2[2] = 100;
+console.log(num);
+console.log(num2);
+--------------------
+arraylarni birlashtirish
+
+//arraylarni birlashtirish uchun SPread ooperatoridan foyda
+//uning belgisi ... 3ta nuqta hisoblanadi
+const bir =['farhod', 'sardor']
+const ikki =['Sohib', 'bekzod']
+const birlash = [...bir, ...ikki]
+birlash[1] = "saloooom"
+console.log(birlash);
+console.log(bir);
+    console.log(ikki);
+
+------------------------------------------------------------
+23-dars spread operatorlari 
+
+"use strict";
+
+const calc = [2, 3, 4];
+const calc2 = ["He", "ll", "o😁"];
+
+function logger(x, y, z) {
+  console.log(x + y + z);
+}
+logger(...calc);
+logger(...calc2); // shunday yozsak yuqoridan kelayotgan massivdagi elementlarni o'ziga mostlashtirib oladi
+//spread operatori -Operator Razvaroda O'zgartirib beradigan operator
+
+const array = [1, 2, 3];
+const NewArray = [...array]; // avvalgi arrayni yangi o'zgaruvchiga bog'lab berdi
+
+//objectlarda ham huddi shunday bo'ladi yani
+
+const object = {
+  a: 1,
+  b: 2,
+};
+const newObject = { ...object };
+console.log(object);
+console.log(newObject);
+
+----------------------------------------------------------------------------
+------------------ Date new Date() ---------------------------------
+const now = new Date()  = bu object 
+
+const sana = now.getDate()  sanani 
+const oy = now.month() oyni oladi Oylar ["January", "February", "March", ] ko'rinishida bo'ladi . 
+	shunga sanoq 0 dan 11 gacha bo'ladi, shunga chalg'ima ‼️‼️‼️
+const oylar = ["January", "February", "March", ]
+console.log(oylar[oy])
+
+const yil = now.getFullYear()  -yil 2022 
+
+const now = new Date()
+
+const month = now.getMonth() >= 0 ? now.getMonth() + 1 : ""
+const kun = now.getDate() < 10 ? "0" +now.getDate() : now.getDate()
+
+console.log(`Hozir ${month} -oy`, kun);
+
+Amaliy ------------------------------------------
+
+
+const h1 = document.querySelector("h1")
+const h3 = document.querySelector("h3")
+
+h1.textContent = "HH : MM : SS"
+h3.textContent = "Month, Year"
+
+let soat , minut, second , oy, oyNumber, month
+
+const oylar = ["Yanvar" ,"Febral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Nayabr", "Dekabr"]
+
+setInterval(() => {
+  
+  soat = new Date().getHours() < 10 ? "0" + new Date().getHours() : new Date().getHours()  
+  minut = new Date().getMinutes() < 10 ? "0" + new Date().getMinutes() : new Date().getMinutes()
+  second = new Date().getHours() < 10 ? "0" + new Date().getSeconds() : new Date().getSeconds() 
+  yil = new Date().getFullYear()
+  oy = new Date().getMonth() > 0 ? 1 + new Date().getMonth() : new Date().getMonth()
+  month = new Date().getMonth()
+  oyNumber = oylar[month] 
+  
+setTimeout(()=>{
+  h1.textContent = `${soat} : ${minut} : ${second}`
+  h3.textContent = `${oyNumber} ${oy}, ${yil} `
+  },
+  1000)
+
+}, 1000)
+
+
+==============================================================================================
+
+24-dars opp asoslari
+
+oop - obyektga yo'naltirilgan dasturlash
+
+obyektlar yordamida yaratish
+
+oppv-bu prototype yani bir .css da stylelarni meros qilib olganday gap
+ asosiy objektda asosiy kodlar bo'ladi . o'zgarishi keraklari esa yangi objictga yoziladi
+
+
+ "use strict";
+
+const cars ={
+    engine:"super",
+    kuzuf:"poverful",
+    speed:320,
+    IsExpansive:true,
+    color:{
+        a:"black",
+        b:"white",
+        c:"blue",
+        d:"yellow",
+    },
+    salon:function(){
+        console.log("comfortable");
+    }
+}
+const gm = {
+    price:"12000$"
+}
+//shunda gm object hamma malumotni tepadagi Carsdan olishi kerak va bitta farq qiladiganigian
+// gm objectda yozilishi kerak
+
+//1-usul eski usul
+// gm.__proto__ = cars 
+// console.log(gm);
+// gm.salon(),
+// console.log(gm.speed);// gmda aslida speed qiymati yo'q, lekin u ulangan prototypedaa mavjud
+
+//2-usul  
+// Object.setPrototypeOf(gm, cars)// bu 2ta qiymat oladi 1-si o'zgarishi kerak bo'lgani 2-si asosiy object
+// console.log(gm);
+
+//3 -usul
+
+const BMW =Object.create(cars)
+console.log(BMW);
+---------------------------------------------------------
+26-dars dynamic typing
+
+//to string
+
+//1-usul
+console.log(typeof String('1234'));// habarni String ni ichida yoz
+
+//2-usul
+// string malumot turiga number ni qo'sh
+console.log(typeof ("Farhod " + 21));
+console.log(30 + "px");
+
+
+// to number
+//1 -usul 
+console.log(Number("1234")); //number ni ichida yoz
+console.log(typeof Number("1234"));
+
+//2- usul
+console.log(+"111111");// string malumot oldiga + ishorasini qo'y
+console.log(typeof +"111111");
+
+// 3- usul
+
+console.log(parseInt("123px"));
+console.log(typeof parseInt("123px"));// Har qanday stringdagi malumotni faqat numberini oladi
+
+//to boolean
+
+// 0, "", Null, underfined , Nan - bular har doim FALSE qaytaradi
+
+// const num = 0;
+const num = "";
+
+if(num)
+{console.log("true");}
+else if (!num)
+{
+    console.log("False");
+}
+
+//1- usul
+
+console.log(typeof Boolean('1234'));
+
+//2-ususl
+
+console.log(typeof !!"Hello"); // oldiga ikkita !! undov qo'yish kifoya
+
+------------------------------------------------------------
+27-dars dom elementlari Document Object Modul
+
+"use strict";
+//eski usullar
+
+// const box = document.getElementById('box')
+// console.log(box); 
+
+// const buttons = document.getElementsByTagName('button')// tag name orqali. Tag elelments har doim massiv qaytaradi
+// const buttonsN1 = document.getElementsByTagName('button')[0]// ning 0 indexli elementini ushlaydi
+// console.log(buttons);
+// console.log(buttonsN1);
+
+const circles = document.getElementsByClassName('circle')
+const circles1 = document.getElementsByClassName('circle')[0]
+console.log(circles);
+console.log(circles1);
+
+
+//yangi usullar
+
+const heart = document.querySelector('.heart') //class orqali
+// const heart = document.querySelector('#idnomi') // id orqali
+// const heart = document.querySelector('button') // Tag nomi orqali
+console.log(heart);
+// queryselector bitta 1- elementni qytaradi
+// queryselectorAll hamma elementni massiv ko'rinishida qaytaradi
+
+const hearts = document.querySelectorAll(".heart")
+console.log(hearts); 
+
+//HTMLCollection vs NodeList 
+//NodeList da koproq Metodlar bor  
+hearts.forEach((item) => {
+    console.log(item);
+})
+//forEach yordamida intonatsiya qilib Har bir elemntini chiqarib olsa bo'ladi
+
+const wrapper = document.querySelector('.wrapper')// bunda wrapper klassni butun html fayldan qidiradi
+console.log(wrapper);
+
+const wrapper1 = wrapper.querySelector('.heart')// bunda .heartni wrapper klassni ichidan qidiradi
+console.log(wrapper1);
+
+**************************************************************************
+getAttribute  setAttribute 
+
+"useStrict"
+
+const btn = document.querySelector(".blue-btn")
+const block = document.querySelector(".div") 
+
+btn.addEventListener("click", ()=>{
+        block.setAttribute("class" , "div red")
+        block.setAttribute("id" , "block-id") // bu yerda yangi id attributini qo'shib qo'ydim
+})
+//setAttribute orqali biz atribut qo'shishimiz yoki mavjud atributni o'zgartirishimiz mumkun
+// block.setAttribute("class" , "div red")   bu yerda class attributini oldik , va qiymatini o'zgartirdik
+
+
+-----------------------------------------------------------------------
+29-dars 
+
+'use strict'
+
+const box = document.querySelector("#box")
+const buttons = document.querySelectorAll('button')
+const circles = document.querySelectorAll('.circle')
+const hearts = document.querySelectorAll('.heart')
+const circle__wrapper = document.querySelector(".circle__wrapper")
+// box.style.backgroundColor = 'black' // dinamik tarzda styleni o'rganish
+// box.style.height = '250px'
+// box.style.width = '250px'
+
+box.style.cssText = "background-color: red; height: 130px; width:300px"
+buttons[0].style.width = '200px'
+circles[1].style.backgroundColor = 'yellow'
+
+hearts.forEach((item) => {
+    item.style.backgroundColor = "black"
+}) 
+
+// for (let i = 0 ; i < hearts.length; i++ ){
+//     hearts[i].style.backgroundColor = 'blue'
+// }
+
+// for( let key of hearts)
+// {
+//     key.style.backgroundColor = 'yellow'
+// 
+
+// dinamic tarzda element qo'shish
+const btn = document.createElement('button')
+document.body.append(btn) // append metodi yordamida domga bog'laymiz. Bu hozir bodyni ichiga qo'shdi
+
+
+const myCircle = document.createElement('div')
+myCircle.classList.add("circle") // yaratilgan elementga class qo'shish
+circle__wrapper.append(myCircle)
+
+//bunda bir elementdan oldin yoki keyin bizning yangi elementni chaqirish mumkun
+// circle__wrapper.before(myCircle)
+// circle__wrapper.after(myCircle)
+// circles[0].after(myCircle) // 
+// circles[0].remove()// bu  elementni o'chirib yuboradi
+circles[2].replaceWith(myCircle)
+myCircle.textContent = "S"// bu orqali biz faqat text yubora olamiz
+myCircle.innerHTML = "<pre>R</pre>"// bu orqali biz turli codlarni ham yoza olamiz
+
+
+circle__wrapper.insertAdjacentHTML("beforeend", '<i>Insert</i>')
+----------------------------------------------------
+30-dars hodisalar
+
+hodisalar
+
+1- usul html da 
+
+    <button onclick="alert('Html click')">A</button>
+
+2- usul 
+
+
+const btn = document.querySelector("#btn")
+btn.onclick = function(){
+    alert("bunisi ishlamaydi sababi pastda huddishu takrorlanyapdi")
+}
+btn.onclick = function(){
+    alert("Hello from Js")
+}
+ // onclick bo'lganda bitta funksiya bajarilishi kerak
+// bunda bitta hodisaga 2 yoki undan ortiq qiymat berib bo'lmaydi, agar berilgan taqdirda faqatgina oxirgisi ishlaydi
+
+3-usul common way
+
+
+const btn = document.querySelector("#btn")
+
+
+btn.addEventListener("click", () => {
+    alert("click 3-usul . bunda bitta hodisaga bir nechta qiymatla rbersa bo'ladi va ular tartib bilan ishlaydi ")
+})
+
+btn.addEventListener("click", () => {
+    alert("click 3-usul")
+}) // 1- qiymat hodisa nomi, 2-si nima sodir bo'lishi
+
+btn.addEventListener('click', (event)=>{
+    btn.remove();
+    event.target.remove()// bu funksiya argumentining targeti o'zgaruvchiga teng 
+})
+
+holat  qo'shish va uni o'chirish
+
+
+let i = 0
+const addEvent = (event) => {
+    i++
+    if ( i ===3){
+        btn.removeEventListener('click', addEvent)
+    }
+    console.log(i);
+}
+btn.addEventListener('click', addEvent)
+// bunda agar i = 3 bo'lsa hodisa to'xtaydi . aslida addEventlistenerda necha marta bolilsa hodisa shuncha ,marta bo'laverishi kerak
+
+// default qiymatlarni o'zgartirish 
+
+const link = document.querySelector("a")
+
+link.addEventListener('click', (event) => {
+    event.preventDefault()
+    alert("default qiymatni o'zgartirdim")
+})
+
+//----------------
+
+const btns = document.querySelectorAll("button")
+let i = 0
+const inner = () => {
+    i++;
+    console.log(i);
+}
+btns.forEach((item) =>{
+    item.addEventListener('click',inner, false //{once: true} false orniga shuni yozsam hodisa faqat bir marta sodir bo'ladi 
+    )
+} )
+// addEventListerer ning 3 ta qiymati bot 3-si Option yani hodisa takrorlanishi 
+
+
+KeyBoardEvent eventlar hodisalar  keycode - sayt klaveatura kodlarini olish uchun 
+
+1- keyup  klaveaturani bosib , qo'yib yuborganingdan keyin
+2- keydown klaveatura bosilganda va bosib turilganda 
+3- keypress - bu ishlatilmaydi
+
+document.addAventListener("keyup", (e)=>{
+	if(e.key ==="Enter" || e.key ==="s"){
+		console.log("you pushed down the Enter Button")
+	}
+})
+
+------------------------- amaliy bizga keyCode ni chiqaradi
+const div = document.querySelector(".div");
+const inner = document.querySelector(".inner");
+
+window.addEventListener("keyup", (e) => {
+  console.log(e);
+
+  inner.innerHTML = `
+          <div>
+               <h1>event.key : ${e.key === " " ? "PROBEL" : e.key} </h1>
+               <h1>event.keyCode : ${e.keyCode}</h1>
+               <h1>event.code : ${e.code} </h1>
+          </div>
+     
+     `;
+});
+-----------------------------------------------------------
+31-dars navigatsiya parentElement sibling 
+"use strict"
+
+// console.log(document.head); // head tegini chiqaradi 
+
+// console.log(document.body); //body chiqadi
+
+// console.log(document.body.childNodes);// bu nodelar ichidagi text deb nomlanganlari Probel ni bildiradi
+
+console.log(document.body.lastChild);
+console.log(document.body.firstElementChild);// bodydagi 1- elementni chiqaradi
+// console.log(document.body.firstChild);
+
+console.log(document.querySelector('#btn').parentNode.parentNode);// shu elementning ona blogini ham ko'rsatadi. buni necha marta yozsak shuncha marta ona blokni chiqaradi
+console.log(document.querySelector('#btn').parentNode);
+console.log(document.querySelector('#btn').parentElement);
+
+//elementni data atribut yordamida ushlash
+
+console.log(document.querySelector('[data-atribut="Nomi"]'));// 4burchak qavs ichida yozish shart
+
+console.log(document.querySelector('[data-atribut="Nomi"]').nextSibling);
+//nextsibling bu keyingi node 
+
+console.log(document.querySelector('[data-atribut="Nomi"]').previousSibling);
+// bu bitta oldingi 
+
+console.log(document.querySelector('[data-atribut="Nomi"]').nextElementSibling);
+// keyingi elementni chiqaradi
+
+
+//childnode ichidagi har bir elementni chiqarib ber
+
+for(let node of document.body.childNodes){
+    if(
+        node.nodeName == '#text'
+    )
+    {
+        continue
+    }
+    console.log(node);
+}
+----------------------------------------------------------------------
+33-dars 
+
+    <script defer src="/script.js"></script>
+    
+    <script async src="/script.js"></script>
+
+defer = DomContentLoader yani buni scriptga qo'shsak html yuklangincha Dom kutib turadi va keyin Js fayl yuklanadi
+
+Async = bu Fayllarni hajmiga qarab yoki tez yuklanishiga qarab ketmaketlikda yuklab beradi .
+
+------------------------------------------------------------------------------------
+35-dars classList xususiyatlari
+"use strict"
+// darsda
+//add , remove, item, length, toggle, contains
+
+const btns = document.querySelectorAll(".btn")
+
+//elementning ichida nechta class borligini bilish
+console.log(btns[0].classList.length);
+
+//elementning classlarini turgan tartibi bo'yicha chaqirish
+console.log(btns[0].classList.item(0));
+
+const className = btns[0].classList.item(2)
+console.log(className);// qiymatini o'zgaruvchiga olib olish
+
+//elementga yangi class qo'shish 
+btns[2].classList.add("new", "red")
+//classni o'chirish
+btns[0].classList.remove('blue')
+
+//toggle - elementimizda shu class bor bo'lsa o'chiradi, yo'q bo'lsa qo'shadi
+btns[0].classList.toggle("blue")
+
+//contains - o'z ichiga olsa 
+if(btns[0].classList.contains("blue"))
+{
+    console.log("yessss");
+}
+else{
+    console.log("nooo");
+}
+
+btns[3].addEventListener('click', () =>{
+    // if(!btns[4].classList.contains('red'))
+    // {
+    //     btns[4].classList.add("red")
+    // }
+    // else{
+    //     btns[4].classList.remove("red")
+    // }
+    //yuqoridagi 4 qator kodning ishini bajaradi
+
+    btns[4].classList.toggle("red")
+})
+
+************************************************************************************
+const onaBlog = document.querySelector(".onaBlog")
+
+// oanBlog.children ni blogni ichidagi , div , h1, p , va boshqalarni hammasini o'z ichiga oladi
+// Lekin bu bizga NodeList emas HTMLCollection qaytaradi, shunga biz unga forEach metodini ishlata olmaymiz
+// uni Avval arrayga o'tkazib olamiz
+
+const arr = Array.from(onaBlog.children)
+
+arr.forEach((item)=>{
+	item.classList.add("child")
+})
+
+----------------------------------------------------------------------
+36-dars delegatsiya - ona ota blogi orqali elementlarga murojat qilish
+
+"use strict"
+
+const wrapper = document.querySelector(".btn-block")
+
+// wrapper.addEventListener("click", () => {
+// console.log("click anywhere");
+// })
+//wrapperni istalgan joyi bosilsa Console.log chiqadi
+
+
+// wrapper.addEventListener("click", (event) => {
+//     console.dir(event.target)
+//     })
+// event.target yordamida biz faqat knopka bosilganda nimadur bo'lsin deya olamiz
+
+
+wrapper.addEventListener("click", (event) => {
+//1-shart usuli  tagName  YOKI nodeName
+    // if(event.target && event.target.tagName =="BUTTON"){
+    //     console.log("hello")
+    // }
+//2-shart usuli
+    // if(event.target && event.target.classList.contains("blue")){
+    //     console.log("hello")
+    // }
+
+//3-usul
+     if(event.target && event.target.matches('button.blue')){
+        console.log("hello")
+    }
+    //target ni matches metodi bor bu containsni vazifasini bajaradi
+    //matches - bu o'xshashlik yani button.blue si borlarni topadi
+})
+
+//event.target .hodisa berilganda yafaqat hodisa nishoni balki nishoni ichidagi hamma narsaga tegishli bo'ladi event.target buyurug;i
+
+// endi btn larni o'ziga hodisa berib ko'raman
+//buni ona blokga hodisa berishdan farqi , agar men dinamik tarzda yangi btn ni qo'shsam unda o'sha hodisa ishlamay qoladi
+// yoki yangi dinamik qo'shilganni hodisadan oldin berish kerak. lekin bu tavsiya etilmaydi
+const btns = document.querySelectorAll("button")
+btns.forEach((item) => {
+    item.addEventListener("click", () => {
+        console.log("sen click bosding");
+    })
+})
+const newBtn = document.createElement("button")
+newBtn.classList.add("blue", "btn")
+wrapper.append(newBtn)
+**************************************************************
+append vs prepend
+
+append ostiga qo'shadi, prepend 1- item sifatida qo'shadi
+
+**************************************************************************
+event Bubbling - hodisaning ko'tarilishi
+
+<div>
+	Bobo element
+	<p>
+		ota ona
+		<span>Bola</span>
+		<span>Bola</span>
+		<span>Bola</span>
+ 	</p>
+</div> 
+
+biz js da bola elementni click qilganimizda uning ota elementi ham click bo'ladi, hattoki bobo element ham click bo'ladi, sababi ular usma us turibdi
+
+endi biz shu ota elementlar click bo'lishini istamasak, stopPropigation()  metodidan foydalanamiz
+
+.addaventlistener("click" , (e) => {
+	console.log(" bu span tegi")
+	e.stopPropagation()
+})
+
+bunda p ning ichidagi span ni bosganimizda e.targeti span elementi bo'ladi
+
+----------------------------------------------------------------------
+37-dars loyiha tab
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    const tabsParent = document.querySelector(".tabheader__items"),
+    tabs = document.querySelectorAll(".tabheader__item"),
+    tabsContent = document.querySelectorAll(".tabcontent")
+
+    function hideTabContent(){
+        tabsContent.forEach((item) => {
+            item.classList.add("hide")
+            item.classList.remove("show")
+        })
+        
+        tabs.forEach((item) => {
+            item.classList.remove('tabheader__item_active')
+        })
+    }
+    function showTabContent(i = 0){
+        tabsContent[i].classList.add("show")
+        tabsContent[i].classList.remove("hide")
+        tabs[i].classList.add("tabheader__item_active")
+    }
+
+
+    hideTabContent()
+    showTabContent()
+//target - bosilayotgan tugmamiz 
+//tabs ning itemi ham tugma
+    tabsParent.addEventListener("click", (event) => {
+        const target = event.target
+        if(target && target.classList.contains("tabheader__item"))
+        {
+            tabs.forEach((item, index) => {
+                if(target == item){
+                    console.log(index);
+                    hideTabContent()
+                    showTabContent(index)
+                
+                    
+                }
+            })
+        }
+    })
+
+})
+----------------------------------------------------------------------
+38-dars animation settimeout , setinterval
+
+setTimeout - malum biz vaqt o'tganidan keyin ishlaydi
+setInterval - qanchadir vaqtda qayta qayta ishlab turadi
+
+let a = 0
+const interval = setInterval(()=>{
+	a++
+	console.log(a)
+},1000) har bir sekundda a ga 1 qo'shadi
+
+if(a===10){
+	clearInterval(interval)
+}
+
+----------------------------------------------------------------------
+46-dars funksiya konstruktor function constructor
+
+"use strict"
+
+//funksiya konstruktor bitta universal funksiyani object qilib olib unga turli hil qiymatlat berib va undan natija olib foydalanish
+//
+//bu funksiya - funksiya konstruktor deyiladi
+//uning nomi Katta farf bilan boshlanadi
+function Car(nomi, rangi, tezlik){
+    this.name = nomi
+    this.color = rangi
+    this.mph = tezlik
+    this.speed = function(){
+        console.log(`speed of this ${this.name} is ${this.mph}`);
+    }
+}
+Car.prototype.nomi = function(){
+    console.log(`Car name of ${this.name} say hello`);
+}
+//car funksiya konstruktorga prototype orqali metod qo'shish
+
+
+const bmw = new Car("BMW", "sariq", 120)
+const merc = new Car("Merc", "Qora", 110) //bu bizga car objectini qaytaradi 
+
+bmw.nomi()
+merc.nomi()
+
+bmw.speed()
+merc.speed()//funksiya konstruktordagi FUNKSIYANI chaqirish
+
+console.log(merc);
+console.log(bmw);
+
+-----------------------------------------------------------------------------------------------
+47-dars context this va closure
+// "use strict"
+
+
+//context this -xar doim nimagadur qaram (tegishli, osiladi) bo'ladi
+ // 1- oddiy funksiyaning contexti yani (this) window (glabal object) ga tegishli bo'ladi
+ //agar Use strict yoniq bo'la , this ning qiymati underfined ga teng
+
+    // function logger (a, b){
+    //     console.log(this);
+    //     function sum(){
+    //         console.log(this);
+    //         return a + b
+    //     }
+    //     console.log(sum());
+    // }
+    // logger(1, 4)
+
+    //---------------------------------------------------------------
+
+//2- object larda this 
+
+// object ni ichidagi context this objectni o'ziga teng
+
+    // const obj = {
+    //     x:10,
+    //     y:12,
+    //     sum: function() {
+    //         console.log(this); //object ni ichidagi context this objectni o'ziga teng
+    // //-------------------    
+    //         function n(){
+    //             console.log(this);
+    //         }
+    //         n()
+    //         //funksiya ichidagi funksiyani context this window global objectga teng . aga tuse strict yoniq bo'lsa underfined ga
+    //     //-------------------    
+    //     }
+
+    // }
+    // obj.sum()
+
+// -----------------------------------------------------
+
+//3- funksiya konstrukotrda context this yangi objectning nushasiga(ekzemplayiriga) teng 
+
+    // function Car (name, color )
+    // {
+    //     this.name = name
+    //     this.color = color
+    //     this.isairbag = true
+    // }
+    // const bmw = new Car('BMW', "Black")
+    // console.log(bmw);
+
+//-----------------------------------
+//closure
+//closure - funksiya ichida qandaydir o'zgaruvchini chaqirsak uni funksiya ichidan qidiradi, agar funksiya ichidan topa olmasa, tashqaridan Global o'zgaruvchilarni tekshiradi, agar o'sha o'zgaruvchi bo'lsa o'shani qiymatini oladi
+    // const a = 3
+
+    // function sum(){
+    //      //const a = 5 agar shu yo'q bo'lsa yuqoridagi a =3 ni oladi
+    //     console.log(a);
+    // }
+    // sum()
+
+//-------------------------------------------------------------------------------------------
+49-dars class ES6
+
+"use strict";
+
+class Car {
+  constructor(name, color, speed) {
+    this.name = name;
+    this.color = color;
+    this.speed = speed;
+  }
+  //calcspeed metodning contexti constructor objectini o'ziga teng
+  calcSpeed() {
+    return this.speed * 100;
+  }
+  //calcSpeed bu metod . funksiya konstruktorda biz buni
+  //Car.prototype.nomi = function(){
+  //  console.log(`Car name of ${this.name} say hello`);
+  //  }
+  // shaklida yasaganmiz
+}
+//o'zimizni classda yangi object yasab oldik
+const bmw = new Car("BMW", "Black", 200);
+const merc = new Car("Merc", "white", 180);
+console.log(bmw);
+console.log(bmw.calcSpeed()); //calcSpeed bu yerda metod
+console.log(merc);
+console.log(merc.calcSpeed());
+
+
+//class dan nusxa olish extends
+// agar eski klasdan nimadur bizga kerak bo'lmasa uni shunchaki constructor ichida yozmaslik kifoya 
+// misol uchun eski klassda speed ni olmadik
+class Spark extends Car{
+  constructor(name, color, isAirbag, extraBallon){
+    super(name, color,) //bu asosiy classdan malumot olish uchun . bu har doim boshida turishi shart
+    this.isAirbag = isAirbag
+    this.extraBallon = extraBallon
+  }
+
+  // metod yasaymiz
+  logger(){
+    console.log(`nameis car ${this.name}, color is ${this.color}, are there airBag ${this.isAirbag}, are there ${this.extraBallon} `);
+  }
+}
+
+const spark = new Spark('spark', 'Red', 200, 'available', 'mavjud')
+
+ //asosiy classdagi metodlar avlod classda ham ishlaydi
+
+ console.log(spark.calcSpeed());// bu yerda ishlamaganini(Nan chiqganini) sababi men tepada constructor ichida va supre ichida speed ni yozmaganman
+
+//-----------------------------------------------------------------------------------------------
+
+51-dars - rest operatori
+
+
+function logger(a, b, ...restOperatori) {
+  console.log(a, b, restOperatori);
+  // console.log(restOperatori);
+}
+logger(1, 2, 3, 4, 5);
+
+//rest operatori parametri berilmagan qiymatlarni massivga olib beradi
+
+// parametrga default qiymat berib qo'shish
+
+function sum(a, b = 10) {
+  console.log(a + b);
+}
+sum(1);
+//agar funksiya chaqirganda qiymat bersak shu qiymatni oladi ,aks holda default qiymatni avtomatik ojib ketadi
+
+// eski usuli
+
+function hisob(a, b) {
+  b = b || 10; // agagrda b bor bo'lsa shu b ga teng bo'lsin, yoki 10 ga 
+  console.log(a + b);
+}
+hisob(1);
+
+//--------------------------------------------------------------------------------------------
+
+54-dars chuqur clonlash chuqur nusxalash, JSON
+
+"use strict"
+
+// function clon (currentObj){
+//     let newObj = {}
+
+//     for(let key in currentObj){
+//         currentObj[key] = newObj[key]
+//     }
+//     return newObj
+// }
+
+
+// const obj = {
+//     a: 1,
+//     b: 2,
+//     c: 3,  
+// }
+
+// const newObyekt = clon(obj)
+// console.log(newObyekt);
+// console.log(obj);
+
+
+//funksiya yordamida clonlash ------------------------------------
+
+// const obj = {
+//     a: 1,
+//     b: 2,
+//     c: 3,
+// }
+// const newObj = Object.assign({}, obj) //Object global metodidan foydalanamiz
+// console.log(obj);
+// console.log(newObj); 
+
+//-------------------------------------------------------------------
+//JSON - Java-Script Object Notecion - bu malumotlar almashish formati 
+
+
+    // //json hech qachon server oddiy objectni tushunmaydi . shuning uchun biz uni json formatda yuborishimiz kerak
+    // // json formatda objectning kalit so'zi ham uning qiymati ham "" juft qo'shtirnoqda bo'lishi shart va shunday bo'ladi 
+    // const car = {
+    //     name:"BMW",
+    //     color:"red"
+    // }
+    // // biz bunda JSON degan katta metotdan foydanamiz. uning ikkita qiymati bor 
+    // //1- parse -> jsondan to object ga
+    // //2-stringify -> object dan json ga 
+
+    // const objtoJson = JSON.stringify(car)
+
+    // console.log(objtoJson);
+    // console.log(car);
+
+    // // agar biz serverdan malumot olsak u json formatda bo'ladi
+
+    // const jsontoObj = JSON.parse(objtoJson)
+    // console.log(jsontoObj);
+
+// chuqur clonlash - nusxa olish
+const car = {
+    name:"BMW",
+    color:"red",
+    extra:{
+        isAirbag: true,
+        ballon: 5,
+    }
+}
+const clonCar = JSON.parse(JSON.stringify(car))
+
+clonCar.extra.ballon = 100
+console.log(clonCar);
+console.log(car)
+
+
+deep copy and shallow copy
+
+spread operatori yordamida deep copy
+
+const newObj = {...oldObj}
+
+//---------------------------------------------------------------------------------------
+const getData = (resource) => {
+	return new Promise((resolve, reject)=>{
+		const request = new XMLHTTPRequest()
+	
+		 request.addEventListener("readystatechange", ()=>{
+     		 const response = JSON.parse(request.responseText)
+      	 console.log(response);
+    		 })		
+	
+		request.open("GET" , resource)
+		request.send()
+	})
+}
+getData("https://restcountries.com/v3.1/all")
+---------------------------------------------------------
+fetch(API).then(data => (data.json())).then(response => {console.log(response)})
+
+Biz .json() dan foydalandik, bu fetchni metodi desa ham bo'ladi
+Agar biz datani jsonga o'tkazmasak, uni browser tushinmaydi
+
+JSON.parse() buni esa XMLHttpRequestda ishlatdik 
+--------------------------------------------------------
+
+55-dars
+
+AJAX asinxron javaScript va xml
+
+xml = bu data formati - lekin hozirgi kunda xml dan foydalanilmaydi, uning o'rniga JSON dan foydalanamiz
+
+// AJAX texnologiyasi - web sahifani yangilamasdan turib serverga so'rov yuborish va serverdan javob olish uchun ishlatiladi
+
+const uzs = document.querySelector("#uzs");
+const usd = document.querySelector("#usd");
+
+uzs.addEventListener("input", (e) => {
+  const request = new XMLHttpRequest();
+  //bu XMLHttpRequest bu serverga so'rov yuborish , va bu object qaytaradi
+  // request endi bizga object qaytaradi, u endi bir nechta metodlarga ham ega open , onload
+  request.open("GET", "current.json"); // bu 2 ta metodni o'zgiga oladi. 1-metod, 2- url -qayerdan olishi GET va POST get - malumot oladi, post malumot jo'natadi
+  //open so'rovni sozlash
+  request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  //setRequestHeader so'rov qanday formatda kelayotganini kiritamiz
+  request.send(); //so'rovni yuborish
+
+  // endi bu bizga turli narsalar qaytaradi
+  //1- status yani so'rovni holati
+  //status  200       400         404         500
+  //       ok   client-error   not found     server-error
+  //2- status text bu yuqoridagi ok, not found lar
+
+  //3- response = bu javob
+
+  // 4- readyState bu bizni qaysi bosqichda (holatda) ekanligimiz
+  //ozi 5 ta state bor
+  //0- unsent 1- opened 2- header-Received 3-Loading 4- done
+
+response status statusName 
+
+  request.addEventListener("readystatechange", () => {
+    if (request.readyState === 4 && request.status === 200) {
+      console.log(request.response);
+      const data = JSON.parse(request.response);
+      usd.value = (+uzs.value / data.current.usd).toFixed(2);
+      //toFixsed bu kasr sonlarni nuqtadan keyingilarini olib tashlaydi
+    } else {
+      usd.value = "someting went wrong";
+    }
+  });
+});
+
+----------------------------------------------------------------------------------------
+58-dars Promise 
+"use strict";
+
+// promise - vada .bu 3 ta metodi bor,
+//then - bu hodisa bajarilsa
+//catch - bu hodisa bajarilmasa
+//finally - bu har qanday holatda ham ishlayveradi
+
+//new promise 2 ta qiymatni qabul qiladi. resolve = true, reject = false
+    promise bizga object qaytaradi uni esa 3 ta then catch finally metodlari bor
+    
+        // const isFriendCome = false;
+        // const meetingRequest = new Promise((resolve, reject) => {
+        // if (isFriendCome) {
+        //     const msg = "Friend i'm there";
+        //     resolve(msg);//resolve funksiyani chaqirib qo'yish shart
+        // } else {
+        //     const err = "i can't come";
+        //     reject(err);
+        // }
+        // });
+
+        // meetingRequest
+        // .then((msg) => {
+        //     console.log(msg);// resolveni keyin then orqali ushlab olamiz
+						resolve ning parametri then ni ichidagi callbackning parametriga kelib tushadi
+        // })
+        // .catch((err) => {
+        //     console.log(err); //rejectni catch orqali ushlab olamiz
+        // })
+        // .finally(()=>{
+        //     console.log("i'm testing you");
+        // });
+
+//then yuqoridagi resolve ishlatish uchun. catch esa yuqoridagi reject ishlatish uchun
+
+
+//sinxron - kodlar ketma ket tartibda ishga tushadi
+
+//asinxron - kodlarga setTimeOut berish orqali ularni tartibini o'zgartirish, ular kutib turgan paytda boshqa kodlar ishlab turadi
+
+// setTimeout(()=>{
+//     console.log("bu asynx kod");
+// }, 2000) // asynx
+
+// console.log("request data ... "); //synx
+
+----------------------------------------------------------------------------------------------
+59 - dars Promise.metod 
+
+"use strict";
+
+const request = (time) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
+}; 
+
+// request(1000).then(()=>{console.log("request 1000 ms");})
+// request(2000).then(()=>{console.log("request 2000 ms");})
+// request(3000).then(()=>{console.log("request 3000 ms");})
+// request(4000).then(()=>{console.log("request 4000 ms");})  //biz bitta Promiseni bitta js da bir necha marta ishlata olamiz
+
+    // Promise.all([request(1000), request(2000), request(3000)]).then(() => {
+    // console.log("all");
+    // }); // all dan , hammasi ishga tushganidan keyin nimadir qil deyishga foydalanamiz
+//Promise - global object uning all, race metodlari bor
+//bunda funksiya hamma promise ishga tushib(3 sekund o'tganidan keyin) bo'lgandan keyingina ishga tushadi
+
+    Promise.race([request(1000), request(2000), request(3000)]).then(() => {
+    console.log("race-poyga");
+    });
+    //race - metodida promise bajarilishiga ketadigan eng qisqa vaqtni oladi va o'shandan keyin funksiya (nimanidur bajaradi) ishga tushadi
+
+=-------------------------------------------------------------------------------------
+
+60-dars fetch API
+
+"use strict";
+
+//API Aplication Programming Interface - dastur interfeysi 
+//google map API
+//google place API
+
+//FETCH API
+
+fetch("https://jsonplaceholder.typicode.com/todos/1")
+  .then((response) => {
+    response.json(); // bu yerda biz promise qaytargan objectni response ga tengladik va uni json formatga o'tkazdik
+  })
+  .then((json) => {
+    console.log(json); //keyin promise bizga json qaytaradi , biz uni "json" deyan nomga bog'ladik va consolhga chaqirdik
+  });
+
+//fetch bizga promise qaytaradi
+//promise bizga qandayqir data qaytaradi
+//  fetch ikkita argument oladi, 1-url, 2-option
+//biz indamasak 2-optiondagi metod = GET ga
+
+fetch("https://jsonplaceholder.typicode.com/todos/1", {
+  method: "POST", //GET yoki POST
+  headers: { "Content-Type": "application/json" }, // sarlavhasi
+  body: JSON.stringify({ name: "Samar" }), //biz bunda yuqorida send() ni ichida yozgan narsani yozamiz. yani nimani jo'natish kerak bo'lsa
+})
+  .then((response) => {
+    response.json();
+  })
+  .then((json) => {
+    console.log(json);
+  });
+//-------------------------------------------------------------------
+61-dars map filter some every reduce sort
+
+"use strict"
+
+//Massivlarni intonatsiya qiluvchi metodlar
+//map ,filter, some, every, reuduce
+//biz forEach yordamida qilar edik buni, lekin bularni undan farqi bu bizga yangi massiv qaytarib beradi
+
+//MAP - metodi => eski massivdagi hamma elementni olib ,qiymatini o'zgartirib ,bizga yangi massiv qaytaradi
+
+// const car = ['mErs', 'bmW', "Bugatti"]
+// const arr = car.map((item)=>{
+//     return item.toUpperCase()
+// })
+// console.log(car);
+// console.log(arr);
+
+//FILTER bizga yangi massiv qaytaradi, filter qilib
+
+// let car =['mers', 'bmw', 'Tayota sanata', 'Bugatti chiron']
+// console.log(car);
+// car = car.filter((item) =>{
+//     return item.length < 5
+// })
+// console.log(car);
+
+//some every - bu boolean qiymat qaytaradi
+
+// const arr = ["salom", 1 , true]
+// console.log(arr.some((item)=>{typeof item ==='number'}); //bulardan bittasini typeof number bo'lsa ham true bo'ladi
+// console.log(arr.every((item)=>{typeof item ==='number'}); //hammasining typeof number bo'lsa true bo'ladi  
+
+//reduce => metodi bitta qaydaydur qiymat qaytaradi
+
+const arr = [4, 32, 1, 3] //bularni qiymatini topish
+				1-siklda sum = 0 current=4, 2-siklda sum=4 current=32 
+                        0   +   4 //malumot stringda bo'lsa 0 o'rnida bo'sh joy bo'ladi, lekin biz bunga innitial orqali boshlang'ich qiymat bera olamiz
+                        4   +   32
+                        36  +   1
+                        37  +   3
+
+const res = arr.reduce((sum, current) => sum + current, 10) //10 boshlang'ich qiymat
+console.log(res);
+
+*************************************************************
+
+const movi = [
+  {name: "titanik 1", year: 2008, rating: 1 },
+  {name: "titanik 2", year: 2008, rating: 2 },
+  {name: "titanik 3", year: 2008, rating: 3 },
+  {name: "titanik 4", year: 2008, rating: 4 },
+  {name: "titanik 5", year: 2008, rating: 5 },
+  {name: "titanik 6", year: 2008, rating: 6 },
+  {name: "titanik 7", year: 2008, rating: 7 },
+  {name: "titanik 8", year: 2008, rating: 8 },
+]
+//*****************SORT *************************
+//sort metodi bizga tartiblab beradi , 
+// array.sort() // bu o'z ichiga callBack funksiya ham olishi mumkun
+
+const sorted = movi.sort((a, b)=>{
+  return b.rating - a.rating   // bu ham true , false ga tekshiradi 
+})
+console.log(sorted);
+
+
+//*************************** MAP *************************************
+
+// map - bizga malumotni o'zgartirib qaytaradi ,
+// asl holatiga tasir ko'rsatmaydi  
+const newMo = movi.map((movie)=>{
+  //return movie.year * 100 bunday yoza olmayman sababi bunda bizga oddiy naqamlarni qaytaradi, bizga esa har bir objectni qaytarishi kerak
+  
+  return{name: movie.name, year: movie.year, rating: movie.rating + " star ⭐"}
+})
+console.log(newMo);
+
+
+
+  // const newItem = []
+  // movi.forEach(element => {
+  //    element.rating *= 2
+  //    newItem.push(element)
+  // });
+  // console.log(newItem);
+
+//*********  Filter metodi orqali  ********************************************************
+
+
+// forEach dan farqi bu nimanidur return qiladi, shunga buni yangi o'zgaruvchiga tenglab olamiz , 
+// bu bizga yangi array qaytaradi
+// filter Arrayning aslini o'zgartirmaydi, nusxa oladi , va nusxasi bilan ishlaydi
+
+// const filterArray = movi.filter((movie)=>{
+//   return movie.rating >= 2 // bu yerda true yoki false chiqaradigan shart bo'ladi
+//   // return SHART   // buni forEachdan afzalligi , filterlangan malumotni biz, qo'lda push qilib yangi arrayga qo'shmaymiz, buni filter metodini o'zi qiladi 
+// })
+// console.log(filterArray);
+
+
+
+//**************************** ForEach orqali ************************
+// const NewArray = []
+
+// const newItem = movi.forEach((item)=>{
+//   if (item.rating >= 5 ) {
+//     NewArray.push(item)
+//   }
+// })
+
+// console.log(NewArray);
+
+
+//-------------------------------------------------------------------------------------
+
+//62-dars NPM  
+
+"use strict"
+
+//NPM note package manager
+//npm -v => npm ning versiyasi
+
+//1- npm init  => nmpni initsiolizatsuya
+//  npm init -y => qilinsa npm ni default qilib o'rnatadi . Yani 1-usulda yozsak 5 6 marta enter bosishimiz kerak ediku
+//2- nmp install bootstrap 
+// npm i cors -D  => dasturlash muhiti uchun qaramlik o'rnatish uchu -D ishlatiladi
+// npm i jquery -D  =>
+// npm i bcrypt 
+
+// .gitignore => buni ichiga gitga qo'yilishi kerak bo'lmagan fayl nomlari yoziladi
+ 
+//----------------------------------------------------------------------------------- 
+
+63-dars 
+json-server 
+
+1- npm i json-server -D
+
+json-server bizni bazamizni qandaydir url(portda) ochib bera oladi
+
+2- json-server --watch db.json
+ // kuzatilishi kerak fayl nomi yoziladi
+
+windowsda 
+npx json-server db.json   => 
+
+-------------------------
+json-server bu bizga server yaratib beradi . biz unga malumumot jo'natishimiz, va olishimiz mumkun
+
+1- npm init -y  => loyihaga npm o'rnatish
+
+2-npm i json-server -D
+
+3- database.json yarat .malumot yuborish , olish uchun
+{
+    "posts":[],
+    "comments":[],
+    "request":[]
+}
+
+4- npx json-server database.json  => bazani kuzatish uchun
+
+
+//-----------------------------------------------------------------------------------------
+63-dars
+
+json-server bu bizga server yaratib beradi . biz unga malumumot jo'natishimiz, va olishimiz mumkun
+
+1- npm init -y
+
+2-npm i json-server
+
+3- database.json yarat .malumot yuborish , olish uchun
+{
+    "posts":[],
+    "comments":[],
+    "request":[]
+}
+
+4- npx json-server database.json  => bazani kuzatish uchun
+
+
+64-dars 
+sinxron - qatorma qator kodlarni o'qiydi
+asinxron  biz kodlarga qachon ishlashi kearkligini ayta olamiz , misol uchun , setTimeout() da
+
+=> bu oddiy funksiya
+  function postData(url, data){
+    const res = fetch(url, {
+      method: "POST",
+      body: data,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+    return res.json()
+  }
+
+  => asinxron funksiya
+  
+  async function postData(url, data){
+    //res , serverga so'rov borguncha kutib turadi
+    const res = await fetch(url, {
+      method: "POST",
+      body: data,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+    return await res.json()
+    // bu serverga so'rov yuborilginigacha kutub kuradi
+  }
+------------------------------------------------------------
+akhror web
+
+const API = "https://restcountries.com/v3.1/alladadad";
+//async function = promise yani async function bizga promisa qaytaradi
+
+const getData = async (request) => {
+  const response = await fetch(request);
+  //await - yani 4 qatorda await yozilsa, 4-qatordagi kod to'liq bajarilib bo'lgach
+  //keyin 5- katordagi kod bajariladi degani
+
+  if(response.status != 200){
+    throw new Error("bu yerdagi text, catchdagi parametrdagi message ga borib tushadi")
+  } //agar hatolit bo'lsa unda catch ishlashi uchun  throw new Error yozdik
+
+
+  const json = await response.json(); // bu qator bajarilmaguncha konsolga hech narsa chiqmaydi
+  // console.log(json);
+  return json; //return qilsak bu then ning parametriga borib tushadi, bo'lmasa yo'q
+};
+getData(API)
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+  -------------------------------------------------
+
+  => objectni massiv qilish
+   const obj = {x: 10, y:20}
+   console.log(Object.enteries(obj))  Object global obyektining enteries metodi orqali objectni massiv qilish 
+
+  const obj = {x: 10, y:20}
+ const massiv = Object.entries(obj)
+  console.log(massiv) // object.entries bizni objectni mayda-mayda massivlarga bo'lib beradi
+  console.log(Object.fromEntries(massiv)); // bu massivni object holatga keltiradi
+
+----------------------------------------------------------------------------------------------
+65-dars AXIOS kutubxonasi  aksios kutubxonasi
+bu fetch API o'rniga, buning qulaylikalri ko'p
+
+1- avtomatik json formatga o'tkazib beradi
+
+1- npm i json-server
+2- db.json yarat
+3- npx json-server db.json
+4- <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+keyin lik orqali axios ni ula
+yoki npm install axios
+5- axios import from "axios" bundan foydalanishdan oldin uni import qilish shart
+
+
+
+  axios.get("http://localhost:3000/menu").then((data)=>{
+    data.data.forEach(({ img, altimg, title, descr, price }) => {
+          new MenuCard(
+            img,
+            altimg,
+            title,
+            descr,
+            price,
+            ".menu .container"
+          ).render();
+        });
+  })
+
+  // axios bizga faqat biz so'ragan objectlarni o'zini emas balki qo'shimcha uning 
+  //statusu, status name va boshqa narsalarni ham chiqarib beradi shunga biz yuqorida
+  //biz so'ragan DATA ni ichidan yana data bo'limini tanlab oldik
+
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+//----------------------------------------------------------------------------------------
+
+70-dars local storage
+
+'use strict'
+
+// const email = document.querySelector('.email'),
+//   firstName = document.querySelector('.name'),
+//   formSubmit = document.querySelector('form'),
+//   doc = document.querySelector('.doc')
+
+// formSubmit.addEventListener('submit', (e) => {
+//   e.preventDefault()
+
+//   const user = {
+//     email: email.value,
+//     name: firstName.value,
+//   }
+
+//   e.target.reset()
+
+//   localStorage.setItem('user', JSON.stringify(user))
+// })
+
+// const user = JSON.parse(localStorage.getItem('user'))
+
+// doc.textContent = `${user.name}`
+
+--------------------------------------------------------------------------
+localStorage faqat string malumot qabul qiladi, shunga object va arraylarni avval jsonga o'tkazib olamiz
+getItem qilganimizda esa JSON.parse qilamiz
+
+const names = ["sardor", "doniyor"]
+
+localStorage.setItem("names", JSON.stringify(names) Json ga o'tdi
+
+const getNames = JSON.parse(localStorage.getItem(names) // arrayga o'tdi
+
+
+--------------------------------------------------------------------------
+
+//chrome => application => local storage
+// logal storagega biz userning qamdaydir malumotlarini saqlashimiz mumkun bo'ladi
+
+// localStorage.setItem   => storega malumot yuklash 1-key 2-malumot . localga object yuborib bo'lmaydi, biz uni jsonga o'girib yuboramiz
+// localStorage.getItem  => malumot olish 1-key . localdan olgan malumot string formatda bo'ladi
+// localStorage.removeItem  1-key
+// localStorage.clear  => storageni butunlay tozalaydi
+// asosan shu 4ta metodidan foydalaniladi 
+
+const email = document.querySelector(".email"),
+firstName = document.querySelector(".name"),
+formSubmit = document.querySelector("form"),
+doc = document.querySelector(".doc"),
+remove = document.querySelector(".remove")
+
+      // localStorage.setItem("Farhod", "Salom Farhod")
+      // const men = localStorage.getItem("Farhod")
+
+      // doc.textContent = `${men}`
+      // remove.addEventListener("click", ()=>{
+      //   localStorage.removeItem("Farhod")
+      // })
+
+// inputning qiymatlarini local storagega joylash
+
+formSubmit.addEventListener("submit", (e)=>{
+  e.preventDefault()
+
+  const user = {
+    email: email.value,
+    name: firstName.value
+  }
+  e.target.reset() //formani jo'natganda uni reset qilib beradi
+  console.log(user);
+
+  localStorage.setItem("newUser", JSON.stringify(user))
+
+  //local storagedan malumot olib uni ishlatish 
+
+  const localUser = localStorage.getItem("newUser")
+  console.log( typeof localUser); //local storagedan kelgan malumot string tipida bo'ladi , biz uni objecta o'tkazib olamiz
+  const obj = JSON.parse(localUser)
+  console.log(obj);
+  //eni biz bundan foydalanib istalgan narsani o'zgartirishimiz mumkun
+  doc.textContent = `${obj.name}`
+})
+
+
+Forms forma bilan ishlash  
+form ichidagi har bir inputni biz js ga querySelector orqali olib o'tishimiz shart emas
+const form = document.querySelector("form")
+
+send = form.send
+console.log(send)  // . nuqtadan keyin uning idisini yozish shart , klass emas 
+//***********************************************************************************************
+71-dars regular expression    regEx
+"use strict"
+
+// regular expression - oddiy iboralar
+
+// buning vazifasi nima- biz loyiha qilayotgan paytimizda oxiridagi px ni 
+// o'chirib tashlash uchun uni not'g'ri yo'l bilan qildik, agarda bizga
+//  malumot px emas rem , deg va shunga oxshash holatda kelganida bizni kodimiz ishlamay qolardi
+
+// 1- sintaxsis 
+
+//  new RegExp("pattern", "flags")
+//  pattern => nimani qidirish kerak bo'lsa shu yoziladi
+// flag => bu nimanidir g - global qidirish , i - katta va kichik harflarda qidirish
+
+// 2-sintaxsis
+//=>    /pattern/flag 
+//3 ta flag bor 
+// 1- g global
+// 2- i bu kotta va kichik harflarga javob beradi
+
+// const firstName = prompt("what is your name", "")
+
+// const RegExp = /a/g
+//     // const RegExp1 = /a/i
+//     // //biz ikkita flagni yonmayon yoza olamiz /salom/gi yoki ig ko'rnishida
+
+search , replace, match , test
+o'zgaruvchi.search(regEX)
+o'zgaruvchi.replace(regEX)
+o'zgaruvchi.match(regEX)
+regEX.test(o'zgaruvchi)
+  
+
+//     // //***************1-metod search
+//     // console.log(firstName.search(RegExp1)); // deydigan bo'lsam console menga 1 ni ko'rsatadi , yani 1-a ning indexini . serchda g - global flag ishlamaydi
+//     // // serch bizga faqat 1- sini qaytareadi
+
+// //************2-metod match - yani bir biriga tushsa , mos kelsa exp: password and confirm password
+// console.log(firstName.match(RegExp));
+// //match bizga massiv qaytaradi
+
+//*********3-metod replace
+// parolni heshlash 
+    // const password = prompt("your passwod", "")
+
+    // console.log(password.replace(/./g , "*"));
+//replase 2ta qiymat oladi
+//1- nima qilish kerak , 2- nimaga o'zgartirish kerak
+// /./g  => bu yerda .(nuqta) bu hammasini anglatadi , exp: @#!ada123 larni
+
+//*******special character - yanai maxsus belgilar $ | lar
+        // const password = prompt("your passwod", "")
+
+        // console.log(password.replace(/\|./g , "*"));
+// biz bu maxsus belgilarni shunday qidira yoki replace qila olmaymiz ,
+// ularni yozishdan oldin uningoldiga \ belgisi qo'yilishi shart
+
+//********* Amaliy
+//replace orqali biz birornarsani olib tashlaymiz yoki boshqa narsaga o'zgartiramiz
+// const num = "12-232-3223-12"
+
+// console.log(num.replace(/-/g, ""));
+// console.log(num.replace(/-/g, ":"));
+
+//****0 4-metod test bizni kiritgan malumotimizda nimadur bor yoki yo'qligini tekshiradi
+    // const name = prompt("your name ?", "")
+
+    // const regexp = /farhod/gi
+
+// console.log(regexp.test(name)); // bu bizga true yoki false qaytaradi 
+//bunda hushyor bo'l sababi , tepada biz o'zgaruvchiga regExp bergandik
+// bunda teskarisi
+    // if(regexp.test(name)){
+    //     console.log("nimadur");
+    // }else{
+    //     console.log("tur yo'qolgin");
+    // }
+
+//**************
+// \d - sonlar
+// \w - harflar
+// \s - space joylar
+
+//  \D - not a numer
+//  \W - not a word
+//  \S - not a space
+
+const name = prompt("your name ?", "")
+
+    const regexp = /\d/gi // bu bizga sonlarni qay
+    const regexp1 = /\D/gi // bu bizga son emaslarni qaytaradi
+
+    console.log(name.match(regexp)); // biz butun teksdan faqat sonlarni olib oldik
+    console.log(name.match(regexp1));
+
+
+regEx101.com   
+/ ^ &/   ==>   ^ shift+6 va $ dollar orasida qattiylik sharti yoziladi 
+misol uchun 
+/ ^Salom$/  inputga faqat Salom so'zini kiritsak kina ishlaydi
+/ ^[a-z]{6, 12}$/  bu faqat kichik farf da yozing degani , 2- nechtadan nechtagacha belgi kiritishi belgi kiritishi
+/ ^[a-zA-Z]{6, 12}$/ bu kotta harflarni ham oladigan bo'ldi
+/ ^[a-zA-Z0-9]{6, }$/qaram kiritsa bo'ladi, max qiymatni bo'sh qolldirsam , inputga istalgancha malumot kiritsa bo'ladi
+/ ^.{6, }$/  shartga .nuqta qo'yilsa, bu istalgan malumotni kirit degani
+
+//**************************************************************************
+
+// 73-dars getter va setter 
+
+// const car = {
+//     name: "bmw",
+//     color:"black", 
+
+//     get carName (){
+//         return this.name // content this = car objectga
+//     },
+//     set carName (name){
+//         this.name = name
+//     } 
+// }
+// console.log(car.carName); // bu metod emas  , oddiy xususiyat
+// console.log(car.carName = "Merc");
+// console.log(car.carName("Merc")); bu xato sababi carName metod emas, oddiy xususiyat
+
+// 74-dars inkapsulatsiya 
+
+ //function konstruktorda gi malumotlarni biz hozir tashqaridan turib o'zgartira olamiz, 
+ // shularni metodlarga(funksiyaga) bog'lab faqat metodlar blan ishlaydigan qilish - inkapsulatsiya
+ //foydasi : bizni loyihani tushinmagan boshqa yangi dasturchi loyihani buzib yumormasligi uchun
+
+function Car(name, color, bonus){
+    this.name = name
+    this.color = color
+
+    let extraBonus = bonus
+
+    this.info = function(){
+        console.log(`Name of car: ${this.name}, Color of car is ${this.color}, there are some bonus: ${extraBonus}`);
+    }
+
+    this.getBonus = function(){
+        return extraBonus
+    }
+
+    this.setBonus = function(bonus){
+        if(typeof bonus ==='number' && bonus > 0 && bonus < 100){
+            extraBonus = bonus
+        }
+        else{
+            console.log("siz 0 - 100 oralig'ida qiymat kiritmadingiz");
+        }
+    }
+
+
+}
+
+const bmw = new Car("BMW", "white", 10)
+console.log(bmw.getBonus());
+bmw.setBonus(20); // endi biz extraBonus ni to'gridan to'gri ozgartira olmaysiz, buni set bo'nus orqali qilamiz
+bmw.info()
+
+//************************************************************************************************
+
+
+// 75-dars inkampulatsiya klasslarda 
+
+class Car{
+    constructor(name, color, bonus){
+        this.name= name, 
+        this.color = color,
+        this._extraBonus = bonus // classlarda inkampulatsiya ishlatadigan dasturchi , o'zgartirilishi mumkin bo'lmagan o'zgaruvchi ni ajratisb ko'rsatish 
+        //uchun uning oldiga _ pastgi chiziq (lodash) qo'yadi
+        // _ bu tashqaridan o'zgartirilmasin, buning uchun bizda metodlar bor degan manoni beradi
+        // let extraBonus deb bera olmayman shunki uni keyin tashqarida chaqirishim kerak, let bilan berganim uchun u construktordan tashqarida ishlamidi 
+    }
+
+    info(){
+        console.log(`Name of car: ${this.name}, Color of car is ${this.color}, there are some bonus: ${this._extraBonus}`);
+    }
+    get bonus(){
+        return this._extraBonus
+    }
+ // getter va setter orqali bir hil nomli husussiyat yasadik 
+    set bonus (bonus){
+        if(typeof bonus ==='number' && bonus > 0 && bonus < 100){
+            this._extraBonus = bonus
+        }
+        else{
+            console.log("siz 0 - 100 oralig'ida qiymat kiritmadingiz");
+        }
+    }
+}
+const bmw = new Car("BMW", "black", 40)
+bmw.bonus
+console.log(bmw.bonus = 90);
+bmw.info()
+
+//*********************************************************************************
+78-dars webpack 
+
+webpack - bizga js faylimizni qismlarga bo'lishga yordam beradi
+
+1- npm i webpack webpack-cli
+
+2- webpack fayl ochish => webpack.config.js
+va ichiga quyidagini yoz
+            module.exports = {
+              mode: "development",
+              entry: "./src/js/script.js",
+              output: {
+                path: __dirname + "dist/js",
+                filename: "bundle.js",
+              },
+              watch: true,
+              devtool: "source-map",
+              module: {},
+            };
+
+3- src papka och, js papkani src papka ichiga olib kir, 
+
+4 - src papka ichida modles papka och, va u yerda js fayllar yarat , js faylda yangi funksiya ochib  hamma codelarni shu funksiya ichida yozamiz,
+
+5- osha js fayllarni keyin exports qilish kerak
+module.exports = js fayldagi asosiy funksiya nomi
+
+6- js faylarni js papkadagi script.js da import qilib olamiz
+const loader = require('../modules/loader)
+
+7- module lardagi funksiyalarni chaqirib chiqamiz
+
+8- webpack ni ishga tushiramiz
+npx webpack 
+
+//***********************************************************************
