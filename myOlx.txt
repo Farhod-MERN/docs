@@ -649,4 +649,4 @@ Backend taraflama validate qilish ----------------------------------------------
         app.use(notFoundMiddleware)
 
 
-        salom
+        
