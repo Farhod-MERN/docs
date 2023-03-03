@@ -648,5 +648,5 @@ Backend taraflama validate qilish ----------------------------------------------
         const notFoundMiddleware = require("./middleware/notfound")
         app.use(notFoundMiddleware)
 
-
+Salom
         
