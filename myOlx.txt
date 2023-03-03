@@ -647,3 +647,6 @@ Backend taraflama validate qilish ----------------------------------------------
     index.js da // bu middleware eng pastga yoz. starterdan oldin
         const notFoundMiddleware = require("./middleware/notfound")
         app.use(notFoundMiddleware)
+
+
+        salom
