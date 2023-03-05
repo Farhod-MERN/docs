@@ -1,0 +1,104 @@
+git ni yuklab ol(git - terminal)
+
+git (vcs) version control system
+
+0) loyiha fayliga kir o'ng tarafni bos git bash here 
+
+1) git init -- loyiha fayliga Gitni o'rnatish
+
+2)code . -- shu loyihani vs codeda ochib beradi.
+
+3)vs codeda index.htmlni yarat 
+boshqa css fayllarni ham yaratish mumkun.
+
+4) git status --> o'zgarishlarni tekshir
+
+5) git add . --> yaratilgan fayllarni navbatga ol
+	git add index.js - faqat index.js ni qo'shadi
+
+6) git status --> tekshir 
+
+7) git commit -m"comentariya yoz"
+
+8) Git dagi local o'zgargan yoki yangi qo'shilgan faylni GitHubga
+qo'shish uchun 
+git push    ---- hammasi githubga qo'shiladi
+
+9) githubda yangi fayl ochib 
+uni gitdagi localga qo'shish uchun
+git pull   --> vskodda ham ko'rinadi
+
+ 
+cd desktop---- change directori desktop faylga o'tish
+cd ../  --> bitta orqa faylga o'tish
+
+mkdir faylnomi --- papka yaratish
+
+touch index.html ----- nangi fayl yaratish
+
+rm index.html style.css   rm ---remove
+
+ git add index.html yaratgan faylni gitga navbatga qo'yadi
+ git add .  --- hamma o'zgargan fayllarni navbatga qo'yadi
+ git reset faylnomi --> git add qilingan fayllarni bekor qilish
+ git reset . --> hammasi bekor bo'ladi
+
+
+	git status --orqali buni tekshiramiz
+
+git commit -m"izohlar"  <--> navbatdagi fayllarni gitga ulab beradi
+
+
+git log --> gitdagi loyihalar , o'zgarishlar tarixini ko'rsatadi
+
+git log va commitdan keyingi raqamlarni yoz 
+
+git checkout --faylnomi fayldagi oxirgi o'zgarishlarni bekor qiladi
+git checkout . hamma fayldagi o'zgarishlarni bekor qiladi.
+
+git checkout maxsuskod --> fayllarning tarixidagi istalgan joyga qaytish
+git checkout master --> kodi eng so'ngi versiyadgi faylga qaytarib beradi
+
+
+GITDA BRANCH lar bilan ishlash
+git branch --> mavjud filliallar ro'yhati
+git branch nom --> yangi yaratish
+git checkout nomi--> boshqa branchga o'tish
+git merge asosiyLoyiha --> fillialdan turib asosiyga branchni biriktirish
+keyin asossiy masterga o'tib
+git merge fillialNomi --> fillialni asosiyga qo'shadi
+--------------------------------------------------------------
+GITHUB bilan ishlash github--git asoslangan Kod hosting platformasi
+----------------------------------------------------------------
+akhror web
+---------------------------------------------------------------
+Loyihani hostinga qo'yish
+
+Githubdagi loyihani och> setting> pages>Branchni Masterga o'zgartir
+root ga tegma va save . tayyor
+-------------------------------------------------------
+Loyihani o'chirish
+
+settings dan eng pastda denger zone bor
+shu yerdan delete this repository ni bos 
+---------------------------------------------------------------
+githubdagi eski akkountning parollarini qoldiqlarini tozalash
+yoki 403 error bersa
+---------------------------------------------
+control panel > user accounts > credential manager> windows cridentials>
+generic credentials 
+shu joyda hamma kompyuterga , accountlatga bog;liq parollar ko'rinadi
+shu yerdan git yoki Github degan bo'limni topib delete or remove qilib tashlash kerek
+
+
+
+React loyihani gitga joylash
+Loyiha yaratishda npx create-react-app . qil demoda emas
+
+1- git init
+2- git add -A
+3- git commit -a -m"commit"
+4- gitHub dagi 3ta narsani copy pass qil
+	git remote add origin https://github.com/Farhod-MERN/Twitter.git
+	git branch -M main
+	git push -u origin main

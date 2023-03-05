@@ -1,6 +1,18 @@
+JavaScript nima - web saytimizga harakatlarni , amallar qo'shib beradi
+
+5-dars 
+
+"use strict" - qatiy rejim - vazifasi ayrim kod sistaksislari ayrim brouserlarda ishlamay qo'lishi
+mumkun, shunga hamma dasturchilar bir hil universa sintaksisdan foydalanishi uchun use strict ishlab chiqilgan
+
 6-dars o'zgaruvchilar
 
 let const var 
+
+const - o'zgartirsa bo'ladi object orqali 
+
+const obj = {name: ""Farhod}
+obj.name  = "Yangi"
 
 var bu eskirgan hisoblanadi va hozirda ishlatilmaydi
 
@@ -69,6 +81,12 @@ console.log(objectNomi); //bunda hamma valueni ko'rsatadi
 console.log(objectNomi.age); // bu tavsiya etiladi
 console.log(objectNomi["age"]); // bu kam qo'llaninali
 
+const nomi = "salom"
+const qiymati = "bu qiymati"
+
+serial.serials[`${nomi}`] = qiymati
+serial.serials[nomi] = qiymati
+
 // array bu massiv . massivda valuelar raqami 0 dan boshlanadi
 // objectda kalit so'zlarni qo'lda beriladi
 //arrayda kalit so'zlar avtomatik 0 dan boshlab beriladi 
@@ -76,12 +94,14 @@ console.log(objectNomi["age"]); // bu kam qo'llaninali
    // key        0       1        2      3   4   5
 const colors = ["red", "black", "green", 10, [], {}];
 
+const arr = ["salom", "Farhod"]
+console.log(arr.join(" ")); default holatda itemlarni vergul bilan ajratib chiqaradi join(" ") qilsak bosh joy bilan
 
-
-
+const str  = "salom farhod qalaysan"
+console.log(str.split(" "));
 
 -----------------------------------------------------------------
-10-dars  operatorlar
+10-dars  operatorlar , 
 
 "use strict";
 
@@ -121,7 +141,6 @@ console.log(5 + +"11");//natija 16
 console.log(5 * 5 == 25);
 // bu 5*5 25ga tengmi degan manoni bildiradi
 console.log("sa" + "lom" === "salom");  //true
-
 age = "25"
 console.log(age == 25) // true . lekin bu yerda string va number tenglashtirilayapdi
 
@@ -232,7 +251,7 @@ switch (o'zgaruvchi)
 
 
 ------------------------------------------------
-14-dars sikl 
+14-dars sikl tsikl interatsiya 
 "use strict";
 
 let num = 1;
@@ -319,7 +338,7 @@ Let Nomi = Function{
 bu o'zimizni o'zgaruvchiga o'xshaydi. Buni faqat functionning ostida ishlata olamiz
 
 3- Arrow function
-() => 
+() => {}
 
 
 const calc =(a, b) => a * b;  
@@ -350,10 +369,13 @@ console.log(array.length); // array dagi elementlar sonini ko'rsatadi
 const user1 = "Farhod"
 console.log(user1[5]); // arraydan 5 elementno oladi . Sanoq 0 dan boshlanadi
 
-// stringda methodlar
+// stringda methodlar method bizga yangi qiymatni qaytaradi, uni biz bpshqa o'zgaruvhiga olib ishlata olamiz
 let email = "mrfarhod58@gmail.com"
 let result = email.includes("@")
 console.log(result) // bu boolean malumot turi qaytaradi
+
+const soz = "farhod"
+console.log(soz.split("").reverse().join(""));
 
 const user2 = "Farhod"
 console.log(user2.toLowerCase());
@@ -423,7 +445,7 @@ console.log(son);
 -------------------------------------------------------
 19-dars callback
 
-callback --bu bitta funksiya bajarilganidan keyingina boshqa funksiyani bjarilishi
+callback --bu bitta funksiya ishga tushganidan keyingina boshqa funksiyani bajarilishi
 
 
 function edu(fan, qaytaqongiroq){
@@ -435,8 +457,10 @@ function done (){
 }
 edu("Javascript", done)
 --------------------------------------------------------
-20-dars object mukammal
+20-dars object mukammal Destruptizatsiya
 
+objectni length xususiyati yo'q , lekin o'rniga 
+Object.keys(theif).length
 
 const theif = {
     jacket: "black",
@@ -450,6 +474,7 @@ console.log(theif.jacket);
 delete theif.height; // bu orqaali obyektdagi argumentlarni o'chirish mumkun
 console.log(theif);
 
+Object.keys(theif)  = bu massiv qaytaradi  
 
 console.log(Object.keys(theif)); //bu orqali biz obyektda qanday kalit so'zlar borligini bilishimiz mumkun
 console.log(Object.keys(theif).length);// bunda biz obyektda nechta kalit so'z borligini bilib olamiz
