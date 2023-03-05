@@ -897,11 +897,12 @@ oop - obyektga yo'naltirilgan dasturlash
 
 obyektlar yordamida yaratish
 
-oppv-bu prototype yani bir .css da stylelarni meros qilib olganday gap
+oop - hamma narsani (string, numberm array)ning asl fundamenti objectdan tashkil topgan bo'ladi
+
+opp-.css da stylelarni meros qilib olganga o'xshab ishlaydi
  asosiy objektda asosiy kodlar bo'ladi . o'zgarishi keraklari esa yangi objictga yoziladi
 
-
- "use strict";
+prototype - orginal , first model
 
 const cars ={
     engine:"super",
@@ -923,6 +924,7 @@ const gm = {
 }
 //shunda gm object hamma malumotni tepadagi Carsdan olishi kerak va bitta farq qiladiganigian
 // gm objectda yozilishi kerak
+bu asosiy objectdan nusxa oladi , va o'zgarishi keraklari o'zgaradi holos
 
 //1-usul eski usul
 // gm.__proto__ = cars 
@@ -930,9 +932,10 @@ const gm = {
 // gm.salon(),
 // console.log(gm.speed);// gmda aslida speed qiymati yo'q, lekin u ulangan prototypedaa mavjud
 
-//2-usul  
+//2-usul  setPrototypeOf, getPrototypeOf
 // Object.setPrototypeOf(gm, cars)// bu 2ta qiymat oladi 1-si o'zgarishi kerak bo'lgani 2-si asosiy object
 // console.log(gm);
+// console.log(gm.engine); uning prototype dagi xususiyatlari ishlata olaman 
 
 //3 -usul
 
