@@ -1,0 +1,124 @@
+1----- "hello world" --> "world hello"
+	function reverseWords(str){
+  		return str.split(' ').reverse().join(' ');
+	}
+
+2------- Arrayda qushlar ro'yhati keladi, agar ular ichida geese ni ichidagilari 
+  bo'lsa ularni olib tashlab , yangi array qaytar
+
+    function gooseFilter (birds) {
+        var geese = ["African", "Roman Tufted", "Toulouse", "Pilgrim", "Steinbacher"];
+        return birds.filter(b => !geese.includes(b));
+    };
+
+3-------- millisecondlarda vaqtni qaytarsin 
+    1 second = 1000 millisecond
+
+    function past(h, m, s){
+      return ((h*3600)+(m*60)+s)*1000;
+    }
+
+4----------  Arraydagi sonlarni teskarisiga aylantirib qaytar
+    invert([1,2,3,4,5]) == [-1,-2,-3,-4,-5]
+    invert([1,-2,3,-4,5]) == [-1,2,-3,4,-5]
+
+    function invert(a) {
+      return a.map(i => -1 * i)
+    }
+
+5------- powers of 2 
+    n = 0  ==> [1]        # [2^0]
+    n = 1  ==> [1, 2]     # [2^0, 2^1]
+    n = 2  ==> [1, 2, 4]  # [2^0, 2^1, 2^2]
+
+    function powersOfTwo(n){
+      let arr = []
+      for(let i = 0; i <= n ; i++){
+        arr.push(2**i)
+      }
+      return arr
+    }
+
+6-------- Create a function called shortcut to remove the lowercase vowels 
+    (a, e, i, o, u ) in a given string
+
+    function shortcut(string){
+      return string.replace(/[aeiou]/g,'')
+    }
+
+7 ----------- juft bo'lsa 2ga bo'l, toq bo'lsa o'sha sonni 3ga ko'paytir va 1 qo'sh
+    hotpo(5) returns 5
+    5 -> 16 -> 8 -> 4 -> 2 -> 1
+
+    hotpo(6) returns 8
+    6 -> 3 -> 10 -> 5 -> 16 -> 8 -> 4 -> 2 -> 1
+
+    let hotpo = n => {
+      if (n == 0) return 0;
+      let c = 0;
+      while (n > 1) {
+      n = (n % 2 ? 3 * n + 1 : n / 2);
+      c++;
+      }
+      return c;
+    }
+8 ---------- 3 va 5 ga karraliligini tekshiradi
+
+    function calc(num){
+      if(num % 3 === 0 && num % 5 !== 0){
+        console.log("Bu son 3ga bo'linadi");
+      }
+      if( num % 5 === 0 && num % 3 !== 0){
+        console.log("Bu son 5ga bo'linadi");
+      }
+      if(num % 5 === 0 && num % 3 === 0){
+        console.log("Bu son 3 va 5 ga karrali");
+      }
+    }
+    calc(25)
+
+9 --------- tub son 
+    function tub(num) {
+      if (num === 1 || num === 0) {
+        console.log("0 va 1 soni tub son emas !!!");
+      }else {
+        for (let i = 2; i < num; i++) {
+          if (num % i === 0) {
+          return console.log(`${num} -murakkab son 😁`);
+          }
+        }
+        return console.log(`${num} - tub son 😔`);
+      }
+    }
+    tub(2);
+    --------------------------------
+    function calc(num) {
+      if (num === 1) {
+        return console.log("Bu son tub emas");
+      } else if (num === 2) {
+        return console.log("Bu son tub");
+      }
+      else{
+        for(let i = 2; i < num; i++){
+        
+          if(num % i === 0){
+            return console.log("bu son tub emas");
+          }
+        }
+        return console.log("bu tub son");
+      }
+    }
+    calc(51);
+
+10 massivning toq va juft itemlari yeg'indisi, ko'paytmasi 
+    const arr = [1, 2, 3, 4, 5];
+    let a = 0;
+    const calc = () => {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] % 2 !== 0) {
+          a += arr[i];
+        }
+      }
+      console.log(a);
+    };
+    calc();

@@ -685,19 +685,18 @@ tub(2);
 ************************************************************************
 3 va 5 ga karraliligini tekshiradi
 
-// function calc(num){
-
-//   if(num % 3 === 0 && num % 5 !== 0){
-//     console.log("Bu son 3ga bo'linadi");
-//   }
-//   if( num % 5 === 0 && num % 3 !== 0){
-//     console.log("Bu son 5ga bo'linadi");
-//   }
-//   if(num % 5 === 0 && num % 3 === 0){
-//     console.log("Bu son 3 va 5 ga karrali");
-//   }
-// }
-// calc(25)
+function calc(num){
+  if(num % 3 === 0 && num % 5 !== 0){
+    console.log("Bu son 3ga bo'linadi");
+  }
+  if( num % 5 === 0 && num % 3 !== 0){
+    console.log("Bu son 5ga bo'linadi");
+  }
+  if(num % 5 === 0 && num % 3 === 0){
+    console.log("Bu son 3 va 5 ga karrali");
+  }
+}
+calc(25)
 
 ----------------------------------------------------------------------
 22-dars clonlash 
@@ -731,7 +730,6 @@ console.log(newNum);// bu ko'rinishda nusxa olsam asisiy object ham o'zgarib ket
 
 ------------------------------------
 funksiya yordamida clonlash
-
 
 function Copy (currentObject){
     let newObject = {}
