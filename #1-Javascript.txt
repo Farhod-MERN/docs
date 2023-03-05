@@ -563,7 +563,8 @@ for(let i=0; i < array1.length; i++){
     console.log(array1[i]);
 } //har safar sikl bajarilganda arrayning i-elementi consolega chiqaradi 
 
-//second for of bilan sikl
+//second for of bilan sikl - of - qiymati bo'yicha ishlaydi 
+             in => index bo'yicha ishlaydi
 
 const array2 = [1, 2, 3, 4, 5, 6];
 for(let yangiQiymat of array2){
