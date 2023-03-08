@@ -941,8 +941,9 @@ bu asosiy objectdan nusxa oladi , va o'zgarishi keraklari o'zgaradi holos
 
 const BMW =Object.create(cars)
 console.log(BMW);
+
 ---------------------------------------------------------
-26-dars dynamic typing
+26-dars dynamic typing - "boshqa malumot turiga o'tish "
 
 //to string
 
@@ -953,7 +954,6 @@ console.log(typeof String('1234'));// habarni String ni ichida yoz
 // string malumot turiga number ni qo'sh
 console.log(typeof ("Farhod " + 21));
 console.log(30 + "px");
-
 
 // to number
 //1 -usul 
@@ -1081,16 +1081,15 @@ hearts.forEach((item) => {
 // for( let key of hearts)
 // {
 //     key.style.backgroundColor = 'yellow'
-// 
+// } 
 
 // dinamic tarzda element qo'shish
 const btn = document.createElement('button')
 document.body.append(btn) // append metodi yordamida domga bog'laymiz. Bu hozir bodyni ichiga qo'shdi
 
-
 const myCircle = document.createElement('div')
-myCircle.classList.add("circle") // yaratilgan elementga class qo'shish
 circle__wrapper.append(myCircle)
+myCircle.classList.add("circle") // yaratilgan elementga class qo'shish
 
 //bunda bir elementdan oldin yoki keyin bizning yangi elementni chaqirish mumkun
 // circle__wrapper.before(myCircle)
@@ -1106,14 +1105,14 @@ circle__wrapper.insertAdjacentHTML("beforeend", '<i>Insert</i>')
 ----------------------------------------------------
 30-dars hodisalar
 
+click - bosilganda 
+mouseenter - hover bo'lganda
+
 hodisalar
 
 1- usul html da 
-
     <button onclick="alert('Html click')">A</button>
-
 2- usul 
-
 
 const btn = document.querySelector("#btn")
 btn.onclick = function(){
@@ -1127,9 +1126,7 @@ btn.onclick = function(){
 
 3-usul common way
 
-
 const btn = document.querySelector("#btn")
-
 
 btn.addEventListener("click", () => {
     alert("click 3-usul . bunda bitta hodisaga bir nechta qiymatla rbersa bo'ladi va ular tartib bilan ishlaydi ")
@@ -1145,7 +1142,6 @@ btn.addEventListener('click', (event)=>{
 })
 
 holat  qo'shish va uni o'chirish
-
 
 let i = 0
 const addEvent = (event) => {
