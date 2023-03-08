@@ -553,6 +553,9 @@ array.push(7);// arrayning oxiriga bitta yangi element qo'shadi
 array.shift(); //arrayning birinch iindexli elementini delete qiladi
 array.unshift(0); //bu arrayning boshiga yangi element qo'shadi
 const full = array.concat(boshqaMassiv) // bu arrayga boshqaMassivni qo'shib oladi
+
+array.splice(0, 2); //nol indexdan boshlab 2 ta elementni o'chiradi
+
 console.log(array);
 
 //arrayda intonatsiya yani sikllar
@@ -1107,6 +1110,7 @@ circle__wrapper.insertAdjacentHTML("beforeend", '<i>Insert</i>')
 
 click - bosilganda 
 mouseenter - hover bo'lganda
+submit - asosan forma bilan ishlaganda kerak bo'ladi
 
 hodisalar
 
@@ -1177,6 +1181,10 @@ btns.forEach((item) =>{
 } )
 // addEventListerer ning 3 ta qiymati bot 3-si Option yani hodisa takrorlanishi 
 
+item.addAventListener("click", 
+  ()=>{console.log("salom")},
+  {once: true}
+)
 
 KeyBoardEvent eventlar hodisalar  keycode - sayt klaveatura kodlarini olish uchun 
 
@@ -1252,7 +1260,7 @@ for(let node of document.body.childNodes){
 ----------------------------------------------------------------------
 33-dars 
 
-    <script defer src="/script.js"></script>
+    <script defer src="/script.js"></script> //defer - web sahifani to'liq yuklanishini kutadi, keyin scriptlarni o'qiydi
     
     <script async src="/script.js"></script>
 
@@ -1260,6 +1268,16 @@ defer = DomContentLoader yani buni scriptga qo'shsak html yuklangincha Dom kutib
 
 Async = bu Fayllarni hajmiga qarab yoki tez yuklanishiga qarab ketmaketlikda yuklab beradi .
 
+dinamik script fileni ulash 
+
+function loadScript(src){
+  const script = document.createElement("script")
+  script.src = src
+  script.async = false // bu default holatda true bo'ladi 
+  document.body.append(script)
+}
+
+loadScript("js/secont.js")
 ------------------------------------------------------------------------------------
 35-dars classList xususiyatlari
 "use strict"
