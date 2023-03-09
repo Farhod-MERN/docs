@@ -1,4 +1,5 @@
 JavaScript nima - web saytimizga harakatlarni , amallar qo'shib beradi
+JavaScript - bu interaktiv va dinamik veb-saytlarni yaratish uchun keng qo'llaniladigan dasturlash tili.
 
 5-dars 
 
@@ -196,7 +197,6 @@ trinorni operator (uchtalik operator) tirnary operator
 (shart) agar console.log("shu chiqsin") aks holda console.log("bu chiqsin")
 ko'rinishida ishlaydi
 
-
 const num = -18
 
 num > 18 ? console.log("Katta") : num < 18 ? console.log("kichik") : console.log("default");
@@ -284,7 +284,6 @@ for (let i = 1; i <= 10; i++) {
     console.log(i);
 }
 
-
 -------------------------------------
 template string way , interpolyatsiya
 const name = "Farhod" 
@@ -319,8 +318,6 @@ function calc(a, b)
 const numOfNumber = calc(20 ,30) //bu orqali glabal o'zgaruvchiga olib ildim
 //endi ubni istalgan joyda foydalansa bo'ladi
 console.log(numOfNumber) 
-
-
 
 
 //3 xil fuction bor
@@ -846,13 +843,13 @@ console.log(newObject);
 const now = new Date()  = bu object 
 
 const sana = now.getDate()  sanani 
-const oy = now.month() oyni oladi Oylar ["January", "February", "March", ] ko'rinishida bo'ladi . 
+const oy = now.getMonth() oyni oladi Oylar ["January", "February", "March", ] ko'rinishida bo'ladi . 
 	shunga sanoq 0 dan 11 gacha bo'ladi, shunga chalg'ima ‼️‼️‼️
 const oylar = ["January", "February", "March", ]
 console.log(oylar[oy])
 
 const yil = now.getFullYear()  -yil 2022 
-
+   
 const now = new Date()
 
 const month = now.getMonth() >= 0 ? now.getMonth() + 1 : ""
@@ -860,8 +857,11 @@ const kun = now.getDate() < 10 ? "0" +now.getDate() : now.getDate()
 
 console.log(`Hozir ${month} -oy`, kun);
 
-Amaliy ------------------------------------------
+const now = new Date("2023-07-26")
+bu holda now =  2023-07-26 soat 00:00
 
+now.setHours(18) = soatni 18:00 qilib beradi
+Amaliy ------------------------------------------
 
 const h1 = document.querySelector("h1")
 const h3 = document.querySelector("h3")
@@ -894,7 +894,7 @@ setTimeout(()=>{
 
 ==============================================================================================
 
-24-dars opp asoslari
+24-dars opp asoslari 
 
 oop - obyektga yo'naltirilgan dasturlash
 
@@ -1058,14 +1058,12 @@ btn.addEventListener("click", ()=>{
 -----------------------------------------------------------------------
 29-dars 
 
-'use strict'
-
 const box = document.querySelector("#box")
 const buttons = document.querySelectorAll('button')
 const circles = document.querySelectorAll('.circle')
 const hearts = document.querySelectorAll('.heart')
 const circle__wrapper = document.querySelector(".circle__wrapper")
-// box.style.backgroundColor = 'black' // dinamik tarzda styleni o'rganish
+// box.style.backgroundColor = 'black' // dinamik tarzda styleni o'zgartirish
 // box.style.height = '250px'
 // box.style.width = '250px'
 
@@ -1296,7 +1294,7 @@ const className = btns[0].classList.item(2)
 console.log(className);// qiymatini o'zgaruvchiga olib olish
 
 //elementga yangi class qo'shish 
-btns[2].classList.add("new", "red")
+btns[2].classList.add("new", "red", "yanaQo'shishMumkun")
 //classni o'chirish
 btns[0].classList.remove('blue')
 
@@ -1326,7 +1324,7 @@ btns[3].addEventListener('click', () =>{
 })
 
 ************************************************************************************
-const onaBlog = document.querySelector(".onaBlog")
+const onaBlog = document.querySelector(".onaBlog") - Delegatsiya
 
 // oanBlog.children ni blogni ichidagi , div , h1, p , va boshqalarni hammasini o'z ichiga oladi
 // Lekin bu bizga NodeList emas HTMLCollection qaytaradi, shunga biz unga forEach metodini ishlata olmaymiz
@@ -1366,7 +1364,7 @@ wrapper.addEventListener("click", (event) => {
     // if(event.target && event.target.classList.contains("blue")){
     //     console.log("hello")
     // }
-
+  
 //3-usul
      if(event.target && event.target.matches('button.blue')){
         console.log("hello")
@@ -1446,8 +1444,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
     hideTabContent()
     showTabContent()
+
 //target - bosilayotgan tugmamiz 
 //tabs ning itemi ham tugma
+
     tabsParent.addEventListener("click", (event) => {
         const target = event.target
         if(target && target.classList.contains("tabheader__item"))
@@ -1457,8 +1457,6 @@ window.addEventListener("DOMContentLoaded", () => {
                     console.log(index);
                     hideTabContent()
                     showTabContent(index)
-                
-                    
                 }
             })
         }
@@ -1480,6 +1478,18 @@ const interval = setInterval(()=>{
 if(a===10){
 	clearInterval(interval)
 }
+
+----------------------------------------------------------------------
+39-dars Loyiha Loader qismi 
+  loader = document.querySelector(".loader");
+
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 500);
+  }, 2000);
+  //hozir shu 2 sekundni 0.5 sekundida display none bo'ladi
 
 ----------------------------------------------------------------------
 46-dars funksiya konstruktor function constructor
