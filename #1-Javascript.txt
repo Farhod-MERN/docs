@@ -366,7 +366,7 @@ console.log(array.length); // array dagi elementlar sonini ko'rsatadi
 const user1 = "Farhod"
 console.log(user1[5]); // arraydan 5 elementno oladi . Sanoq 0 dan boshlanadi
 
-// stringda methodlar method bizga yangi qiymatni qaytaradi, uni biz bpshqa o'zgaruvhiga olib ishlata olamiz
+// stringda methodlar method bizga yangi qiymatni qaytaradi, uni biz boshqa o'zgaruvhiga olib ishlata olamiz
 let email = "mrfarhod58@gmail.com"
 let result = email.includes("@")
 console.log(result) // bu boolean malumot turi qaytaradi
@@ -1073,7 +1073,7 @@ circles[1].style.backgroundColor = 'yellow'
 
 hearts.forEach((item) => {
     item.style.backgroundColor = "black"
-}) 
+})
 
 // for (let i = 0 ; i < hearts.length; i++ ){
 //     hearts[i].style.backgroundColor = 'blue'
@@ -1100,7 +1100,6 @@ myCircle.classList.add("circle") // yaratilgan elementga class qo'shish
 circles[2].replaceWith(myCircle)
 myCircle.textContent = "S"// bu orqali biz faqat text yubora olamiz
 myCircle.innerHTML = "<pre>R</pre>"// bu orqali biz turli codlarni ham yoza olamiz
-
 
 circle__wrapper.insertAdjacentHTML("beforeend", '<i>Insert</i>')
 ----------------------------------------------------
@@ -1373,7 +1372,7 @@ wrapper.addEventListener("click", (event) => {
     //matches - bu o'xshashlik yani button.blue si borlarni topadi
 })
 
-//event.target .hodisa berilganda yafaqat hodisa nishoni balki nishoni ichidagi hamma narsaga tegishli bo'ladi event.target buyurug;i
+//event.target .hodisa berilganda faqat hodisa nishoni balki nishoni ichidagi hamma narsaga tegishli bo'ladi event.target buyurug'i
 
 // endi btn larni o'ziga hodisa berib ko'raman
 //buni ona blokga hodisa berishdan farqi , agar men dinamik tarzda yangi btn ni qo'shsam unda o'sha hodisa ishlamay qoladi
@@ -1430,7 +1429,6 @@ window.addEventListener("DOMContentLoaded", () => {
             item.classList.add("hide")
             item.classList.remove("show")
         })
-        
         tabs.forEach((item) => {
             item.classList.remove('tabheader__item_active')
         })
@@ -1440,7 +1438,6 @@ window.addEventListener("DOMContentLoaded", () => {
         tabsContent[i].classList.remove("hide")
         tabs[i].classList.add("tabheader__item_active")
     }
-
 
     hideTabContent()
     showTabContent()
@@ -1490,6 +1487,149 @@ if(a===10){
     }, 500);
   }, 2000);
   //hozir shu 2 sekundni 0.5 sekundida display none bo'ladi
+
+
+----------------------------------------------------------------------
+41-dars deadline 
+  //date.parse() bu huddi setDate orqali o'zimizni yangi vaqtni berganday gap. va bu vaqtni millisekondlarda qaytaradi
+  //timer - bu aksiya tugashigacha qancha milli sekond qolgani
+  
+  const deadline = "2022-12-31";
+  function getTimeremaining(endtime) {
+    const timer = Date.parse(endtime) - Date.parse(new Date());
+    let days, hours, minutes, seconds;
+
+    if (timer < 0) {
+      days = 0;
+      hours = 0;
+      minutes = 0;
+      seconds = 0; // agar qolgan vaqt 0 dan kichik bo'lsa kun soat minut sekundlarni 0 ga tenglaydi
+    } else {
+      (days = Math.floor(timer / (1000 * 60 * 60 * 24))),
+        (hours = Math.floor((timer / (1000 * 60 * 60)) % 24)),
+        (minutes = Math.floor((timer / (1000 * 60)) % 60)),
+        (seconds = Math.floor((timer / 1000) % 60));
+    }
+
+    return {
+      // 'total':timer,
+      // 'days':days,
+      // 'hours':hours,
+      // 'minuts':minutes,
+      // 'seconds':seconds  //aslida shunday bo'lishi kerak . lekin ES8 da bizga Agar nomlar bir hil bo'lsa bir marta yozishga ruhsat bor
+      timer,
+      days,
+      hours,
+      minutes,
+      seconds,
+    };
+  }
+
+  function getZero(num) {
+    if (num >= 0 && num < 10) {
+      return `0${num}`;
+    } else {
+      return num;
+    }
+  }
+
+  function setClock(seloctor, endtime) {
+    const timer = document.querySelector(seloctor),
+      days = timer.querySelector("#days"),
+      hours = timer.querySelector("#hours"),
+      minutes = timer.querySelector("#minutes"),
+      seconds = timer.querySelector("#seconds"),
+      timeInterval = setInterval(updateClock, 1000); // o'zgaruvchiga olib oldim. chunki pastda uni clearInterval yordamida tozalayman
+
+    updateClock(); //setClock ishga tushganidan keyin update clock ishga tushisshi uchun uni chaqir
+
+    function updateClock() {
+      const t = getTimeremaining(endtime);
+
+      days.innerHTML = getZero(t.days);
+      hours.innerHTML = getZero(t.hours);
+      minutes.innerHTML = getZero(t.minutes);
+      seconds.innerHTML = getZero(t.seconds);
+
+      if (t.timer <= 0) {
+        clearInterval(timeInterval);
+      }
+    }
+  }
+  setClock(".timer", deadline);
+
+----------------------------------------------------------------------
+43-dars window, document
+
+windowni xossalari: div dagi content misolida tushuntirildi 
+
+  clientWidth - divdagi conentni eni, umga padding marginlar kirmaydi, hatto scrollni eni ham
+  clientHeight - 
+  
+  offsetWidth - content + padding + scroll(bor bo'lsa) hammasi ni eni
+  offsetHeight
+
+  scrollHeight = bu divdagi kontentni umumiy uzunligini aniqlaydi, bu blog sahifalarda yuqoridagi proggress barda ishlatiladi, textni qanchasini o'qiganini bilishga
+  
+  scrollTop - divdan brouserni tep qismigacha masofa 
+
+  window.pageYOffset = windowni eng tepasidan qancha pasda turganing
+  document.documentElement.clientHeight - bu userga ko'ridib turgan window balandligi
+  document.documentElement.scrollHeight = sahifani umumiy balandligi
+----------------------------------------------------------------------
+46-dars Loyiha Modal oyna 
+  const modal = document.querySelector(".modal"),
+    modalTrigger = document.querySelectorAll("[data-modal]");
+  //modalCloseBtn = document.querySelector("[data-close]"); //bu kerak emas , chunki bu dinamik qo'shilgan elementlarga ishlamaydi, shu sababli biz distributatsiyadan foydalanamiz
+
+  function closeModal() {
+    modal.classList.add("hide");
+    modal.classList.remove("show");
+    document.body.style.overflow = "";
+  }
+  function openModal() {
+    modal.classList.add("show");
+    modal.classList.remove("hide");
+    document.body.style.overflow = "hidden";
+    // clearTimeout(modalTimerId) //clearTimeOut orqali ham bersa bo'ladi
+    clearInterval(modalTimerId);
+  } 
+  // modalTrigger.addEventListener("click", openModal);
+
+  // modalCloseBtn.addEventListener("click", closeModal);
+
+  //ekranni qora qismini bossa ham chiqib ketadigan bo'ldi
+  modal.addEventListener("click", (e) => {
+    if (e.target == modal || e.target.getAttribute("data-close") == "") {
+      //e.target.getAttribute('data-close')=="salom") agar target ni ichida data-clase atributi bo'lsa va uning qiymati salom ga teng bo'lsa
+      closeModal();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    //e.code ==="Escape" agar e.code="KeyW" qilsam w-ni bosganda chiqib ketadi
+    if (e.code === "Escape" && modal.classList.contains("show")) {
+      closeModal();
+      // console.log(e.code);
+    }
+  });
+  const modalTimerId = setTimeout(openModal, 5000); // kirganda 5s dan keyin modal oyna ochiladi
+
+
+  //user ko'radigan qismga pageYOffset ni qo'shganda scrollHeight ga teng bo'lsa , sahiha eng pasiga kelga bo'ladi
+  //window.pageYOffset = windowni eng tepasidan qancha pasda turganing
+  //document.documentElement.clientHeight - bu userga ko'ridib turgan window balandligi
+  //document.documentElement.scrollHeight  - sahifani umumiy balandligi
+  
+  fuction showModalByscroll = ()=>{
+    if(window.pageYOffset + document.documentElement.clientHeight >=
+    document.documentElement.scrollHeight)
+    {
+      openModal()
+      removeEventListener("scroll", showModalByscroll)//faqat 1-marta pastga tushganda isglaydi
+    }
+  }
+  window.addAventListener(""scroll", showModalByscroll)
 
 ----------------------------------------------------------------------
 46-dars funksiya konstruktor function constructor
