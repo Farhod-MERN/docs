@@ -1732,6 +1732,41 @@ console.log(bmw);
     // }
     // sum()
 
+#48 dars call, apply , bind
+
+function logger(speed){
+    console.log(this);
+    console.log(speed);
+}
+const car = {
+    name : "bmw",
+    color: "Red"
+}
+//  call va apply ni farqi sisntaksisda, function ga parametr berishdagi
+logger.call(car, 200) // 
+logger.apply(car , [200]) // bunda paramsni massivga olib bermiz
+
+//bind bizga yangi function qaytarib beradi
+function calc(number){
+    return this * number
+}
+const multipleTo2 = calc.bind(2) // this = 2 ga
+console.log(multipleTo2(10));//20
+console.log(multipleTo2(15));//30
+
+// arrow va decloration function farqi 
+const btn = querySelector(".btn")
+
+// function decloration da har doim context this bo'ladi, window yokida biz bog'lagan narsaga
+btn.addEventListener("click", function(){
+    console.log(this); // bunda this = btn ni o'ziga 
+    this.style.width = "40px"
+})
+// arrow functionni o'zini context thisi yo'q , shunga un parent elementni thisiga teng
+btn.addEventListener("click", ()=>{
+    console.log(this); // bunda this = window global objektga
+})
+
 //-------------------------------------------------------------------------------------------
 49-dars class ES6
 
