@@ -8,11 +8,11 @@ mumkun, shunga hamma dasturchilar bir hil universa sintaksisdan foydalanishi uch
 
 6-dars o'zgaruvchilar
 
-let const var 
+let const var
 
 const - o'zgartirsa bo'ladi object orqali 
 
-const obj = {name: ""Farhod}
+const obj = {name: "Farhod"}
 obj.name  = "Yangi"
 
 var bu eskirgan hisoblanadi va hozirda ishlatilmaydi
@@ -90,7 +90,7 @@ serial.serials[nomi] = qiymati
 
 // array bu massiv . massivda valuelar raqami 0 dan boshlanadi
 // objectda kalit so'zlarni qo'lda beriladi
-//arrayda kalit so'zlar avtomatik 0 dan boshlab beriladi 
+//arrayda kalit so'zlar avtomatik 0 dan boshlab beriladi
 //bular [to'rtburchak qavs ichida yoziladi]
    // key        0       1        2      3   4   5
 const colors = ["red", "black", "green", 10, [], {}];
@@ -131,7 +131,7 @@ console.log(5 + +"11");//natija 16
 // console.log(12 % 3); //foiz orqali qoldiq ifodalanadi
 // console.log(27 % 4);
  
-//tenglashtirish taqqoslash  comparisions operators 
+//tenglashtirish taqqoslash  comparisions operators
 
 // 1-USUL --bunda 2 ta tenglikdan foyda
 //va BU faqat qiymatini tenglab beradi  2talik tenglik bilan turli xil tipdagi malumor=tlatni solishtira olamiz
@@ -1637,7 +1637,7 @@ windowni xossalari: div dagi content misolida tushuntirildi
 "use strict"
 
 //funksiya konstruktor bitta universal funksiyani object qilib olib unga turli hil qiymatlat berib va undan natija olib foydalanish
-//
+//functiya constructor bizga object qaytaradi
 //bu funksiya - funksiya konstruktor deyiladi
 //uning nomi Katta farf bilan boshlanadi
 function Car(nomi, rangi, tezlik){
@@ -1652,7 +1652,6 @@ Car.prototype.nomi = function(){
     console.log(`Car name of ${this.name} say hello`);
 }
 //car funksiya konstruktorga prototype orqali metod qo'shish
-
 
 const bmw = new Car("BMW", "sariq", 120)
 const merc = new Car("Merc", "Qora", 110) //bu bizga car objectini qaytaradi 
@@ -1672,6 +1671,7 @@ console.log(bmw);
 
 
 //context this -xar doim nimagadur qaram (tegishli, osiladi) bo'ladi
+ this nimagadur teng bo'ladi ex: this = obj
  // 1- oddiy funksiyaning contexti yani (this) window (glabal object) ga tegishli bo'ladi
  //agar Use strict yoniq bo'la , this ning qiymati underfined ga teng
 
@@ -1710,7 +1710,7 @@ console.log(bmw);
 
 // -----------------------------------------------------
 
-//3- funksiya konstrukotrda context this yangi objectning nushasiga(ekzemplayiriga) teng 
+//3- funksiya konstrukotrda context this yangi objectning nusxasiga(ekzemplayiriga) teng 
 
     // function Car (name, color )
     // {
