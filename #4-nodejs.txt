@@ -1,7 +1,7 @@
 Node js - platforma , hechqanday framework , library emas
-NodeJS asynxiron ishlaydi
+NodeJS asynxiron ishlaydi 
 nodejs.org - download recommended - 1- nodejs ni yuklab olish kerak
-
+node js bizni javaScript kodimizni server tushunadigan tilga o'tkazib beradigan platforma
 node -v => nodejsni versiyasi
 npm -v npm versiyasi
 node --version - terminalda
@@ -239,7 +239,6 @@ class Car extends event {
 //endi shu mersda shu biz bergan hodisa bajarilsa u, hodisa callback qabul qiladi, 
 //va callback parametriga biz yuqorida yozgan 2-param keladi
 
-
 const mers = new Car()
 
 mers.on("message", (data)=>{
@@ -281,7 +280,6 @@ const server = http.createServer((request, response)=>{
     response.write("<h1>Faqat h1 ishlaydi</h1>")
     response.write("Yokida oddiy matn")
     response.end() // serverdan javob olgandan so'ng buni yozish shart, yokida server bizga to'xtovsiz ishlab turadi
-
 })
 
 server.listen(3000, ()=>{

@@ -1742,7 +1742,7 @@ const car = {
     name : "bmw",
     color: "Red"
 }
-//  call va apply ni farqi sisntaksisda, function ga parametr berishdagi
+// call va apply ni farqi sisntaksisda, function ga parametr berishdagi
 logger.call(car, 200) // 
 logger.apply(car , [200]) // bunda paramsni massivga olib bermiz
 
@@ -1766,7 +1766,6 @@ btn.addEventListener("click", function(){
 btn.addEventListener("click", ()=>{
     console.log(this); // bunda this = window global objektga
 })
-
 //-------------------------------------------------------------------------------------------
 49-dars class ES6
 
@@ -1797,7 +1796,7 @@ console.log(merc);
 console.log(merc.calcSpeed());
 
 
-//class dan nusxa olish extends
+//class dan nusxa(voris) olish extends 
 // agar eski klasdan nimadur bizga kerak bo'lmasa uni shunchaki constructor ichida yozmaslik kifoya 
 // misol uchun eski klassda speed ni olmadik
 class Spark extends Car{
@@ -1822,11 +1821,11 @@ const spark = new Spark('spark', 'Red', 200, 'available', 'mavjud')
 //-----------------------------------------------------------------------------------------------
 
 51-dars - rest operatori
-
+//argumentlarimizni yeg'ib beradi 
 
 function logger(a, b, ...restOperatori) {
   console.log(a, b, restOperatori);
-  // console.log(restOperatori);
+  // console.log(restOperatori); 
 }
 logger(1, 2, 3, 4, 5);
 
@@ -1888,7 +1887,6 @@ hisob(1);
 
 //-------------------------------------------------------------------
 //JSON - Java-Script Object Notecion - bu malumotlar almashish formati 
-
 
     // //json hech qachon server oddiy objectni tushunmaydi . shuning uchun biz uni json formatda yuborishimiz kerak
     // // json formatda objectning kalit so'zi ham uning qiymati ham "" juft qo'shtirnoqda bo'lishi shart va shunday bo'ladi 
@@ -2446,7 +2444,7 @@ const getNames = JSON.parse(localStorage.getItem(names) // arrayga o'tdi
 --------------------------------------------------------------------------
 
 //chrome => application => local storage
-// logal storagega biz userning qamdaydir malumotlarini saqlashimiz mumkun bo'ladi
+// logal storagega biz userning qandaydir malumotlarini saqlashimiz mumkun bo'ladi
 
 // localStorage.setItem   => storega malumot yuklash 1-key 2-malumot . localga object yuborib bo'lmaydi, biz uni jsonga o'girib yuboramiz
 // localStorage.getItem  => malumot olish 1-key . localdan olgan malumot string formatda bo'ladi
@@ -2509,7 +2507,7 @@ console.log(send)  // . nuqtadan keyin uning idisini yozish shart , klass emas
 // o'chirib tashlash uchun uni not'g'ri yo'l bilan qildik, agarda bizga
 //  malumot px emas rem , deg va shunga oxshash holatda kelganida bizni kodimiz ishlamay qolardi
 
-// 1- sintaxsis 
+// 1- sintaxsis
 
 //  new RegExp("pattern", "flags")
 //  pattern => nimani qidirish kerak bo'lsa shu yoziladi
