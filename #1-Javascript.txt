@@ -6,9 +6,29 @@ JavaScript - bu interaktiv va dinamik veb-saytlarni yaratish uchun keng qo'llani
 "use strict" - qatiy rejim - vazifasi ayrim kod sistaksislari ayrim brouserlarda ishlamay qo'lishi
 mumkun, shunga hamma dasturchilar bir hil universa sintaksisdan foydalanishi uchun use strict ishlab chiqilgan
 
-6-dars o'zgaruvchilar
+*********************************************************************
+
+local , global, block ,
+//glabal scope
+
+if(){
+  //local scope
+} 
+
+fuction(){
+  //local scope
+  var - local scopedagi var Hoisting bo'lmaydi , 
+}
+
+{
+  //block scope
+}
+
+6-dars o'zgaruvchilar **********************************************
 
 let const var
+var - varni local scopeda yozib global scopeda ishlata olamiz
+let va const faqat o'z scope ichida  ishlidi
 
 const - o'zgartirsa bo'ladi object orqali 
 
@@ -25,8 +45,11 @@ $ belgigi bilan ham boshlash mumkun $myVarable
 oz'garuvchiga javaScriptdagi maxsus kalit so'zlardan foydalana olmaymiz
 misol uchun: let , const, new , function , for , if, var
 
-7-dars malumot turlari
+7-dars malumot turlari data type 
+  number , string, boolean , underfined, null, bitInt , object,
 
+bitInt - katta sonlar uchun ishlatiladi 
+object - data type ga kiradi , lekin array va fuction esa objectni ichida , yani objectdan tashkil topgan 
  //number
 let number = 6.66; // data type     NUMBER
 console.log(-8 / 0); // infinity va - infinity cheksizllik
@@ -70,6 +93,9 @@ let Name;
 console.log(Name);
 
 //object bu bir qancha malumotlarni bittada berishga ishlatiladi
+//object - nom li qiymatlar to'plami
+// boshqa data typelardan farqi , u o'zining key valuelariga ega bo'ladi
+
 //yoki biror narsani tasvirlashga
 // bular {figurali qavs ichida yoziladi}
 
@@ -100,6 +126,13 @@ console.log(arr.join(" ")); default holatda itemlarni vergul bilan ajratib chiqa
 
 const str  = "salom farhod qalaysan"
 console.log(str.split(" "));
+
+
+
+********************************************************************
+Hoisting - bu var bilan ishlaydi . bizni kodlar ishga tushganda hamma var o'zgaruvchilarini javaScript
+eng yuqori qatorga olib chiqib qo'yadi . Shu sababli var global va local scopeda ishlayveradi
+
 
 -----------------------------------------------------------------
 10-dars  operatorlar , 
@@ -538,6 +571,14 @@ const newObj = {...obj}  -> = tenglikning o'ngida kelsa bu spread operatori .
 
 spread operator - to'liq malumotni nusxalaydi
 rest operator esa- qanchadir qismini nusxalaydi xolos
+********* Object entries ************
+const obj = {
+    salom : "salom",
+    alik: "alik"
+}
+console.log(Object.entries(obj));
+//natija
+[ [ 'salom', 'salom' ], [ 'alik', 'alik' ] ]
 --------------------------------------------------------
 21-dars array 
 "use strict";
@@ -609,7 +650,7 @@ Massivning juft va toq qiymatlarining yeg'indisi, ko'paytmasi
 const arr = [1, 2, 3, 4, 5];
 
 let a = 0;
-
+ 
 const calc = () => {
   for (i of arr) {
     if (arr[i] % 2 === 0) {
@@ -946,7 +987,7 @@ const BMW =Object.create(cars)
 console.log(BMW);
 
 ---------------------------------------------------------
-26-dars dynamic typing - "boshqa malumot turiga o'tish "
+26-dars dynamic typing type convertion - "boshqa malumot turiga o'tish "
 
 //to string
 
@@ -958,6 +999,11 @@ console.log(typeof String('1234'));// habarni String ni ichida yoz
 console.log(typeof ("Farhod " + 21));
 console.log(30 + "px");
 
+// toString() metodi 
+let x = 1
+console.log(typeof x);  //number
+console.log(typeof x.toString()) // string 
+ 
 // to number
 //1 -usul 
 console.log(Number("1234")); //number ni ichida yoz
@@ -976,15 +1022,11 @@ console.log(typeof parseInt("123px"));// Har qanday stringdagi malumotni faqat n
 
 // 0, "", Null, underfined , Nan - bular har doim FALSE qaytaradi
 
-// const num = 0;
-const num = "";
-
-if(num)
-{console.log("true");}
-else if (!num)
-{
-    console.log("False");
-}
+//true = 1 , false = 0
+console.log(true - 3); // -2
+console.log(true + 3); // 4 
+console.log(true + "3"); // true3  //true ga string qo'shsak , true ni ham string deb oladi
+console.log(true - "3"); // -2 
 
 //1- usul
 
@@ -1108,7 +1150,8 @@ circle__wrapper.insertAdjacentHTML("beforeend", '<i>Insert</i>')
 click - bosilganda 
 mouseenter - hover bo'lganda
 submit - asosan forma bilan ishlaganda kerak bo'ladi
-
+    input //addAventListener("input" ,()=>{}) //har safar input qiymati o'zgarganda ishga tushadi
+    inputClassNomi.addAventListener("input")
 hodisalar
 
 1- usul html da 
@@ -1851,6 +1894,8 @@ hisob(1);
 
 54-dars chuqur clonlash chuqur nusxalash, JSON
 
+JSON JavaScript Object Notecion - malumotlar almashish uchun text fotmati
+
 "use strict"
 
 // function clon (currentObj){
@@ -1886,7 +1931,7 @@ hisob(1);
 // console.log(newObj); 
 
 //-------------------------------------------------------------------
-//JSON - Java-Script Object Notecion - bu malumotlar almashish formati 
+//JSON - JavaScript Object Notecion - bu malumotlar almashish formati 
 
     // //json hech qachon server oddiy objectni tushunmaydi . shuning uchun biz uni json formatda yuborishimiz kerak
     // // json formatda objectning kalit so'zi ham uning qiymati ham "" juft qo'shtirnoqda bo'lishi shart va shunday bo'ladi 
@@ -1955,7 +2000,7 @@ JSON.parse() buni esa XMLHttpRequestda ishlatdik
 --------------------------------------------------------
 
 55-dars
-
+ayaks
 AJAX asinxron javaScript va xml
 
 xml = bu data formati - lekin hozirgi kunda xml dan foydalanilmaydi, uning o'rniga JSON dan foydalanamiz
@@ -2089,6 +2134,9 @@ const request = (time) => {
 //google place API
 
 //FETCH API
+
+method: get post put pa tch delete
+put - kerakli qismni(aytilgan joyinigina) o'zgartirish uchun ishlatiladi 
 
 fetch("https://jsonplaceholder.typicode.com/todos/1")
   .then((response) => {
