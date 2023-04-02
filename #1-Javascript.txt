@@ -2240,8 +2240,6 @@ const newMo = movi.map((movie)=>{
 })
 console.log(newMo);
 
-
-
   // const newItem = []
   // movi.forEach(element => {
   //    element.rating *= 2
@@ -2630,7 +2628,7 @@ regEX.test(o'zgaruvchi)
 // \w - harflar
 // \s - space joylar
 
-//  \D - not a numer
+//  \D - not a number
 //  \W - not a word
 //  \S - not a space
 
@@ -2681,7 +2679,7 @@ function Car(name, color, bonus){
     this.name = name
     this.color = color
 
-    let extraBonus = bonus
+    let extraBonus = bonus // bu this bilan emas let bilan elon qilingani sabab. buni tashqaridan o'zgartira olmaydi
 
     this.info = function(){
         console.log(`Name of car: ${this.name}, Color of car is ${this.color}, there are some bonus: ${extraBonus}`);
@@ -2699,8 +2697,6 @@ function Car(name, color, bonus){
             console.log("siz 0 - 100 oralig'ida qiymat kiritmadingiz");
         }
     }
-
-
 }
 
 const bmw = new Car("BMW", "white", 10)
@@ -2718,7 +2714,7 @@ class Car{
         this.name= name, 
         this.color = color,
         this._extraBonus = bonus // classlarda inkampulatsiya ishlatadigan dasturchi , o'zgartirilishi mumkin bo'lmagan o'zgaruvchi ni ajratisb ko'rsatish 
-        //uchun uning oldiga _ pastgi chiziq (lodash) qo'yadi
+        //uchun uning oldiga _ pastgi chiziq (lowdash) qo'yadi
         // _ bu tashqaridan o'zgartirilmasin, buning uchun bizda metodlar bor degan manoni beradi
         // let extraBonus deb bera olmayman shunki uni keyin tashqarida chaqirishim kerak, let bilan berganim uchun u construktordan tashqarida ishlamidi 
     }
